@@ -1,0 +1,12 @@
+/.idea
+.idea/dictionaries
+.idea/libraries
+.idea/workspace.xml
+/dist
+/node_modules
+/public
+server/node_modules
+server/uploads
+/svninfo.txt
+/scminfo.txt
+console-ui-note.txt
