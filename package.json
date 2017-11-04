@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "@amcharts/amcharts3-react": "^3.0.0",
+    "amcharts3": "amcharts/amcharts3",
     "async": "^2.1.2",
     "autoprefixer": "^6.3.4",
     "babel-core": "^6.8.0",
@@ -112,6 +114,7 @@
     "react-modal": "^1.2.1",
     "react-paginate": "^2.1.3",
     "react-redux": "^4.4.1",
+    "react-responsive-carousel": "^3.1.28",
     "react-router": "^2.8.1",
     "react-router-bootstrap": "^0.23.0",
     "react-router-redux": "^4.0.4",

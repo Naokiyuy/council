@@ -2,6 +2,12 @@
 # yarn lockfile v1
 
 
+"@amcharts/amcharts3-react@^3.0.0":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@amcharts/amcharts3-react/-/amcharts3-react-3.0.3.tgz#8ea9d99b4913dd36e75f62712ce211851f3cd351"
+  dependencies:
+    create-react-class "^15.5.2"
+
 "@gulp-sourcemaps/map-sources@1.X":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@gulp-sourcemaps/map-sources/-/map-sources-1.0.0.tgz#890ae7c5d8c877f6d384860215ace9d7ec945bda"
@@ -99,6 +105,10 @@ align-text@^0.1.1, align-text@^0.1.3:
 alphanum-sort@^1.0.1, alphanum-sort@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
+
+amcharts3@amcharts/amcharts3:
+  version "3.21.6"
+  resolved "https://codeload.github.com/amcharts/amcharts3/tar.gz/5ccd4fc3c51903e52535223eb8456602702f31d7"
 
 amdefine@>=0.0.4:
   version "1.0.1"
@@ -6587,6 +6597,12 @@ react-dropzone@^3.4.0:
     attr-accept "^1.0.3"
     prop-types "^15.5.7"
 
+react-easy-swipe@^0.0.13:
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/react-easy-swipe/-/react-easy-swipe-0.0.13.tgz#c00e90dabed8d0878e8c8313b867e01435f0f637"
+  dependencies:
+    prop-types "^15.5.8"
+
 react-faux-dom@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/react-faux-dom/-/react-faux-dom-3.1.0.tgz#d070ce8068bcf10e19b5dec329d2da671aa6734b"
@@ -6747,6 +6763,14 @@ react-redux@^4.4.1:
     lodash "^4.2.0"
     loose-envify "^1.1.0"
     prop-types "^15.5.4"
+
+react-responsive-carousel@^3.1.28:
+  version "3.1.28"
+  resolved "https://registry.yarnpkg.com/react-responsive-carousel/-/react-responsive-carousel-3.1.28.tgz#4d7bf1afc1789e301125d96a9966245e578261ad"
+  dependencies:
+    classnames "^2.2.5"
+    prop-types "^15.5.8"
+    react-easy-swipe "^0.0.13"
 
 react-router-bootstrap@^0.23.0:
   version "0.23.3"

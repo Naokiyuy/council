@@ -83,7 +83,10 @@ ReactDOM.render(
     <IntlProvider locale={getLanguage()} messages={langsUtils.loadMessages(getLanguage())}>
       <Router history={history} render={applyRouterMiddleware(useScroll())}>
         <Route name="Home" path="/" component={App}>
-          <IndexRoute getComponent={(l, cb) => System.import('./backend/home/Home').then(loadRoute(cb))}/>
+          <IndexRoute getComponent={(l, cb) => System.import('./frontend/home/Home').then(loadRoute(cb))}/>
+          <Route name="Index" path="/index" getComponent={(l, cb) => System.import('./frontend/home/Home').then(loadRoute(cb))}>
+
+          </Route>
           <Route name="Backend" path="/backend" getComponent={(l, cb) => System.import('./backend/home/Home').then(loadRoute(cb))}>
             <Route name="Proceedings" path="/backend/proceedings" getComponent={(l, cb) => System.import('./backend/proceedings/list').then(loadRoute(cb))} />
           </Route>
