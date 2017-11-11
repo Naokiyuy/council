@@ -81,10 +81,17 @@ ReactDOM.render(
   <Provider store={store} key="provider">
     <IntlProvider locale={getLanguage()} messages={langsUtils.loadMessages(getLanguage())}>
       <Router history={history} render={applyRouterMiddleware(useScroll())}>
-        <Route name="Home" path="/" component={App}>
+        <Route name="" path="/" component={App}>
           <IndexRoute getComponent={(l, cb) => System.import('./frontend/home/Home').then(loadRoute(cb))}/>
-          <Route name="Index" path="/index" getComponent={(l, cb) => System.import('./frontend/home/Home').then(loadRoute(cb))}>
-
+          <Route name="首頁" path="/main" getComponent={(l, cb) => System.import('./frontend/home/Home').then(loadRoute(cb))}>
+            <Route name="" path="/main/index" getComponent={(l, cb) => System.import('./frontend/content/Content').then(loadRoute(cb))}/>
+            <Route name="內容" path="/main/others" getComponent={(l, cb) => System.import('./frontend/content/Others').then(loadRoute(cb))}>
+              <Route name="公告消息" path="/main/others/info" getComponent={(l, cb) => System.import('./frontend/content/info/Info').then(loadRoute(cb))} />
+              <Route name="新聞訊息" path="/main/others/news" getComponent={(l, cb) => System.import('./frontend/content/news/News').then(loadRoute(cb))} />
+              <Route name="議員簡介" path="/main/others/profile" getComponent={(l, cb) => System.import('./frontend/content/profile/Profile').then(loadRoute(cb))} />
+              <Route name="議事訊息" path="/main/others/council" getComponent={(l, cb) => System.import('./frontend/content/council/Council').then(loadRoute(cb))} />
+              <Route name="服務行程" path="/main/others/service" getComponent={(l, cb) => System.import('./frontend/content/service/Service').then(loadRoute(cb))} />
+            </Route>
           </Route>
           <Route name="Backend" path="/backend" getComponent={(l, cb) => System.import('./backend/home/Home').then(loadRoute(cb))}>
             <Route name="Proceedings" path="/backend/proceedings" getComponent={(l, cb) => System.import('./backend/proceedings/list').then(loadRoute(cb))} />

@@ -9,6 +9,7 @@ export default class Home extends Component {
     return (
       <div className="wrapper">
         <Header/>
+        {this.props.children}
         <Content />
         <Footer />
       </div>
