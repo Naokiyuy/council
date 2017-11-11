@@ -25,7 +25,6 @@ import HighchartsExportCsv from 'highcharts-export-csv';
 
 import './utils/styles';
 
-
 const queryStr = location.search;
 if (queryStr != '') {
   const query = require('url').parse(queryStr, true).query;

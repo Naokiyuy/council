@@ -6,7 +6,7 @@ import {routerReducer, routerMiddleware} from 'react-router-redux';
 import {reducer as formReducer} from 'redux-form';
 import DevTools from "./DevTools";
 
-import {reducer as notifReducer} from 're-notif';
+import {reducer as notifReducer} from 'redux-notifications';
 
 const middleware = routerMiddleware(browserHistory);
 

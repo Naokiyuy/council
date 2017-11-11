@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import { Carousel } from 'react-responsive-carousel';
-import 'amcharts3/amcharts/amcharts';
-import 'amcharts3/amcharts/serial';
-import 'amcharts3/amcharts/themes/light';
-import AmCharts from '@amcharts/amcharts3-react/amcharts3-react';
+import BarChart from '../components/BarChart';
+import PieChart from '../components/PieChart';
+import {Nav, NavItem} from 'react-bootstrap';
+import {Link} from 'react-router/es6';
+import {LinkContainer} from 'react-router-bootstrap';
 
 export default class Content extends Component {
   componentDidMount() {
@@ -23,17 +24,17 @@ export default class Content extends Component {
               <div className="col-sm-8">
                 <p>謝東閔（1908年1月25日－2001年4月8日），原名謝進喜，自號求生，台灣半山政治人物，彰化廳北斗支廳二八水區二八水庄人（今彰化縣二水鄉光化村）。中華民國第六任副總統，是台灣本省人士中第一位擔任此要職者。晚年被人們尊稱為謝求公</p>
                 <ul className="list-unstyled margin-bottom-20">
-                  <li><i className="fa fa-check color-green"></i> 臺灣省訴願委員會主任委員 1946</li>
-                  <li><i className="fa fa-check color-green"></i> 臺灣省行政長官公署民政處副處長 1946.10.1947.05</li>
-                  <li><i className="fa fa-check color-green"></i> 臺灣省政府教育廳副廳長 1947.05-1953</li>
-                  <li><i className="fa fa-check color-green"></i> 臺灣省政府委員</li>
-                  <li><i className="fa fa-check color-green"></i> 臺灣省政府秘書長 1954.06.07-1957</li>
-                  <li><i className="fa fa-check color-green"></i> 臺灣省臨時議會（第三屆）副議長 1957-1960</li>
-                  <li><i className="fa fa-check color-green"></i> 臺灣省議會（第二屆）副議長 1960-1963</li>
-                  <li><i className="fa fa-check color-green"></i> 臺灣省議會（第三屆）議長 1963-1968</li>
-                  <li><i className="fa fa-check color-green"></i> 臺灣省議會（第四屆）議長 1968-1972</li>
-                  <li><i className="fa fa-check color-green"></i> 臺灣省政府（第九任）主席 1972.06.06-1978.05.20</li>
-                  <li><i className="fa fa-check color-green"></i> 總統府（第六任）副總統 1978.05.20-1984.05.20</li>
+                  <li><i className="fa fa-check color-green"/> 臺灣省訴願委員會主任委員 1946</li>
+                  <li><i className="fa fa-check color-green"/> 臺灣省行政長官公署民政處副處長 1946.10.1947.05</li>
+                  <li><i className="fa fa-check color-green"/> 臺灣省政府教育廳副廳長 1947.05-1953</li>
+                  <li><i className="fa fa-check color-green"/> 臺灣省政府委員</li>
+                  <li><i className="fa fa-check color-green"/> 臺灣省政府秘書長 1954.06.07-1957</li>
+                  <li><i className="fa fa-check color-green"/> 臺灣省臨時議會（第三屆）副議長 1957-1960</li>
+                  <li><i className="fa fa-check color-green"/> 臺灣省議會（第二屆）副議長 1960-1963</li>
+                  <li><i className="fa fa-check color-green"/> 臺灣省議會（第三屆）議長 1963-1968</li>
+                  <li><i className="fa fa-check color-green"/> 臺灣省議會（第四屆）議長 1968-1972</li>
+                  <li><i className="fa fa-check color-green"/> 臺灣省政府（第九任）主席 1972.06.06-1978.05.20</li>
+                  <li><i className="fa fa-check color-green"/> 總統府（第六任）副總統 1978.05.20-1984.05.20</li>
 
                 </ul>
               </div>
@@ -71,87 +72,23 @@ export default class Content extends Component {
         <div className="row">
 
           <div className="col-md-12">
-            <div id="chartdiv2" style={{width: '100%', height: '400px'}}></div>
-            <AmCharts.React
-              style={{
-                width: "100%",
-                height: "500px"
-              }}
-              options={{
-                "type": "pie",
-                "titles": [{
-                  "id": "Title-1",
-                  "size": 15,
-                  "text": "議會分布"
-                }],
-                "legend": {
-                  "enabled": false,
-                  "align": "center",
-                  "markerType": "circle"
-                },
-                "dataProvider": [{
-                  "category": "臺灣省議會",
-                  "column-1": 8
-                },
-                  {
-                    "category": "臺灣省臨時省議會",
-                    "column-1": 6
-                  },
-                  {
-                    "category": "臺中縣議會",
-                    "column-1": 2
-                  },
-                  {
-                    "category": "高雄市合併前直轄市議會",
-                    "column-1": "8"
-                  },
-                  {
-                    "category": "高雄縣參議會",
-                    "column-1": "8"
-                  },
-                  {
-                    "category": "新竹縣議會",
-                    "column-1": "3"
-                  },
-                  {
-                    "category": "高雄縣議會",
-                    "column-1": "3"
-                  },
-                  {
-                    "category": "基隆市議會",
-                    "column-1": "2"
-                  },
-                  {
-                    "category": "臺北縣議會",
-                    "column-1": "2"
-                  },
-                  {
-                    "category": "臺南縣議會",
-                    "column-1": "1"
-                  },
-                  {
-                    "category": "高雄市省轄市議會",
-                    "column-1": "1"
-                  }]
-              }}
-              />
+            <BarChart />
           </div>
 
         </div>
         <div className="row" style={{marginTop: '40px'}}>
           <div className="col-md-6">
-            <div id="chartdiv" style={{width: '100%', height: '400px', backgroundColor: '#FFFFFF'}} ></div>
+            <PieChart/>
           </div>
           <div className="col-md-6">
             <div className="tab-v1">
-              <ul className="nav nav-tabs margin-bottom-20">
-                <li className="active"><a data-toggle="tab" href="#home">相關議員</a></li>
-                <li><a data-toggle="tab" href="#profile">相關地點</a></li>
-
-              </ul>
+              <Nav bsStyle="tabs" activeKey="1">
+                <NavItem eventKey="1">相關議員</NavItem>
+                <NavItem eventKey="2">相關地點</NavItem>
+              </Nav>
               <div className="tab-content">
-                <div id="home" className="tab-pane fade in active">
-                  <div id="accordion-v1" className="panel-group acc-v1">
+                <div className="tab-pane in active">
+                  <div className="panel-group acc-v1">
                     <div className="panel panel-default">
                       <div className="panel-heading">
                         <h4 className="panel-title">
@@ -160,7 +97,6 @@ export default class Content extends Component {
                           </a>
                         </h4>
                       </div>
-
                     </div>
                     <div className="panel panel-default">
                       <div className="panel-heading">
@@ -231,80 +167,6 @@ export default class Content extends Component {
                         </h4>
                       </div>
 
-                    </div>
-                  </div>
-                </div>
-
-                <div id="profile" className="tab-pane fade">
-                  <div id="accordion-v2" className="panel-group acc-v1">
-                    <div className="panel panel-default">
-                      <div className="panel-heading">
-                        <h4 className="panel-title">
-                          <a href="#" data-parent="#accordion-v1" data-toggle="collapse" className="accordion-toggle" style={{cursor:'default'}}>
-                            臺灣省
-                          </a>
-                        </h4>
-                      </div>
-
-                    </div>
-                    <div className="panel panel-default">
-                      <div className="panel-heading">
-                        <h4 className="panel-title">
-                          <a href="#" data-parent="#accordion-v1" data-toggle="collapse" className="accordion-toggle" style={{cursor:'default'}}>
-                            高雄市
-                          </a>
-                        </h4>
-                      </div>
-
-                    </div>
-                    <div className="panel panel-default">
-                      <div className="panel-heading">
-                        <h4 className="panel-title">
-                          <a href="#" data-parent="#accordion-v1" data-toggle="collapse" className="accordion-toggle" style={{cursor:'default'}}>
-                            臺中市
-                          </a>
-                        </h4>
-                      </div>
-
-                    </div>
-                    <div className="panel panel-default">
-                      <div className="panel-heading">
-                        <h4 className="panel-title">
-                          <a href="#" data-parent="#accordion-v1" data-toggle="collapse" className="accordion-toggle" style={{cursor:'default'}}>
-                            新竹縣
-                          </a>
-                        </h4>
-                      </div>
-
-                    </div>
-                    <div className="panel panel-default">
-                      <div className="panel-heading">
-                        <h4 className="panel-title">
-                          <a href="#" data-parent="#accordion-v1" data-toggle="collapse" className="accordion-toggle" style={{cursor:'default'}}>
-                            基隆市
-                          </a>
-                        </h4>
-                      </div>
-
-                    </div>
-                    <div className="panel panel-default">
-                      <div className="panel-heading">
-                        <h4 className="panel-title">
-                          <a href="#" data-parent="#accordion-v1" data-toggle="collapse" className="accordion-toggle" style={{cursor:'default'}}>
-                            新北市
-                          </a>
-                        </h4>
-                      </div>
-
-                    </div>
-                    <div className="panel panel-default">
-                      <div className="panel-heading">
-                        <h4 className="panel-title">
-                          <a href="#" data-parent="#accordion-v1" data-toggle="collapse" className="accordion-toggle" style={{cursor:'default'}}>
-                            臺南市
-                          </a>
-                        </h4>
-                      </div>
                     </div>
                   </div>
                 </div>

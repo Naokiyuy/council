@@ -21,7 +21,7 @@ const getPlugins = function (environment, isDev) {
             __DEV__: isDev
         }),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()];
+        new webpack.NoEmitOnErrorsPlugin()];
 };
 
 const getEntry = function () {
