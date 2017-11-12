@@ -5,13 +5,24 @@ import PieChart from '../components/PieChart';
 import {Nav, NavItem} from 'react-bootstrap';
 import {Link} from 'react-router/es6';
 import {LinkContainer} from 'react-router-bootstrap';
+import {connect} from 'react-redux';
+import * as actionCreators from './contentReducer';
+import {bindActionCreators} from 'redux';
 
+@connect(state => ({
+  councilDataYearly: state.content.councilDataYearly,
+  councilDataCouncil: state.content.councilDataCouncil
+}), dispatch => bindActionCreators(actionCreators, dispatch))
 export default class Content extends Component {
   componentDidMount() {
-
+    const {queryCouncilData} = this.props;
+    queryCouncilData({q: '謝東閔', classify: 'year'});
+    queryCouncilData({q: '謝東閔', classify: 'councilNumber'});
   }
 
   render() {
+    const {councilDataYearly, councilDataCouncil} = this.props;
+
     return (
       <div className="container content profile" style={{paddingBottom: '0px'}}>
         <div className="row margin-bottom-30">
@@ -72,13 +83,13 @@ export default class Content extends Component {
         <div className="row">
 
           <div className="col-md-12">
-            <BarChart />
+            <BarChart data={councilDataYearly.data} loaded={councilDataYearly.loaded}/>
           </div>
 
         </div>
         <div className="row" style={{marginTop: '40px'}}>
           <div className="col-md-6">
-            <PieChart/>
+            <PieChart data={councilDataCouncil.data} loaded={councilDataCouncil.loaded}/>
           </div>
           <div className="col-md-6">
             <div className="tab-v1">

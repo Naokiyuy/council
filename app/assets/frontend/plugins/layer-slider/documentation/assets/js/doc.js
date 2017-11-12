@@ -31,7 +31,7 @@ $(document).ready(function() {
 
 			var pli = $(this).parent().closest('li');
 
-			// checking if the parent main menuitem is active or not
+			// checking if the parent content menuitem is active or not
 
 			if( !pli.hasClass('active') ){
 
@@ -50,7 +50,7 @@ $(document).ready(function() {
 
 		}else{
 
-			// main menu
+			// content menu
 
 			$('#content div > section').removeClass('active').eq( $(this).index() ).addClass('active');
 

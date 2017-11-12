@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import {routerReducer, routerMiddleware} from 'react-router-redux';
 import {reducer as formReducer} from 'redux-form';
 import {browserHistory} from 'react-router/es6';
+import contentReducer from '../../frontend/content/contentReducer';
 import {reducer as notifReducer} from 'redux-notifications';
 
 const middleware = routerMiddleware(browserHistory);
@@ -13,7 +14,7 @@ export default function configureStore(initialState) {
       routing: routerReducer,
       form: formReducer,
       notifs: notifReducer,
-      insights
+      content: contentReducer
     }),
     initialState,
     applyMiddleware(middleware, thunk)

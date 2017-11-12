@@ -246,7 +246,7 @@
         display: function() {
             var t = this;
 
-            // store main container width
+            // store content container width
             t.width = t.$obj.outerWidth();
 
             // store to data values of t.blocks
@@ -386,7 +386,7 @@
             // positionate the blocks
             t.positionateItems();
 
-            // resize main container height
+            // resize content container height
             t.resizeMainContainer();
         },
 
@@ -423,7 +423,7 @@
                     el.style.top = data.top + 'px';
                 });
 
-            // resize main container height
+            // resize content container height
             t.resizeMainContainer();
 
             t.filterFinish();
@@ -662,7 +662,7 @@
 
 
         /**
-         * Resize main container vertically
+         * Resize content container vertically
          */
         resizeMainContainer: function() {
             var t = this,
@@ -2580,7 +2580,7 @@ if (typeof Object.create !== 'function') {
             animationend();
         }
 
-        // resize main container height
+        // resize content container height
         t.resizeMainContainer();
 
         function animationend() {
@@ -2668,7 +2668,7 @@ if (typeof Object.create !== 'function') {
                 animationend();
             }
 
-            // resize main container height
+            // resize content container height
             t.resizeMainContainer();
         });
 
@@ -2759,7 +2759,7 @@ if (typeof Object.create !== 'function') {
                 t.blocksOn.last().data('cbp').wrapper.one(CubePortfolio.private.animationend, animationend);
             }
 
-            // resize main container height
+            // resize content container height
             t.resizeMainContainer();
         });
 
@@ -2835,7 +2835,7 @@ if (typeof Object.create !== 'function') {
                 animationend();
             }
 
-            // resize main container height
+            // resize content container height
             t.resizeMainContainer();
         });
 

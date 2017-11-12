@@ -2,60 +2,66 @@ import React, {Component} from 'react';
 import ReactHighcharts from 'react-highcharts';
 import colors from '../../utils/config/colors';
 import _forEach from 'lodash/forEach';
+import Spinner from 'react-spinkit';
 
 export default class PieChart extends Component {
   render() {
-    const data = [
-      {
-        "name": "臺灣省議會",
-        "y": 8
-      },
-      {
-        "name": "臺灣省臨時省議會",
-        "y": 6
-      },
-      {
-        "name": "臺中縣議會",
-        "y": 2
-      },
-      {
-        "name": "高雄市合併前直轄市議會",
-        "y": 8
-      },
-      {
-        "name": "高雄縣參議會",
-        "y": 8
-      },
-      {
-        "name": "新竹縣議會",
-        "y": 3
-      },
-      {
-        "name": "高雄縣議會",
-        "y": 3
-      },
-      {
-        "name": "基隆市議會",
-        "y": 2
-      },
-      {
-        "name": "臺北縣議會",
-        "y": 2
-      },
-      {
-        "name": "臺南縣議會",
-        "y": 1
-      },
-      {
-        "name": "高雄市省轄市議會",
-        "y": 1
-      }];
+    const {data, loaded} = this.props;
 
-    let colorCnt = 0;
-    _forEach(data, d => {
-      d.color = colors.chartcolors[colorCnt];
-      colorCnt++;
-    });
+    if (!loaded) {
+      return (<Spinner style={{textAlign: 'center', lineHeight: '400px'}} spinnerName="three-bounce" noFadeIn/>);
+    }
+    // const data = [
+    //   {
+    //     "name": "臺灣省議會",
+    //     "y": 8
+    //   },
+    //   {
+    //     "name": "臺灣省臨時省議會",
+    //     "y": 6
+    //   },
+    //   {
+    //     "name": "臺中縣議會",
+    //     "y": 2
+    //   },
+    //   {
+    //     "name": "高雄市合併前直轄市議會",
+    //     "y": 8
+    //   },
+    //   {
+    //     "name": "高雄縣參議會",
+    //     "y": 8
+    //   },
+    //   {
+    //     "name": "新竹縣議會",
+    //     "y": 3
+    //   },
+    //   {
+    //     "name": "高雄縣議會",
+    //     "y": 3
+    //   },
+    //   {
+    //     "name": "基隆市議會",
+    //     "y": 2
+    //   },
+    //   {
+    //     "name": "臺北縣議會",
+    //     "y": 2
+    //   },
+    //   {
+    //     "name": "臺南縣議會",
+    //     "y": 1
+    //   },
+    //   {
+    //     "name": "高雄市省轄市議會",
+    //     "y": 1
+    //   }];
+    //
+    // let colorCnt = 0;
+    // _forEach(data, d => {
+    //   d.color = colors.chartcolors[colorCnt];
+    //   colorCnt++;
+    // });
 
     const config = {
       chart: {
@@ -86,7 +92,7 @@ export default class PieChart extends Component {
       series: [{
         name: 'Brands',
         colorByPoint: true,
-        data: data
+        data: data.councilNumber
       }]
     };
 

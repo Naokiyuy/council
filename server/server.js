@@ -7,6 +7,7 @@ import bodyParser from 'body-parser';
 import connectTimeout from 'connect-timeout';
 import errorhandler from 'errorhandler';
 
+import contentController from './api/content/controllers/content-controller';
 // import config from './config/config';
 
 const env = process.env.NODE_ENV || 'development';
@@ -76,6 +77,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 // app.use(logger);
 
 // register routes
+contentController.routes(app);
 
 // error handlers
 // development error handler

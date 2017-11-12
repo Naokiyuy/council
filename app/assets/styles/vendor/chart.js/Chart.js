@@ -1444,11 +1444,11 @@ for (var func in conversions) {
   // export rgb2hsl and ["rgb"]["hsl"]
   convert[from] = convert[from] || {};
 
-  convert[from][to] = convert[func] = (function(func) { 
+  convert[from][to] = convert[func] = (function(func) {
     return function(arg) {
       if (typeof arg == "number")
         arg = Array.prototype.slice.call(arguments);
-      
+
       var val = conversions[func](arg);
       if (typeof val == "string" || val === undefined)
         return val; // keyword
@@ -1476,12 +1476,12 @@ Converter.prototype.routeSpace = function(space, args) {
    }
    // color.rgb(10, 10, 10)
    if (typeof values == "number") {
-      values = Array.prototype.slice.call(args);        
+      values = Array.prototype.slice.call(args);
    }
 
    return this.setValues(space, values);
 };
-  
+
 /* Set the values for a space, invalidating cache */
 Converter.prototype.setValues = function(space, values) {
    this.space = space;
@@ -3507,7 +3507,7 @@ defaults._set('scatter', {
 
 module.exports = function(Chart) {
 
-	// Scatter charts use line controllers
+	// Scatter charts use line content
 	Chart.controllers.scatter = Chart.controllers.line;
 
 };
@@ -3830,7 +3830,7 @@ module.exports = function(Chart) {
 				me.resize(true);
 			}
 
-			// Make sure scales have IDs and are built before we build any controllers.
+			// Make sure scales have IDs and are built before we build any content.
 			me.ensureScalesHaveIDs();
 			me.buildScales();
 			me.initToolTip();
@@ -4043,17 +4043,17 @@ module.exports = function(Chart) {
 			// In case the entire data object changed
 			me.tooltip._data = me.data;
 
-			// Make sure dataset controllers are updated and new controllers are reset
+			// Make sure dataset content are updated and new content are reset
 			var newControllers = me.buildOrUpdateControllers();
 
-			// Make sure all dataset controllers have correct meta data counts
+			// Make sure all dataset content have correct meta data counts
 			helpers.each(me.data.datasets, function(dataset, datasetIndex) {
 				me.getDatasetMeta(datasetIndex).controller.buildOrUpdateElements();
 			}, me);
 
 			me.updateLayout();
 
-			// Can only reset the new controllers after the scales have been updated
+			// Can only reset the new content after the scales have been updated
 			helpers.each(newControllers, function(controller) {
 				controller.reset();
 			});
@@ -4377,7 +4377,7 @@ module.exports = function(Chart) {
 
 			me.stop();
 
-			// dataset controllers need to cleanup associated data
+			// dataset content need to cleanup associated data
 			for (i = 0, ilen = me.data.datasets.length; i < ilen; ++i) {
 				me.destroyDatasetMeta(i);
 			}
@@ -4642,7 +4642,7 @@ module.exports = function(Chart) {
 		delete array._chartjs;
 	}
 
-	// Base class for all dataset controllers (line, bar, etc)
+	// Base class for all dataset content (line, bar, etc)
 	Chart.DatasetController = function(chart, datasetIndex) {
 		this.initialize(chart, datasetIndex);
 	};
@@ -11027,7 +11027,7 @@ module.exports = function() {
 
 		// Backward compatibility: until v3, we still need to support boundary values set on
 		// the model (scaleTop, scaleBottom and scaleZero) because some external plugins and
-		// controllers might still use it (e.g. the Smith chart).
+		// content might still use it (e.g. the Smith chart).
 
 		if (fill === 'start') {
 			target = model.scaleBottom === undefined ? scale.bottom : model.scaleBottom;

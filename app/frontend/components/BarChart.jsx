@@ -1,19 +1,18 @@
 import React, {Component} from 'react';
 import ReactHighcharts from 'react-highcharts';
-import colors from '../../utils/config/colors';
-import _forEach from 'lodash/forEach';
+import Spinner from 'react-spinkit';
 
 export default class BarChart extends Component {
   render() {
-    const data = [8,0,0,0,0,0,0,1,0,0,0,28,23,8,17,12,6,40,13,41,33,4,27,6,21,7,3,8,4,7,6,5,8,1,2,2,4,2,0,0,1,0,0,0,0,0,0,0,0,2,0,2,2,0,1,0,0,0,1,0,0,0,0,4,0];
-    const categories = [];
-    for (let i = 1946 ; i < 2011 ; i++) {
-      categories.push(i);
+    const {data, loaded} = this.props;
+
+    if (!loaded) {
+      return (<Spinner style={{textAlign: 'center', lineHeight: '400px'}} spinnerName="three-bounce" noFadeIn/>);
     }
-    const color = [];
-    for (let i = 0 ; i < data.length ; i++) {
-      color.push(colors.barchartcolors);
-    }
+
+    const nums = data.nums;
+    const years = data.year;
+    const colors = data.colors;
 
     const config = {
       chart: {
@@ -23,7 +22,7 @@ export default class BarChart extends Component {
         enabled: false
       },
       xAxis: {
-        categories: categories
+        categories: years
       },
       yAxis: {
         title: {
@@ -56,13 +55,13 @@ export default class BarChart extends Component {
         },
         series: {
           colorByPoint: true,
-          colors: color
+          colors: colors
         }
       },
       legend: {
         enabled: false
       },
-      series: [{data}]
+      series: [{data:nums}]
     };
 
     return (
