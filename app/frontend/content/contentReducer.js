@@ -1,5 +1,6 @@
 import queryString from 'query-string';
 import _forEach from 'lodash/forEach';
+import _forOwn from 'lodash/forOwn';
 import allColors from '../../utils/config/colors';
 import councilNumber from '../../utils/config/councilNumber';
 
@@ -8,7 +9,9 @@ const LOAD_SUCCESS = 'council/home/index/LOAD_SUCCESS';
 
 const initialState = {
   councilDataYearly:{data: {}, loaded: false},
-  councilDataCouncil: {data: {}, loaded: false}
+  councilDataCouncil: {data: {}, loaded: false},
+  councilPerson: {data: {}, loaded: false},
+  councilAdministrative: {data: {}, loaded: false}
 };
 
 export default function reduce(state = initialState, action = {}) {
@@ -32,8 +35,7 @@ export default function reduce(state = initialState, action = {}) {
             loaded: true
           }
         };
-      } else {
-        console.log(action.data);
+      } else if (action.classify === 'councilNumber'){
         const data = [];
         let colorCnt = 0;
         _forEach(action.data['post_classification'].councilNumber, c => {
@@ -44,6 +46,25 @@ export default function reduce(state = initialState, action = {}) {
           ...state,
           councilDataCouncil: {
             data: {councilNumber: data},
+            loaded: true
+          }
+        };
+      } else if (action.classify === 'person') {
+        const data = [];
+        _forOwn(action.data['post_classification'].person, (v, k) => data.push(k));
+        return {
+          ...state,
+          councilPerson: {
+            data: {person: data},
+            loaded: true
+          }
+        };
+      } else {
+        //administrative
+        return {
+          ...state,
+          councilAdministrative: {
+            data: {administrative: action.data['post_classification'].administrative},
             loaded: true
           }
         };
