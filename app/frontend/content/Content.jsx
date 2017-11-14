@@ -27,6 +27,10 @@ export default class Content extends Component {
   render() {
     const {councilDataYearly, councilDataCouncil, councilPerson, councilAdministrative} = this.props;
 
+    if (!councilDataYearly || !councilDataCouncil || !councilPerson || !councilAdministrative) {
+      return false;
+    }
+
     return (
       <div className="container content profile" style={{paddingBottom: '0px'}}>
         <div className="row margin-bottom-30">
@@ -178,7 +182,6 @@ export default class Content extends Component {
               </div>
             </div>
           </div>
-
           <div className="row job-content">
             <div className="col-md-4 col-sm-6 md-margin-bottom-40">
 
@@ -249,7 +252,6 @@ export default class Content extends Component {
                 </li>
               </ul>
             </div>
-
           </div>
         </div>
       </div>
