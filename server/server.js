@@ -6,6 +6,8 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import connectTimeout from 'connect-timeout';
 import errorhandler from 'errorhandler';
+import mysql from 'mysql';
+import mycon from 'express-myconnection';
 
 import contentController from './api/content/controllers/content-controller';
 // import config from './config/config';
@@ -73,6 +75,17 @@ if (isDev) {
 app.use(connectTimeout(300000));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+
+// database connection
+const dbOptions = {
+  host: 'localhost',
+  user: 'root',
+  password: 'root',
+  port: 3306,
+  database: 'council'
+};
+
+app.use(mycon(mysql, dbOptions, 'request'));
 
 // app.use(logger);
 

@@ -17,11 +17,12 @@ import {bindActionCreators} from 'redux';
 }), dispatch => bindActionCreators(actionCreators, dispatch))
 export default class Content extends Component {
   componentDidMount() {
-    const {queryCouncilData} = this.props;
+    const {queryCouncilData, testsql} = this.props;
     queryCouncilData({q: '謝東閔', classify: 'year'});
     queryCouncilData({q: '謝東閔', classify: 'councilNumber'});
     queryCouncilData({q: '謝東閔', classify: 'person'});
     queryCouncilData({q: '謝東閔', classify: 'administrative'});
+    testsql();
   }
 
   render() {
