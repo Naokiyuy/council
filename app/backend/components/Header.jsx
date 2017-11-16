@@ -24,10 +24,10 @@ export default class Header extends Component {
               </Link>
             </li>
             <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-              <a className="nav-link" href="tables.html">
+              <Link className="nav-link" to="/backend/messages">
                 <i className="fa fa-fw fa-table"></i>
                 <span className="nav-link-text">公告訊息管理</span>
-              </a>
+              </Link>
             </li>
             <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
               <Link className="nav-link nav-link-collapse collapsed" data-toggle="collapse" to="/backend/services" data-parent="#exampleAccordion">
