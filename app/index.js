@@ -23,8 +23,6 @@ import ReactHighCharts from 'react-highcharts';
 import HighchartsExporting from 'highcharts-exporting';
 import HighchartsExportCsv from 'highcharts-export-csv';
 
-import './utils/styles';
-
 const queryStr = location.search;
 if (queryStr != '') {
   const query = require('url').parse(queryStr, true).query;
@@ -94,7 +92,7 @@ ReactDOM.render(
             </Route>
           </Route>
           <Route name="Backend" path="/backend" getComponent={(l, cb) => System.import('./backend/home/Home').then(loadRoute(cb))}>
-            <Route name="Proceedings" path="/backend/proceedings" getComponent={(l, cb) => System.import('./backend/proceedings/list').then(loadRoute(cb))} />
+            <Route name="Proceedings" path="/backend/proceedings" getComponent={(l, cb) => System.import('./backend/proceedings/ListProceedings').then(loadRoute(cb))} />
           </Route>
           <Route name="Not found" path="*" component={NotFound}/>
         </Route>

@@ -5,6 +5,7 @@ import {reducer as formReducer} from 'redux-form';
 import {browserHistory} from 'react-router/es6';
 import contentReducer from '../../frontend/content/contentReducer';
 import {reducer as notifReducer} from 'redux-notifications';
+import backendReducer from "../../backend/backendReducer";
 
 const middleware = routerMiddleware(browserHistory);
 
@@ -14,7 +15,8 @@ export default function configureStore(initialState) {
       routing: routerReducer,
       form: formReducer,
       notifs: notifReducer,
-      content: contentReducer
+      content: contentReducer,
+      backend: backendReducer
     }),
     initialState,
     applyMiddleware(middleware, thunk)

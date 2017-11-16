@@ -6,6 +6,7 @@ import councilNumber from '../../utils/config/councilNumber';
 
 const LOAD = 'council/home/index/LOAD';
 const LOAD_SUCCESS = 'council/home/index/LOAD_SUCCESS';
+const QUERY = 'council/home/index/QUERY';
 
 const initialState = {
   councilDataYearly:{data: {}, loaded: false},
@@ -109,16 +110,4 @@ function loadSuccess(classify, result) {
     classify: classify,
     data: result
   };
-}
-
-export function testsql() {
-  return fetch('/api/db/query', {
-    method: 'POST',
-    credentials: 'same-origin',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({})
-  }).then(response => response.json());
 }

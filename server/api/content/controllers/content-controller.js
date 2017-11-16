@@ -1,17 +1,25 @@
 import _ from 'lodash';
-import campaignsService from '../services/content-service';
+import contentService from '../services/content-service';
 
 const controller = {
   routes,
   search,
-  sqlConnection
+  sqlConnection,
+  sqlInsert,
+  searchAll,
+  queryDB,
+  updateDB
 };
 
 export default controller;
 
 function routes(app) {
   app.get('/api/council/search', controller.search);
+  app.get('/api/council/search-all', controller.searchAll);
   app.post('/api/db/query', controller.sqlConnection);
+  app.post('/api/db/insert', controller.sqlInsert);
+  app.get('/api/council/list', controller.queryDB);
+  app.post('/api/council/update', controller.updateDB);
 }
 
 function search(req, res, next) {
@@ -19,7 +27,22 @@ function search(req, res, next) {
     // token: req.session.sessionToken,
     // customerId: req.session.customerId
   });
-  campaignsService.searchCouncil(_.omitBy(params, _.isNull), (err, result) => {
+  contentService.searchCouncil(_.omitBy(params, _.isNull), (err, result) => {
+    if (err) {
+      return next(err);
+    }
+
+    res.type('application/json').send(result);
+    return null;
+  });
+}
+
+function searchAll(req, res, next) {
+  const params = _.merge(req.query, {
+    // token: req.session.sessionToken,
+    // customerId: req.session.customerId
+  });
+  contentService.searchAllForSync(_.omitBy(params, _.isNull), (err, result) => {
     if (err) {
       return next(err);
     }
@@ -31,12 +54,12 @@ function search(req, res, next) {
 
 function sqlConnection(req, res, next) {
   const params = _.merge(req.body, {});
-  req.getConnection(function(err, con) {
+  req.getConnection(function (err, con) {
     if (err) {
       return next(err);
     }
 
-    con.query('select * from test', [], function(err, results) {
+    con.query('select * from test', [], function (err, results) {
       if (err) {
         return next(err);
       }
@@ -45,5 +68,90 @@ function sqlConnection(req, res, next) {
       res.type('application/json').send(results);
       return null;
     });
+  });
+}
+
+function sqlInsert(req, res, next) {
+  const params = _.merge(req.body, {});
+  const nestedData = [];
+
+  _.forEach(params.data, function (p) {
+    nestedData.push([
+      p.no,
+      p.sno,
+      p.category,
+      p.abstract,
+      p.councilNumber,
+      p.councilChn,
+      p.conferenceNumber,
+      p.conferenceChn,
+      p.session,
+      p.sessionChn,
+      p.date,
+      p.url
+    ])
+  });
+
+  req.getConnection(function (err, con) {
+    if (err) {
+      return next(err);
+    }
+
+    const queryString = con.query(
+      'INSERT INTO ' + params.table +
+      ' (no, sno, category, abstract, councilNumber, councilChn, conferenceNumber, conferenceChn, session, sessionChn, date, url) VALUES ? ',
+      [nestedData],
+      function (err, results) {
+      if (err) {
+        return next(err);
+      }
+
+      console.log('query result:', results);
+      res.type('application/json').send(results);
+      return null;
+    });
+    console.log(queryString.sql);
+  });
+}
+
+function queryDB(req, res, next) {
+  const params = _.merge(req.query, {});
+  console.log('params', params);
+  req.getConnection(function (err, con) {
+    if (err) {
+      return next(err);
+    }
+    const sqlQuery = `SELECT * FROM ${params.table} LIMIT ${params.offset}, ${params.limit};SELECT COUNT(*) as totalSize FROM ${params.table};`;
+    const queryString = con.query(sqlQuery, function (err, results) {
+      if (err) {
+        return next(err);
+      }
+
+      console.log('query result:', results);
+      res.type('application/json').send(results);
+      return null;
+    });
+    console.log(queryString.sql);
+  });
+}
+
+function updateDB(req, res, next) {
+  const params = _.merge(req.body, {});
+  console.log('params', params);
+  req.getConnection(function (err, con) {
+    if (err) {
+      return next(err);
+    }
+    const sqlQuery = `UPDATE ${params.table} SET ? WHERE ?`;
+    const queryString = con.query(sqlQuery, [params.isShow, params.no], function (err, results) {
+      if (err) {
+        return next(err);
+      }
+
+      console.log('query result:', results);
+      res.type('application/json').send(results);
+      return null;
+    });
+    console.log(queryString.sql);
   });
 }

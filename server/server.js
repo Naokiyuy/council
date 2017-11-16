@@ -82,7 +82,8 @@ const dbOptions = {
   user: 'root',
   password: 'root',
   port: 3306,
-  database: 'council'
+  database: 'council',
+  multipleStatements: true
 };
 
 app.use(mycon(mysql, dbOptions, 'request'));
