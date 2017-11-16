@@ -18,10 +18,10 @@ export default class Header extends Component {
               </Link>
             </li>
             <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-              <a className="nav-link" href="charts.html">
+              <Link className="nav-link" to="/backend/news">
                 <i className="fa fa-fw fa-area-chart"></i>
                 <span className="nav-link-text">新聞資料管理</span>
-              </a>
+              </Link>
             </li>
             <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
               <a className="nav-link" href="tables.html">
@@ -30,10 +30,10 @@ export default class Header extends Component {
               </a>
             </li>
             <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-              <a className="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+              <Link className="nav-link nav-link-collapse collapsed" data-toggle="collapse" to="/backend/services" data-parent="#exampleAccordion">
                 <i className="fa fa-fw fa-table"></i>
                 <span className="nav-link-text">服務行程管理</span>
-              </a>
+              </Link>
               <ul className="sidenav-second-level collapse" id="collapseComponents">
                 <li>
                   <a href="navbar.html">Navbar</a>
@@ -42,6 +42,12 @@ export default class Header extends Component {
                   <a href="cards.html">Cards</a>
                 </li>
               </ul>
+            </li>
+            <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+              <Link className="nav-link" to="/backend/profile">
+                <i className="fa fa-fw fa-table"></i>
+                <span className="nav-link-text">議員資料管理</span>
+              </Link>
             </li>
             <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
               <a className="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">

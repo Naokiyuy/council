@@ -92,7 +92,10 @@ ReactDOM.render(
             </Route>
           </Route>
           <Route name="Backend" path="/backend" getComponent={(l, cb) => System.import('./backend/home/Home').then(loadRoute(cb))}>
-            <Route name="Proceedings" path="/backend/proceedings" getComponent={(l, cb) => System.import('./backend/proceedings/ListProceedings').then(loadRoute(cb))} />
+            <Route name="議事資料管理" path="/backend/proceedings" getComponent={(l, cb) => System.import('./backend/proceedings/ListProceedings').then(loadRoute(cb))} />
+            <Route name="新聞資料管理" path="/backend/news" getComponent={(l, cb) => System.import('./backend/news/ListNews').then(loadRoute(cb))} />
+            <Route name="服務行程管理" path="/backend/services" getComponent={(l, cb) => System.import('./backend/services/ListServices').then(loadRoute(cb))} />
+            <Route name="議員資料管理" path="/backend/profile" getComponent={(l, cb) => System.import('./backend/profile/Profile').then(loadRoute(cb))} />
           </Route>
           <Route name="Not found" path="*" component={NotFound}/>
         </Route>
