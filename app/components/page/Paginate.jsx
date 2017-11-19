@@ -19,7 +19,7 @@ export default class Paginate extends Component {
             of {grid.totalSize} records
           </div>
         </div>
-        <div className="col-sm-12 col-md-7" style={{textAlign: 'right'}}>
+        <div className="col-sm-12 col-md-7 text-right" style={{textAlign: 'right'}}>
           <div className="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
             <ReactPaginate
               initialSelected={grid.page - 1}

@@ -1,5 +1,6 @@
 import queryString from 'query-string';
 import _ceil from 'lodash/ceil';
+import moment from 'moment';
 
 const LOAD = 'council/backend/proceedings/LOAD';
 const LOAD_SUCCESS = 'council/backend/proceedings/LOAD_SUCCESS';
@@ -218,7 +219,7 @@ export function publish(no) {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({table: 'proceedings', no: {no: no}, isShow: {isShow: 1}})
+      body: JSON.stringify({table: 'proceedings', no: {no: no}, data: {isShow: 1}})
     }).then(response => response.json())
       .then(json => {
         console.log(json);
@@ -236,7 +237,7 @@ export function takedown(no) {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({table: 'proceedings', no: {no: no}, isShow: {isShow: 0}})
+      body: JSON.stringify({table: 'proceedings', no: {no: no}, data: {isShow: 0}})
     }).then(response => response.json())
       .then(json => {
         console.log(json);

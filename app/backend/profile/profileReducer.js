@@ -1,4 +1,3 @@
-import RichTextEditor from 'react-rte';
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import htmlToDraft from 'html-to-draftjs';
 
@@ -60,6 +59,7 @@ export default function reducer(state = initialState, action = {}) {
 
 export function insertProfile(values) {
   const params = {
+    id: 1,
     name: values.membername,
     politics: values.politics.content,
     lifestory: values.lifestory.content,
@@ -86,7 +86,7 @@ export function insertProfile(values) {
 export function queryProfile() {
   return (dispatch) => {
     dispatch({type: QUERY_PROFILE});
-    return fetch('/api/council/query-profile?id=0', {
+    return fetch('/api/council/query-data?id=1&table=profile', {
       credentials: 'same-origin',
       headers: {
         'Accept': 'application/json',
@@ -94,5 +94,28 @@ export function queryProfile() {
       }
     }).then(response => response.json())
       .then(json => dispatch({type: QUERY_PROFILE_SUCCESS, profile: json}));
+  };
+}
+
+
+export function updateProfile(values) {
+  const params = {
+    name: values.membername,
+    politics: values.politics.content,
+    lifestory: values.lifestory.content,
+    remarks: values.remarks.content
+  };
+  return (dispatch) => {
+    dispatch({type: UPDATE_PROFILE});
+    return fetch('/api/council/update', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({table: 'profile', no: {id: 1}, data: params})
+    }).then(response => response.json())
+      .then(json => dispatch({type: UPDATE_PROFILE_SUCCESS}));
   };
 }

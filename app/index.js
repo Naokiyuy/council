@@ -94,6 +94,7 @@ ReactDOM.render(
           <Route name="Backend" path="/backend" getComponent={(l, cb) => System.import('./backend/home/Home').then(loadRoute(cb))}>
             <Route name="議事資料管理" path="/backend/proceedings" getComponent={(l, cb) => System.import('./backend/proceedings/ListProceedings').then(loadRoute(cb))} />
             <Route name="新聞資料管理" path="/backend/news" getComponent={(l, cb) => System.import('./backend/news/ListNews').then(loadRoute(cb))} />
+            <Route name="編輯新聞" path="/backend/news/:id/edit" getComponent={(l, cb) => System.import('./backend/news/EditNews').then(loadRoute(cb))}/>
             <Route name="公告訊息管理" path="/backend/messages" getComponent={(l, cb) => System.import('./backend/messages/ListMessages').then(loadRoute(cb))} />
             <Route name="服務行程管理" path="/backend/services" getComponent={(l, cb) => System.import('./backend/services/ListServices').then(loadRoute(cb))} />
             <Route name="議員資料管理" path="/backend/profile" getComponent={(l, cb) => System.import('./backend/profile/Profile').then(loadRoute(cb))} />

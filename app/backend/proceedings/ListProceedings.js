@@ -68,28 +68,28 @@ export default class ListProceedings extends Component {
               <div className="dataTable_wrapper">
                 <table className="table table-bordered" id="dataTable" width="100%" cellSpacing="0">
                   <thead>
-                  <tr>
-                    <th>No.</th>
-                    <th>SNo.</th>
-                    <th>議會</th>
-                    <th>項目</th>
-                    <th>摘要</th>
-                    <th>時間</th>
-                    <th>公告</th>
-                    <th>功能</th>
+                  <tr className={"row"}>
+                    <th className={"col-md-1"}>編號</th>
+                    <th className={"col-md-2"}>SNo.</th>
+                    <th className={"col-md-2"}>議會</th>
+                    <th className={"col-md-2"}>項目</th>
+                    <th className={"col-md-2"}>摘要</th>
+                    <th className={"col-md-1"}>時間</th>
+                    <th className={"col-md-1"}>公告</th>
+                    <th className={"col-md-1"}>功能</th>
                   </tr>
                   </thead>
                   <tbody>
                   {proceedings && proceedings.map(p =>
-                    <tr key={p.no}>
-                      <td>{p.no}</td>
-                      <td>{p.sno}</td>
-                      <td>{p.councilChn}</td>
-                      <td>{p.category}</td>
-                      <td>{p.abstract}</td>
-                      <td>{p.date}</td>
-                      <td>{p.isShow === 0 ? '否' : '是'}</td>
-                      <td>
+                    <tr key={p.no} className={"row"}>
+                      <td className={"col-md-1 text-center"}>{p.no}</td>
+                      <td className={"col-md-2"}>{p.sno}</td>
+                      <td className={"col-md-2"}>{p.councilChn}</td>
+                      <td className={"col-md-2"}>{p.category}</td>
+                      <td className={"col-md-2"}>{p.abstract}</td>
+                      <td className={"col-md-1"}>{p.date}</td>
+                      <td className={"col-md-1"}>{p.isShow === 0 ? '否' : '是'}</td>
+                      <td className={"col-md-1"}>
                         {p.isShow === 0 ?
                           <button className="btn btn-primary" onClick={() => this.publishProceeding(p.no)}>發佈</button> :
                           <button className="btn btn-outline-danger" onClick={() => this.takedownProceeding(p.no)}>下架</button>
@@ -99,9 +99,11 @@ export default class ListProceedings extends Component {
                   )}
                   </tbody>
                 </table>
-                <Paginate grid={grid} clickCallback={page}/>
               </div>
             </div>
+          </div>
+          <div className="card-footer small text-muted">
+            <Paginate grid={grid} clickCallback={page}/>
           </div>
         </div>
       </div>

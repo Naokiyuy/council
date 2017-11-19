@@ -39,7 +39,10 @@ export default class Profile extends Component {
   };
 
   updateProfile = (values) => {
-    console.log(values);
+    const {updateProfile, queryProfile} = this.props;
+    updateProfile(values).then(() => {
+      queryProfile();
+    });
   };
 
   render() {
@@ -54,7 +57,7 @@ export default class Profile extends Component {
             <i className="fa fa-table"></i> 議員資料
           </div>
           <div className="card-body">
-            <form onSubmit={handleSubmit(this.insertProfile)}>
+            <form onSubmit={handleSubmit(this.updateProfile)}>
               <div className="form-group">
                 <div className="form-row">
                   <div className="col-md-6">

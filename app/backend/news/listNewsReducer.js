@@ -1,5 +1,7 @@
 import _ceil from 'lodash/ceil';
 import queryString from 'query-string';
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import htmlToDraft from 'html-to-draftjs';
 
 const LIST = 'council/backend/news/LIST';
 const FETCHING = 'council/backend/news/FETCHING';
@@ -11,17 +13,42 @@ const PUBLISH_SUCCESS = 'council/backend/news/PUBLISH_SUCCESS';
 const TAKEDOWN = 'council/backend/news/TAKEDOWN';
 const TAKEDOWN_SUCCESS = 'council/backend/news/TAKEDOWN_SUCCESS';
 
+const ADD = 'council/backend/news/ADD';
+const ADD_SUCCESS = 'council/backend/news/ADD_SUCCESS';
+const EDIT = 'council/backend/news/EDIT';
+const EDIT_SUCCESS = 'council/backend/news/EDIT_SUCCESS';
+const OPEN_ADD_NEWS = 'council/backend/news/OPEN_ADD_NEWS';
+const CLOSE_ADD_NEWS = 'council/backend/news/CLOSE_ADD_NEWS';
+const LOAD_NEWS = 'council/backend/LOAD_NEWS';
+const LOAD_NEWS_SUCCESS = 'council/backend/LOAD_NEWS_SUCCESS';
+
 const initialState = {
   loaded: false,
   grid: {
     loading: false,
-    sort: 'no',
+    sort: 'id',
     asc: true,
     page: 1,
     numPerPage: 10,
     pages: 1,
     totalSize: 0,
     table: 'news'
+  },
+  addnews: {
+    title: '',
+    source: '',
+    url: '',
+    content: '',
+    contentEditor: EditorState.createEmpty(),
+    isOpen: false
+  },
+  editnews: {
+    id: undefined,
+    title: '',
+    source: '',
+    url: '',
+    content: '',
+    contentEditor: EditorState.createEmpty(),
   }
 };
 
@@ -50,7 +77,7 @@ export default function reducer(state = initialState, action = {}) {
           totalSize: action.totalSize[0].totalSize,
           pages: _ceil(action.totalSize[0].totalSize / state.grid.numPerPage)
         },
-        proceedings: action.proceedings
+        news: action.news
       };
     case SORT:
       return {
@@ -68,6 +95,40 @@ export default function reducer(state = initialState, action = {}) {
         grid: {
           ...state.grid,
           page: action.page
+        }
+      };
+    case OPEN_ADD_NEWS:
+      return {
+        ...state,
+        addnews: {
+          ...state.addnews,
+          isOpen: true
+        }
+      };
+    case CLOSE_ADD_NEWS:
+      return {
+        ...state,
+        addnews: {
+          ...initialState.addnews
+        }
+      };
+    case LOAD_NEWS_SUCCESS:
+      const news = action.news[0];
+      const newsBlockFromHtml = htmlToDraft(news.content);
+      return {
+        ...state,
+        editnews: {
+          ...state.editnews,
+          id: news.id,
+          title: news.title,
+          content: news.content,
+          contentEditor: EditorState.createWithContent(ContentState.createFromBlockArray(newsBlockFromHtml.contentBlocks, newsBlockFromHtml.entityMap)),
+          url: news.url,
+          source: news.source,
+          createdTime: news.createdTime,
+          lastModified: news.lastModified,
+          date: news.date,
+          status: news.status
         }
       };
     default:
@@ -113,7 +174,7 @@ function fetchListSuccess(news) {
   console.log(news[1]);
   return {
     type: FETCH_LIST_SUCCESS,
-    proceedings: news[0],
+    news: news[0],
     totalSize: news[1]
   };
 }
@@ -130,4 +191,75 @@ function buildQueryStringSql(rootState) {
     table: grid.table
   };
   return '?' + queryString.stringify((params));
+}
+
+export function addNews(values) {
+  const params = {
+    title: values.title,
+    content: values.content,
+    url: values.url,
+    source: values.source
+  };
+  return (dispatch) => {
+    dispatch({type: ADD});
+    return fetch('/api/council/insert', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({table: 'news', data: params})
+    }).then(response => response.json())
+      .then(json => dispatch({type: ADD_SUCCESS}));
+  };
+}
+
+export function openModal() {
+  return ({
+    type: OPEN_ADD_NEWS
+  });
+}
+
+export function closeModal() {
+  return ({
+    type: CLOSE_ADD_NEWS
+  });
+}
+
+export function loadNews(id) {
+  return (dispatch) => {
+    dispatch({type: LOAD_NEWS});
+    return fetch(`/api/council/query-data?id=${id}&table=news`, {
+      credentials: 'same-origin',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(response => response.json())
+      .then(json => dispatch({type: LOAD_NEWS_SUCCESS, news: json}));
+  };
+}
+
+export function updateNews(values) {
+  const params = {
+    title: values.title,
+    content: values.content,
+    url: values.url,
+    status: values.status,
+    source: values.source
+  };
+  return (dispatch) => {
+    dispatch({type: EDIT});
+    return fetch('/api/council/update', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({table: 'news', no: {id: values.id}, data: params})
+    }).then(response => response.json())
+      .then(json => dispatch({type: EDIT_SUCCESS}));
+  };
 }

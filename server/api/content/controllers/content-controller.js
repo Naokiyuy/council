@@ -10,7 +10,7 @@ const controller = {
   queryDB,
   insertDB,
   updateDB,
-  queryProfile
+  queryData
 };
 
 export default controller;
@@ -23,7 +23,7 @@ function routes(app) {
   app.get('/api/council/list', controller.queryDB);
   app.post('/api/council/insert', controller.insertDB);
   app.post('/api/council/update', controller.updateDB);
-  app.get('/api/council/query-profile', controller.queryProfile);
+  app.get('/api/council/query-data', controller.queryData);
 }
 
 function search(req, res, next) {
@@ -147,7 +147,7 @@ function updateDB(req, res, next) {
       return next(err);
     }
     const sqlQuery = `UPDATE ${params.table} SET ? WHERE ?`;
-    const queryString = con.query(sqlQuery, [params.isShow, params.no], function (err, results) {
+    const queryString = con.query(sqlQuery, [params.data, params.no], function (err, results) {
       if (err) {
         return next(err);
       }
@@ -181,8 +181,8 @@ function insertDB(req, res, next) {
   });
 }
 
-function queryProfile(req, res, next) {
-  const params = _.merge(req.query, {table: 'profile'});
+function queryData(req, res, next) {
+  const params = _.merge(req.query, {});
   req.getConnection(function (err, con) {
     if (err) {
       return next(err);
