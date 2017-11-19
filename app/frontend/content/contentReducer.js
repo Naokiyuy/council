@@ -8,11 +8,26 @@ const LOAD = 'council/home/index/LOAD';
 const LOAD_SUCCESS = 'council/home/index/LOAD_SUCCESS';
 const QUERY = 'council/home/index/QUERY';
 
+const LOAD_PROFILE = 'council/home/index/LOAD_PROFILE';
+const LOAD_PROFILE_SUCCESS = 'council/home/index/LOAD_PROFILE_SUCCESS';
+
 const initialState = {
   councilDataYearly:{data: {}, loaded: false},
   councilDataCouncil: {data: {}, loaded: false},
   councilPerson: {data: {}, loaded: false},
-  councilAdministrative: {data: {}, loaded: false}
+  councilAdministrative: {data: {}, loaded: false},
+  profile: {
+    membername: '',
+    politics: {
+      content: ''
+    },
+    lifestory: {
+      content: ''
+    },
+    remarks: {
+      content: ''
+    }
+  }
 };
 
 export default function reduce(state = initialState, action = {}) {
@@ -70,6 +85,23 @@ export default function reduce(state = initialState, action = {}) {
           }
         };
       }
+    case LOAD_PROFILE_SUCCESS:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          membername: action.profile.name,
+          politics: {
+            content: action.profile.politics
+          },
+          lifestory: {
+            content: action.profile.lifestory
+          },
+          remarks: {
+            content: action.profile.remarks
+          }
+        }
+      };
     default:
       return state;
   }
@@ -109,5 +141,19 @@ function loadSuccess(classify, result) {
     type: LOAD_SUCCESS,
     classify: classify,
     data: result
+  };
+}
+
+export function loadProfile() {
+  return (dispatch) => {
+    dispatch({type: LOAD_PROFILE});
+    return fetch('/api/council/query-data?id=1&table=profile', {
+      credentials: 'same-origin',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(response => response.json())
+      .then(json => dispatch({type: LOAD_PROFILE_SUCCESS, profile: json[0]}));
   };
 }
