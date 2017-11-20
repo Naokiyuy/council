@@ -44,7 +44,7 @@ export default class Header extends Component {
               </ul>
             </li>
             <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-              <Link className="nav-link" to="/backend/profile">
+              <Link className="nav-link" to="/backend/profiles">
                 <i className="fa fa-fw fa-table"></i>
                 <span className="nav-link-text">議員資料管理</span>
               </Link>
