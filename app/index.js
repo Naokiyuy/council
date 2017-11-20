@@ -98,6 +98,7 @@ ReactDOM.render(
             <Route name="公告訊息管理" path="/backend/messages" getComponent={(l, cb) => System.import('./backend/messages/ListMessages').then(loadRoute(cb))} />
             <Route name="編輯公告訊息" path="/backend/messages/:id/edit" getComponent={(l, cb) => System.import('./backend/messages/EditMessage').then(loadRoute(cb))}/>
             <Route name="服務行程管理" path="/backend/services" getComponent={(l, cb) => System.import('./backend/services/ListServices').then(loadRoute(cb))} />
+            <Route name="編輯服務行程" path="/backend/services/:id/edit" getComponent={(l, cb) => System.import('./backend/services/EditService').then(loadRoute(cb))}/>
             <Route name="議員資料管理" path="/backend/profile" getComponent={(l, cb) => System.import('./backend/profile/Profile').then(loadRoute(cb))} />
           </Route>
           <Route name="Not found" path="*" component={NotFound}/>

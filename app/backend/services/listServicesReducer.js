@@ -1,5 +1,7 @@
 import _ceil from 'lodash/ceil';
 import queryString from 'query-string';
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import htmlToDraft from 'html-to-draftjs';
 
 const LIST = 'council/backend/services/LIST';
 const FETCHING = 'council/backend/services/FETCHING';
@@ -10,6 +12,15 @@ const PUBLISH = 'council/backend/services/PUBLISH';
 const PUBLISH_SUCCESS = 'council/backend/services/PUBLISH_SUCCESS';
 const TAKEDOWN = 'council/backend/services/TAKEDOWN';
 const TAKEDOWN_SUCCESS = 'council/backend/services/TAKEDOWN_SUCCESS';
+
+const ADD = 'council/backend/services/ADD';
+const ADD_SUCCESS = 'council/backend/services/ADD_SUCCESS';
+const EDIT = 'council/backend/services/EDIT';
+const EDIT_SUCCESS = 'council/backend/services/EDIT_SUCCESS';
+const OPEN_ADD_SERVICE = 'council/backend/services/OPEN_ADD_SERVICE';
+const CLOSE_ADD_SERVICE = 'council/backend/services/CLOSE_ADD_SERVICE';
+const LOAD_SERVICE = 'council/backend/services/LOAD_SERVICE';
+const LOAD_SERVICE_SUCCESS = 'council/backend/services/LOAD_SERVICE_SUCCESS';
 
 const initialState = {
   loaded: false,
@@ -22,6 +33,20 @@ const initialState = {
     pages: 1,
     totalSize: 0,
     table: 'services'
+  },
+  addservice: {
+    title: '',
+    source: '',
+    date: '',
+    contentEditor: EditorState.createEmpty(),
+    isOpen: false
+  },
+  editservice: {
+    id: undefined,
+    title: '',
+    date: '',
+    content: '',
+    contentEditor: EditorState.createEmpty(),
   }
 };
 
@@ -50,7 +75,7 @@ export default function reducer(state = initialState, action = {}) {
           totalSize: action.totalSize[0].totalSize,
           pages: _ceil(action.totalSize[0].totalSize / state.grid.numPerPage)
         },
-        proceedings: action.proceedings
+        services: action.services
       };
     case SORT:
       return {
@@ -68,6 +93,38 @@ export default function reducer(state = initialState, action = {}) {
         grid: {
           ...state.grid,
           page: action.page
+        }
+      };
+    case OPEN_ADD_SERVICE:
+      return {
+        ...state,
+        addservice: {
+          ...state.addservice,
+          isOpen: true
+        }
+      };
+    case CLOSE_ADD_SERVICE:
+      return {
+        ...state,
+        addservice: {
+          ...initialState.addservice
+        }
+      };
+    case LOAD_SERVICE_SUCCESS:
+      const service = action.services[0];
+      const serviceBlockFromHtml = htmlToDraft(service.content);
+      return {
+        ...state,
+        editservice: {
+          ...state.editservice,
+          id: service.id,
+          title: service.title,
+          content: service.content,
+          contentEditor: EditorState.createWithContent(ContentState.createFromBlockArray(serviceBlockFromHtml.contentBlocks, serviceBlockFromHtml.entityMap)),
+          createdTime: service.createdTime,
+          lastModified: service.lastModified,
+          date: service.date,
+          status: service.status
         }
       };
     default:
@@ -113,13 +170,13 @@ function fetchListSuccess(services) {
   console.log(services[1]);
   return {
     type: FETCH_LIST_SUCCESS,
-    proceedings: services[0],
+    services: services[0],
     totalSize: services[1]
   };
 }
 
 function buildQueryStringSql(rootState) {
-  const grid = rootState.backend.news.grid;
+  const grid = rootState.backend.services.grid;
   const params = {
     sortBy: grid.sort,
     asc: grid.asc,
@@ -130,4 +187,73 @@ function buildQueryStringSql(rootState) {
     table: grid.table
   };
   return '?' + queryString.stringify((params));
+}
+
+export function addService(values) {
+  const params = {
+    title: values.title,
+    content: values.content,
+    date: values.date
+  };
+  return (dispatch) => {
+    dispatch({type: ADD});
+    return fetch('/api/council/insert', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({table: 'services', data: params})
+    }).then(response => response.json())
+      .then(json => dispatch({type: ADD_SUCCESS}));
+  };
+}
+
+export function openModal() {
+  return ({
+    type: OPEN_ADD_SERVICE
+  });
+}
+
+export function closeModal() {
+  return ({
+    type: CLOSE_ADD_SERVICE
+  });
+}
+
+export function loadService(id) {
+  return (dispatch) => {
+    dispatch({type: LOAD_SERVICE});
+    return fetch(`/api/council/query-data?id=${id}&table=services`, {
+      credentials: 'same-origin',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(response => response.json())
+      .then(json => dispatch({type: LOAD_SERVICE_SUCCESS, services: json}));
+  };
+}
+
+export function updateService(values) {
+  const params = {
+    title: values.title,
+    content: values.content,
+    date: values.date,
+    status: values.status
+  };
+  return (dispatch) => {
+    dispatch({type: EDIT});
+    return fetch('/api/council/update', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({table: 'services', no: {id: values.id}, data: params})
+    }).then(response => response.json())
+      .then(json => dispatch({type: EDIT_SUCCESS}));
+  };
 }

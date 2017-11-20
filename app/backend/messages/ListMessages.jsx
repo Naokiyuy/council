@@ -11,7 +11,6 @@ import {Link} from 'react-router/es6';
   loaded: state.backend.messages.loaded,
   messages: state.backend.messages.messages
 }), dispatch => bindActionCreators(actionCreators, dispatch))
-
 export default class ListMessages extends Component {
   componentDidMount() {
     const {list} = this.props;
