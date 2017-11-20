@@ -77,7 +77,7 @@ export default function reducer(state = initialState, action = {}) {
           totalSize: action.totalSize[0].totalSize,
           pages: _ceil(action.totalSize[0].totalSize / state.grid.numPerPage)
         },
-        proceedings: action.proceedings
+        messages: action.messages
       };
     case SORT:
       return {
@@ -113,7 +113,7 @@ export default function reducer(state = initialState, action = {}) {
         }
       };
     case LOAD_MESSAGE_SUCCESS:
-      const message = action.message[0];
+      const message = action.messages[0];
       const messageBlockFromHtml = htmlToDraft(message.content);
       return {
         ...state,
@@ -172,13 +172,13 @@ function fetchListSuccess(messages) {
   console.log(messages[1]);
   return {
     type: FETCH_LIST_SUCCESS,
-    proceedings: messages[0],
+    messages: messages[0],
     totalSize: messages[1]
   };
 }
 
 function buildQueryStringSql(rootState) {
-  const grid = rootState.backend.news.grid;
+  const grid = rootState.backend.messages.grid;
   const params = {
     sortBy: grid.sort,
     asc: grid.asc,
@@ -214,13 +214,13 @@ export function addMessage(values) {
 
 export function openModal() {
   return ({
-    type: OPEN_ADD_NEWS
+    type: OPEN_ADD_MESSAGE
   });
 }
 
 export function closeModal() {
   return ({
-    type: CLOSE_ADD_NEWS
+    type: CLOSE_ADD_MESSAGE
   });
 }
 
@@ -234,7 +234,7 @@ export function loadMessage(id) {
         'Content-Type': 'application/json'
       }
     }).then(response => response.json())
-      .then(json => dispatch({type: LOAD_MESSAGE_SUCCESS, message: json}));
+      .then(json => dispatch({type: LOAD_MESSAGE_SUCCESS, messages: json}));
   };
 }
 

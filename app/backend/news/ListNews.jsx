@@ -8,6 +8,7 @@ import NewsStatus from './components/NewsStatus';
 import {Link} from 'react-router/es6';
 
 @connect(state => ({
+  loaded: state.backend.news.loaded,
   news: state.backend.news.news
 }), dispatch => bindActionCreators(actionCreators, dispatch))
 export default class ListNews extends Component {
@@ -16,8 +17,8 @@ export default class ListNews extends Component {
     list();
   }
   render() {
-    const {openModal, news, grid, page} = this.props;
-    if (!news) {
+    const {openModal, news, grid, page, loaded} = this.props;
+    if (!loaded) {
       return false;
     }
     return (
@@ -48,6 +49,11 @@ export default class ListNews extends Component {
                   </tr>
                   </thead>
                   <tbody>
+                  {!news &&
+                  <tr>
+                    <td colSpan={7} className={"text-center"}>沒有新聞</td>
+                  </tr>
+                  }
                   {news && news.map(n =>
                     <tr key={n.id}>
                       <td>{n.id}</td>
