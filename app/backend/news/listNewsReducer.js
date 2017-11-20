@@ -19,8 +19,8 @@ const EDIT = 'council/backend/news/EDIT';
 const EDIT_SUCCESS = 'council/backend/news/EDIT_SUCCESS';
 const OPEN_ADD_NEWS = 'council/backend/news/OPEN_ADD_NEWS';
 const CLOSE_ADD_NEWS = 'council/backend/news/CLOSE_ADD_NEWS';
-const LOAD_NEWS = 'council/backend/LOAD_NEWS';
-const LOAD_NEWS_SUCCESS = 'council/backend/LOAD_NEWS_SUCCESS';
+const LOAD_NEWS = 'council/backend/news/LOAD_NEWS';
+const LOAD_NEWS_SUCCESS = 'council/backend/news/LOAD_NEWS_SUCCESS';
 
 const initialState = {
   loaded: false,
