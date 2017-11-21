@@ -144,10 +144,10 @@ function loadSuccess(classify, result) {
   };
 }
 
-export function loadProfile() {
+export function loadProfile(name) {
   return (dispatch) => {
     dispatch({type: LOAD_PROFILE});
-    return fetch('/api/council/query-data?id=1&table=profile', {
+    return fetch(`/api/council/query-profile?name=${name}&table=profiles`, {
       credentials: 'same-origin',
       headers: {
         'Accept': 'application/json',

@@ -18,8 +18,8 @@ import {bindActionCreators} from 'redux';
 }), dispatch => bindActionCreators(actionCreators, dispatch))
 export default class Content extends Component {
   componentDidMount() {
-    const {queryCouncilData, loadProfile} = this.props;
-    loadProfile().then(r => {
+    const {queryCouncilData, loadProfile, params} = this.props;
+    loadProfile(params.name).then(r => {
       queryCouncilData({q: r.profile.name, classify: 'year'});
       queryCouncilData({q: r.profile.name, classify: 'councilNumber'});
       queryCouncilData({q: r.profile.name, classify: 'person'});

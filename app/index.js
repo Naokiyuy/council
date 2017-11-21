@@ -82,7 +82,7 @@ ReactDOM.render(
         <Route name="" path="/" component={App}>
           <IndexRoute getComponent={(l, cb) => System.import('./frontend/home/Home').then(loadRoute(cb))}/>
           <Route name="首頁" path="/main" getComponent={(l, cb) => System.import('./frontend/home/Home').then(loadRoute(cb))}>
-            <Route name="" path="/main/index" getComponent={(l, cb) => System.import('./frontend/content/Content').then(loadRoute(cb))}/>
+            <Route name="" path="/main/:name/index" getComponent={(l, cb) => System.import('./frontend/content/Content').then(loadRoute(cb))}/>
             <Route name="內容" path="/main/others" getComponent={(l, cb) => System.import('./frontend/content/Others').then(loadRoute(cb))}>
               <Route name="公告消息" path="/main/others/info" getComponent={(l, cb) => System.import('./frontend/content/info/Info').then(loadRoute(cb))} />
               <Route name="新聞訊息" path="/main/others/news" getComponent={(l, cb) => System.import('./frontend/content/news/News').then(loadRoute(cb))} />
