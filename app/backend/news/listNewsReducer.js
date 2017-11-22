@@ -253,7 +253,8 @@ export function updateNews(values) {
     content: values.content,
     url: values.url,
     status: values.status,
-    source: values.source
+    source: values.source,
+    date: values.date.toISOString()
   };
   return (dispatch) => {
     dispatch({type: EDIT});

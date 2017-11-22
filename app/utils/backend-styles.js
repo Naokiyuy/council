@@ -7,3 +7,4 @@ import 'font-awesome/css/font-awesome.min.css';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import '../assets/styles/css/font.css';
 import '../assets/styles/css/custom.css';
+import 'react-datetime/css/react-datetime.css';

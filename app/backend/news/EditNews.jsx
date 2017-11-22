@@ -8,6 +8,8 @@ import draftToHtml from 'draftjs-to-html';
 import {Link, browserHistory} from 'react-router/es6';
 import config from '../../utils/config/globals';
 import {FormattedDate} from 'react-intl';
+import DateTimeField from 'react-datetime';
+import moment from 'moment';
 
 @reduxForm({
     form: 'editnewsform',
@@ -35,6 +37,11 @@ export default class EditNews extends Component {
     editor.onChange(value);
     textField.onChange(draftToHtml(convertToRaw(value.getCurrentContent())));
   };
+
+  onDatePick = (newDate, date) => {
+    date.onChange(moment(newDate, 'x').toDate());
+  };
+
   render() {
     const {
       fields: {membername, title, source, url, content, contentEditor, createdTime, lastModified, status, date},
@@ -99,8 +106,9 @@ export default class EditNews extends Component {
                   </div>
                   <div className="col-md-4">
                     <label htmlFor={"date"}>新聞時間</label>
-                    <input className="form-control" id="date" type="text" aria-describedby="nameHelp"
-                           placeholder="新聞時間" {...date}
+                    <DateTimeField value={moment(date.value)}
+                                   onChange={(newDate) => this.onDatePick(newDate, date)}
+                                   timeFormat="hh:00 A"
                     />
                   </div>
                 </div>
