@@ -92,6 +92,9 @@ export default function reduce(state = initialState, action = {}) {
         };
       }
     case LOAD_PROFILE_SUCCESS:
+      if (!action.profile) {
+        return state;
+      }
       return {
         ...state,
         profile: {

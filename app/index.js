@@ -81,14 +81,15 @@ ReactDOM.render(
       <Router history={history} render={applyRouterMiddleware(useScroll())}>
         <Route name="" path="/" component={App}>
           <IndexRoute getComponent={(l, cb) => System.import('./frontend/home/Home').then(loadRoute(cb))}/>
-          <Route name="首頁" path="/" getComponent={(l, cb) => System.import('./frontend/home/Home').then(loadRoute(cb))}>
-            <Route name="" path="/frontend/:name" getComponent={(l, cb) => System.import('./frontend/content/Content').then(loadRoute(cb))}/>
+          <Route name="" path="/" getComponent={(l, cb) => System.import('./frontend/home/Home').then(loadRoute(cb))}>
+            <Route name="首頁" path="/frontend/:name" getComponent={(l, cb) => System.import('./frontend/content/Content').then(loadRoute(cb))}/>
             <Route name="內容" path="/frontend/:name/others" getComponent={(l, cb) => System.import('./frontend/content/Others').then(loadRoute(cb))}>
               <Route name="公告消息" path="/frontend/:name/others/info" getComponent={(l, cb) => System.import('./frontend/content/info/Info').then(loadRoute(cb))} />
               <Route name="新聞訊息" path="/frontend/:name/others/news" getComponent={(l, cb) => System.import('./frontend/content/news/News').then(loadRoute(cb))} />
               <Route name="議員簡介" path="/frontend/:name/others/profile" getComponent={(l, cb) => System.import('./frontend/content/profile/Profile').then(loadRoute(cb))} />
               <Route name="議事訊息" path="/frontend/:name/others/council" getComponent={(l, cb) => System.import('./frontend/content/council/Council').then(loadRoute(cb))} />
               <Route name="服務行程" path="/frontend/:name/others/service" getComponent={(l, cb) => System.import('./frontend/content/service/Service').then(loadRoute(cb))} />
+              <Route name="訊息內容" path="/frontend/:name/others/council/:id" getComponent={(l, cb) => System.import('./frontend/content/detail/Detail').then(loadRoute(cb))} />
             </Route>
           </Route>
           <Route name="Backend" path="/backend" getComponent={(l, cb) => System.import('./backend/home/Home').then(loadRoute(cb))}>
