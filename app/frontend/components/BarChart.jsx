@@ -58,7 +58,7 @@ export default class BarChart extends Component {
           colors: colors,
           point: {
             events: {
-              click: callback(this.category)
+              mouseOver: callback(event)
             }
           }
         }

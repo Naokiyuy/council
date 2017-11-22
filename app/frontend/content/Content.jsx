@@ -43,40 +43,43 @@ export default class Content extends Component {
     });
   };
 
-  pieCallback = (councilNumber) => {
+  pieCallback = (e) => {
+    console.log(e);
     const {queryCouncilData, profile} = this.props;
+    const councilName = e.target.name;
     queryCouncilData({
       q: profile.membername,
-      councilNumber: this.getCouncilNumber(councilNumber.point.name),
+      councilNumber: this.getCouncilNumber(councilName),
       classify: 'year'
     });
     queryCouncilData({
       q: profile.membername,
-      councilNumber: this.getCouncilNumber(councilNumber.point.name),
+      councilNumber: this.getCouncilNumber(councilName),
       classify: 'person'
     });
     queryCouncilData({
       q: profile.membername,
-      councilNumber: this.getCouncilNumber(councilNumber.point.name),
+      councilNumber: this.getCouncilNumber(councilName),
       classify: 'administrative'
     });
   };
 
   barCallback = (e) => {
     const {queryCouncilData, profile} = this.props;
+    const category = e.target.category;
     queryCouncilData({
       q: profile.membername,
-      year: e.point.category,
+      year: category,
       classify: 'councilNumber'
     });
     queryCouncilData({
       q: profile.membername,
-      year: e.point.category,
+      year: category,
       classify: 'person'
     });
     queryCouncilData({
       q: profile.membername,
-      year: e.point.category,
+      year: category,
       classify: 'administrative'
     });
   };
