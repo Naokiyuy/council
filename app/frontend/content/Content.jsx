@@ -136,7 +136,7 @@ export default class Content extends Component {
     }
 
     return (
-      <div className="container content profile" style={{paddingBottom: '0px'}}>
+      <div className="container content profile" style={{paddingBottom: '0px'}} onClick={this.restore}>
         <div className="row margin-bottom-30">
           <div className="col-md-8 md-margin-bottom-40">
             <div className="headline"><h2>{profile.membername}議員</h2></div>
