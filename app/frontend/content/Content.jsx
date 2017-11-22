@@ -17,16 +17,23 @@ import councilNumbers from '../../utils/config/councilNumber';
   councilDataYearly: state.content.councilDataYearly,
   councilDataCouncil: state.content.councilDataCouncil,
   councilPerson: state.content.councilPerson,
-  councilAdministrative: state.content.councilAdministrative
+  councilAdministrative: state.content.councilAdministrative,
+  news: state.content.news,
+  messages: state.content.messages,
+  services: state.content.services
 }), dispatch => bindActionCreators(actionCreators, dispatch))
 export default class Content extends Component {
   componentDidMount() {
-    const {queryCouncilData, loadProfile, params} = this.props;
+    const {queryCouncilData, loadProfile, params, loadNews, loadMessages, loadServices} = this.props;
     loadProfile(params.name).then(r => {
       queryCouncilData({q: r.profile.name, classify: 'year'});
       queryCouncilData({q: r.profile.name, classify: 'councilNumber'});
       queryCouncilData({q: r.profile.name, classify: 'person'});
       queryCouncilData({q: r.profile.name, classify: 'administrative'});
+
+      loadNews(r.profile.name);
+      loadMessages(r.profile.name);
+      loadServices(r.profile.name);
     });
   }
 
@@ -115,9 +122,9 @@ export default class Content extends Component {
   };
 
   render() {
-    const {councilDataYearly, councilDataCouncil, councilPerson, councilAdministrative, profile} = this.props;
+    const {councilDataYearly, councilDataCouncil, councilPerson, councilAdministrative, profile, news, messages, services} = this.props;
 
-    if (!profile) {
+    if (!profile || !news || !messages || !services) {
       return false;
     }
 
@@ -261,72 +268,33 @@ export default class Content extends Component {
           </div>
           <div className="row job-content">
             <div className="col-md-4 col-sm-6 md-margin-bottom-40">
-
-              <ul className="list-unstyled categories">
-                <li><a href="#">1.最新消息標題(後台上稿)</a>
-                  <small className="hex">(1980-10-13)</small>
-                </li>
-                <li><a href="#">2.最新消息標題(後台上稿)</a>
-                  <small className="hex">(1980-10-13)</small>
-                </li>
-                <li><a href="#">3.最新消息標題(後台上稿)</a>
-                  <small className="hex">(1980-10-13)</small>
-                </li>
-                <li><a href="#">4.最新消息標題(後台上稿)</a>
-                  <small className="hex">(1980-10-13)</small>
-                </li>
-                <li><a href="#">5.最新消息標題(後台上稿)</a>
-                  <small className="hex">(1980-10-13)</small>
-                </li>
-                <li><a href="#">6.最新消息標題(後台上稿)</a>
-                  <small className="hex">(1980-10-13)</small>
-                </li>
+              <ul className="list-unstyled categories" style={{listStyleType: 'lower-roman'}}>
+                {messages[0] && messages[0].map(m =>
+                  <li>
+                    <a href="#">{m.title}</a>
+                    <small className="hex">(1980-10-13)</small>
+                  </li>
+                )}
               </ul>
             </div>
             <div className="col-md-4 col-sm-6 md-margin-bottom-40">
-
-              <ul className="list-unstyled categories">
-                <li><a href="#">1.相關新聞標題(後台上稿)</a>
-                  <small className="hex">(1980-10-13)</small>
-                </li>
-                <li><a href="#">2.相關新聞標題(後台上稿)</a>
-                  <small className="hex">(1980-10-13)</small>
-                </li>
-                <li><a href="#">3.相關新聞標題(後台上稿)</a>
-                  <small className="hex">(1980-10-13)</small>
-                </li>
-                <li><a href="#">4.相關新聞標題(後台上稿)</a>
-                  <small className="hex">(1980-10-13)</small>
-                </li>
-                <li><a href="#">5.相關新聞標題(後台上稿)</a>
-                  <small className="hex">(1980-10-13)</small>
-                </li>
-                <li><a href="#">6.相關新聞標題(後台上稿)</a>
-                  <small className="hex">(1980-10-13)</small>
-                </li>
+              <ul className="list-unstyled categories" style={{listStyleType: 'lower-roman'}}>
+                {news[0] && news[0].map(n =>
+                  <li>
+                    <a href="#">{n.title}</a>
+                    <small className="hex">(1980-10-13)</small>
+                  </li>
+                )}
               </ul>
             </div>
             <div className="col-md-4 col-sm-6 md-margin-bottom-40">
-
-              <ul className="list-unstyled categories">
-                <li><a href="#">1.服務行程(後台上稿)</a>
-                  <small className="hex">(1980-10-13)</small>
-                </li>
-                <li><a href="#">2.服務行程(後台上稿)</a>
-                  <small className="hex">(1980-10-13)</small>
-                </li>
-                <li><a href="#">3.服務行程(後台上稿)</a>
-                  <small className="hex">(1980-10-13)</small>
-                </li>
-                <li><a href="#">4.服務行程(後台上稿)</a>
-                  <small className="hex">(1980-10-13)</small>
-                </li>
-                <li><a href="#">5.服務行程(後台上稿)</a>
-                  <small className="hex">(1980-10-13)</small>
-                </li>
-                <li><a href="#">6.服務行程(後台上稿)</a>
-                  <small className="hex">(1980-10-13)</small>
-                </li>
+              <ul className="list-unstyled categories" style={{listStyleType: 'lower-roman'}}>
+                {services[0] && services[0].map(s =>
+                  <li>
+                    <a href="#">{s.title}</a>
+                    <small className="hex">(1980-10-13)</small>
+                  </li>
+                )}
               </ul>
             </div>
           </div>

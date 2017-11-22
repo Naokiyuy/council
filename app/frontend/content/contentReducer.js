@@ -10,6 +10,12 @@ const QUERY = 'council/home/index/QUERY';
 
 const LOAD_PROFILE = 'council/home/index/LOAD_PROFILE';
 const LOAD_PROFILE_SUCCESS = 'council/home/index/LOAD_PROFILE_SUCCESS';
+const LOAD_NEWS = 'council/home/index/LOAD_NEWS';
+const LOAD_NEWS_SUCCESS = 'council/home/index/LOAD_NEWS_SUCCESS';
+const LOAD_MESSAGES = 'council/home/index/LOAD_MESSAGES';
+const LOAD_MESSAGES_SUCCESS = 'council/home/index/LOAD_MESSAGES_SUCCESS';
+const LOAD_SERVICE = 'council/home/index/LOAD_SERVICE';
+const LOAD_SERVICE_SUCCESS = 'council/home/index/LOAD_SERVICE_SUCCESS';
 
 const initialState = {
   councilDataYearly:{data: {}, loaded: false},
@@ -102,6 +108,21 @@ export default function reduce(state = initialState, action = {}) {
           }
         }
       };
+    case LOAD_NEWS_SUCCESS:
+      return {
+        ...state,
+        news : action.news
+      };
+    case LOAD_MESSAGES_SUCCESS:
+      return {
+        ...state,
+        messages: action.messages
+      };
+    case LOAD_SERVICE_SUCCESS:
+      return {
+        ...state,
+        services: action.services
+    };
     default:
       return state;
   }
@@ -155,5 +176,35 @@ export function loadProfile(name) {
       }
     }).then(response => response.json())
       .then(json => dispatch({type: LOAD_PROFILE_SUCCESS, profile: json[0]}));
+  };
+}
+
+export function loadNews(name) {
+  return (dispatch) => {
+    dispatch({type: LOAD_NEWS});
+    return fetch(`/api/council/list?name=${name}&offset=0&limit=10&table=news`, {
+      credentials: 'same-origin'
+    }).then(response => response.json())
+      .then(json => dispatch({type: LOAD_NEWS_SUCCESS, news: json}));
+  };
+}
+
+export function loadMessages(name) {
+  return (dispatch) => {
+    dispatch({type: LOAD_MESSAGES});
+    return fetch(`/api/council/list?name=${name}&offset=0&limit=10&table=messages`, {
+      credentials: 'same-origin'
+    }).then(response => response.json())
+      .then(json => dispatch({type: LOAD_MESSAGES_SUCCESS, messages: json}));
+  };
+}
+
+export function loadServices(name) {
+  return (dispatch) => {
+    dispatch({type: LOAD_SERVICE});
+    return fetch(`/api/council/list?name=${name}&offset=0&limit=10&table=services`, {
+      credentials: 'same-origin'
+    }).then(response => response.json())
+      .then(json => dispatch({type: LOAD_SERVICE_SUCCESS, services: json}));
   };
 }
