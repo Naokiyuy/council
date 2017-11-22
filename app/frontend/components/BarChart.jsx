@@ -4,7 +4,7 @@ import Spinner from 'react-spinkit';
 
 export default class BarChart extends Component {
   render() {
-    const {data, loaded} = this.props;
+    const {data, loaded, callback, restore} = this.props;
 
     if (!loaded) {
       return (<Spinner style={{textAlign: 'center', lineHeight: '400px'}} spinnerName="three-bounce" noFadeIn/>);
@@ -55,7 +55,12 @@ export default class BarChart extends Component {
         },
         series: {
           colorByPoint: true,
-          colors: colors
+          colors: colors,
+          point: {
+            events: {
+              click: callback(this.category)
+            }
+          }
         }
       },
       legend: {

@@ -8,6 +8,9 @@ import {LinkContainer} from 'react-router-bootstrap';
 import {connect} from 'react-redux';
 import * as actionCreators from './contentReducer';
 import {bindActionCreators} from 'redux';
+import _findKey from 'lodash/findKey';
+
+import councilNumbers from '../../utils/config/councilNumber';
 
 @connect(state => ({
   profile: state.content.profile,
@@ -26,6 +29,90 @@ export default class Content extends Component {
       queryCouncilData({q: r.profile.name, classify: 'administrative'});
     });
   }
+
+  getCouncilNumber = (text) => {
+    return _findKey(councilNumbers, c => {
+      return c === text;
+    });
+  };
+
+  pieCallback = (councilNumber) => {
+    const {queryCouncilData, profile} = this.props;
+    queryCouncilData({
+      q: profile.membername,
+      councilNumber: this.getCouncilNumber(councilNumber.point.name),
+      classify: 'year'
+    });
+    queryCouncilData({
+      q: profile.membername,
+      councilNumber: this.getCouncilNumber(councilNumber.point.name),
+      classify: 'person'
+    });
+    queryCouncilData({
+      q: profile.membername,
+      councilNumber: this.getCouncilNumber(councilNumber.point.name),
+      classify: 'administrative'
+    });
+  };
+
+  barCallback = (e) => {
+    const {queryCouncilData, profile} = this.props;
+    queryCouncilData({
+      q: profile.membername,
+      year: e.point.category,
+      classify: 'councilNumber'
+    });
+    queryCouncilData({
+      q: profile.membername,
+      year: e.point.category,
+      classify: 'person'
+    });
+    queryCouncilData({
+      q: profile.membername,
+      year: e.point.category,
+      classify: 'administrative'
+    });
+  };
+
+  personCallback = (person) => {
+    const {queryCouncilData, profile} = this.props;
+    queryCouncilData({
+      q: `${profile.membername}&${person}`,
+      classify: 'year'
+    });
+    queryCouncilData({
+      q: `${profile.membername}&${person}`,
+      classify: 'councilNumber'
+    });
+    queryCouncilData({
+      q: `${profile.membername}&${person}`,
+      classify: 'administrative'
+    });
+  };
+
+  administrativeCallback = (administrative) => {
+    const {queryCouncilData, profile} = this.props;
+    queryCouncilData({
+      q: `${profile.membername}&${administrative}`,
+      classify: 'year'
+    });
+    queryCouncilData({
+      q: `${profile.membername}&${administrative}`,
+      classify: 'councilNumber'
+    });
+    queryCouncilData({
+      q: `${profile.membername}&${administrative}`,
+      classify: 'person'
+    });
+  };
+
+  restore = () => {
+    const {queryCouncilData, profile} = this.props;
+    queryCouncilData({q: profile.membername, classify: 'year'});
+    queryCouncilData({q: profile.membername, classify: 'councilNumber'});
+    queryCouncilData({q: profile.membername, classify: 'person'});
+    queryCouncilData({q: profile.membername, classify: 'administrative'});
+  };
 
   render() {
     const {councilDataYearly, councilDataCouncil, councilPerson, councilAdministrative, profile} = this.props;
@@ -83,13 +170,13 @@ export default class Content extends Component {
         <div className="row">
 
           <div className="col-md-12">
-            <BarChart data={councilDataYearly.data} loaded={councilDataYearly.loaded}/>
+            <BarChart data={councilDataYearly.data} loaded={councilDataYearly.loaded} callback={() => this.barCallback} restore={this.restore}/>
           </div>
 
         </div>
         <div className="row" style={{marginTop: '40px'}}>
           <div className="col-md-6">
-            <PieChart data={councilDataCouncil.data} loaded={councilDataCouncil.loaded}/>
+            <PieChart data={councilDataCouncil.data} loaded={councilDataCouncil.loaded} callback={() => this.pieCallback} restore={this.restore}/>
           </div>
           <div className="col-md-3">
             <div className="tab-v1">
@@ -103,8 +190,8 @@ export default class Content extends Component {
                       <div key={p} className="panel panel-default">
                         <div className="panel-heading">
                           <h4 className="panel-title">
-                            <a href="#" data-parent="#accordion-v1" data-toggle="collapse" className="accordion-toggle"
-                               style={{cursor: 'default'}}>
+                            <a href="javascript:" data-parent="#accordion-v1" data-toggle="collapse" className="accordion-toggle"
+                               style={{cursor: 'pointer', textDecoration: 'none'}} onClick={() => this.personCallback(p)}>
                               {p}
                             </a>
                           </h4>
@@ -128,8 +215,8 @@ export default class Content extends Component {
                       <div key={a.administrative} className="panel panel-default">
                         <div className="panel-heading">
                           <h4 className="panel-title">
-                            <a href="#" data-parent="#accordion-v1" data-toggle="collapse" className="accordion-toggle"
-                               style={{cursor: 'default'}}>
+                            <a href="javascript:" data-parent="#accordion-v1" data-toggle="collapse" className="accordion-toggle"
+                               style={{cursor: 'pointer', textDecoration: 'none'}} onClick={() => this.administrativeCallback(a.administrative)}>
                               {a.administrative}
                             </a>
                           </h4>

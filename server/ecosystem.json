@@ -1,0 +1,24 @@
+{
+  "apps": [
+  {
+    "name": "council",
+    "script": "/vol/web/council/server/server.js",
+    "watch": true,
+    "exec_interpreter": "/usr/local/bin/babel-node",
+    "merge_logs": true,
+    "env": {
+      "NODE_ENV": "production",
+      "AWESOME_SERVICE_API_TOKEN": "xxx"
+    },
+    "env_demo": {
+      "NODE_ENV": "demo",
+      "AWESOME_SERVICE_API_TOKEN": "xxx"
+    },
+    "env_development": {
+      "NODE_ENV": "development",
+      "AWESOME_SERVICE_API_TOKEN": "xxx"
+    },
+    "exec_mode": "fork"
+  }
+]
+}

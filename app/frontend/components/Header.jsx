@@ -13,7 +13,7 @@ export default class Header extends Component {
     return (
       <div className="header ">
         <div className="container">
-          <Link className="logo" to="/main/index">
+          <Link className="logo" to="/">
             <h1>謝東閔議員主題網</h1>
           </Link>
         </div>

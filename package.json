@@ -1,4 +1,16 @@
 {
+  "name": "council_project",
+  "version": "1.0.0",
+  "description": "Council Project",
+  "main": "./server/server.js",
+  "scripts": {
+    "package": "gulp default"
+  },
+  "keywords": [
+    "council"
+  ],
+  "author": "blueplanet",
+  "license": "ISC",
   "dependencies": {
     "async": "^2.1.2",
     "autoprefixer": "^6.3.4",

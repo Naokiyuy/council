@@ -12,8 +12,8 @@ const getPlugins = function (environment, isDev) {
         }),
         new CopyWebpackPlugin([
             {
-                from: 'app/assets/static/',
-                to: '/assets/static/'
+                from: 'app/assets/',
+                to: '/assets/'
             }
         ]),
         new webpack.DefinePlugin({

@@ -15,7 +15,7 @@ import contentController from './api/content/controllers/content-controller';
 const env = process.env.NODE_ENV || 'development';
 const isDev = env === 'development';
 const app = express();
-app.use(cookieParser('ccconsole'));
+app.use(cookieParser('council'));
 
 if (isDev) {
   // const favicon = require('serve-favicon');
@@ -38,12 +38,12 @@ if (isDev) {
     }
   });
   app.use(express.static('../app/'));
-  // app.use(express.static('../public/'));
+  app.use(express.static('../public/'));
   app.use(middleware);
   app.use(require('webpack-hot-middleware')(compiler));
   app.use(session({
-    secret: 'ccconsole',
-    name: 'console',
+    secret: 'blueplanet',
+    name: 'council',
     key: 'sid',
     cookie: {
       maxAge: 86400000,
@@ -53,17 +53,10 @@ if (isDev) {
     resave: false
   }));
 } else {
-  const redis = require('redis');
-  const RedisStore = require('connect-redis')(session);
   app.use(session({
-    secret: 'ccconsole',
-    name: 'perfect_console',
+    secret: 'blueplanet',
+    name: 'council',
     key: 'sid',
-    store: new RedisStore({
-      host: config.get('redis:host'),
-      port: config.get('redis:port'),
-      ttl: config.get('redis:ttl')
-    }),
     cookie: {
       maxAge: 86400000,
       path: '/'
@@ -128,7 +121,8 @@ app.use((req, res, next) => {
   err.status = 404;
   next(err);
 });
-const port = isDev ? 80 : 3000;
+// const port = isDev ? 80 : 3000;
+const port = 80;
 const server = http.createServer(app);
 server.on('connection', function (socket) {
   // Nodejs and express server closes connection after 2 minutes by default

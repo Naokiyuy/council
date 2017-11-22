@@ -14,20 +14,8 @@ const getPlugins = function () {
         }),
         new CopyWebpackPlugin([
             {
-                from: 'app/assets/medias/skutypes/',
-                to: 'assets/medias/skutypes/'
-            },
-            {
-                from: 'app/assets/static/',
-                to: 'assets/static/'
-            },
-            {
-                from: 'app/robots.txt',
-                to: 'robots.txt'
-            },
-            {
-                from: 'app/assets/images/favicon.png',
-                to: 'assets/images/favicon.png'
+                from: 'app/assets/',
+                to: 'assets/'
             }
         ]),
         new webpack.optimize.CommonsChunkPlugin({

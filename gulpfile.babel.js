@@ -15,13 +15,13 @@ import run from 'gulp-run';
 
 gulp.task('archive', ['webpack'], function () {
   return gulp.src(['scminfo.txt', 'public/**', 'server/**', 'server/.babelrc'], {base: '.'})
-    .pipe(zip('console-ui.zip'))
+    .pipe(zip('council.zip'))
     .pipe(gulp.dest('dist'));
 });
 
 gulp.task('archive-without-yarn', ['webpack', 'scm-info'], function () {
   return gulp.src(['scminfo.txt', 'public/**', 'server/**', 'server/.babelrc'], {base: '.'})
-    .pipe(zip('console-ui.zip'))
+    .pipe(zip('council.zip'))
     .pipe(gulp.dest('dist'));
 });
 
