@@ -191,6 +191,7 @@ function buildQueryStringSql(rootState) {
 
 export function addService(values) {
   const params = {
+    membername: values.membername,
     title: values.title,
     content: values.content,
     date: values.date
@@ -238,6 +239,7 @@ export function loadService(id) {
 
 export function updateService(values) {
   const params = {
+    membername: values.membername,
     title: values.title,
     content: values.content,
     date: values.date,

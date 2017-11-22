@@ -35,6 +35,7 @@ const initialState = {
     table: 'news'
   },
   addnews: {
+    membername: '',
     title: '',
     source: '',
     url: '',
@@ -44,6 +45,7 @@ const initialState = {
   },
   editnews: {
     id: undefined,
+    membername: '',
     title: '',
     source: '',
     url: '',
@@ -195,6 +197,7 @@ function buildQueryStringSql(rootState) {
 
 export function addNews(values) {
   const params = {
+    membername: values.membername,
     title: values.title,
     content: values.content,
     url: values.url,
@@ -243,6 +246,7 @@ export function loadNews(id) {
 
 export function updateNews(values) {
   const params = {
+    membername: values.membername,
     title: values.title,
     content: values.content,
     url: values.url,

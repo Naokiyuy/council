@@ -11,7 +11,7 @@ import config from '../../utils/config/globals';
 @reduxForm({
     form: 'editmessageform',
     fields: [
-      'id', 'title', 'content', 'contentEditor', 'createdTime', 'lastModified', 'status', 'date'
+      'id', 'membername', 'title', 'content', 'contentEditor', 'createdTime', 'lastModified', 'status', 'date'
     ],
     destroyOnUnmount: true
   }, state => ({
@@ -35,7 +35,7 @@ export default class EditMessage extends Component {
   };
   render() {
     const {
-      fields: {title, content, contentEditor, createdTime, lastModified, status, date},
+      fields: {membername, title, content, contentEditor, createdTime, lastModified, status, date},
       handleSubmit
     } = this.props;
     return (
@@ -48,13 +48,19 @@ export default class EditMessage extends Component {
             <form onSubmit={handleSubmit(this.update)}>
               <div className="form-group">
                 <div className="form-row">
-                  <div className="col-md-6">
+                  <div className="col-md-4">
+                    <label htmlFor={"name"}>議員姓名</label>
+                    <input className="form-control" id="name" type="text" aria-describedby="titleHelp"
+                           placeholder="議員姓名" {...membername}
+                    />
+                  </div>
+                  <div className="col-md-4">
                     <label htmlFor={"title"}>標題</label>
                     <input className="form-control" id="title" type="text" aria-describedby="titleHelp"
                            placeholder="標題" {...title}
                     />
                   </div>
-                  <div className="col-md-6">
+                  <div className="col-md-4">
                     <label htmlFor={"createdTime"}>建立時間</label>
                     <input className="form-control" id="createdTime" type="text" aria-describedby="nameHelp"
                            placeholder="建立時間" {...createdTime} disabled

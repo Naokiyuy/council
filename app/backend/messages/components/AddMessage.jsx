@@ -10,7 +10,7 @@ import draftToHtml from 'draftjs-to-html';
 @reduxForm({
     form: 'addmessageform',
     fields: [
-      'title', 'date', 'content', 'contentEditor'
+      'membername', 'title', 'date', 'content', 'contentEditor'
     ],
     destroyOnUnmount: true
   }, state => ({
@@ -43,7 +43,7 @@ export default class AddMessage extends Component {
     };
 
     const {
-      fields: {title, date, content, contentEditor},
+      fields: {membername, title, date, content, contentEditor},
       isOpen, closeModal, handleSubmit
     } = this.props;
     return (
@@ -61,13 +61,19 @@ export default class AddMessage extends Component {
             <form onSubmit={handleSubmit(this.addMessage)}>
               <div className="form-group">
                 <div className="form-row">
-                  <div className="col-md-6">
+                  <div className="col-md-4">
+                    <label htmlFor={"name"}>議員姓名</label>
+                    <input className="form-control" id="name" type="text" aria-describedby="titleHelp"
+                           placeholder="議員姓名" {...membername}
+                    />
+                  </div>
+                  <div className="col-md-4">
                     <label htmlFor={"title"}>標題</label>
                     <input className="form-control" id="title" type="text" aria-describedby="titleHelp"
                            placeholder="標題" {...title}
                     />
                   </div>
-                  <div className="col-md-6">
+                  <div className="col-md-4">
                     <label htmlFor={"date"}>公告時間</label>
                     <input className="form-control" id="date" type="text" aria-describedby="dateHelp"
                            placeholder="公告時間" {...date}

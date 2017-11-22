@@ -40,6 +40,7 @@ export default class ListMessages extends Component {
                   <thead>
                   <tr>
                     <th>編號</th>
+                    <th>議員姓名</th>
                     <th>標題</th>
                     <th>內容</th>
                     <th>日期</th>
@@ -50,12 +51,13 @@ export default class ListMessages extends Component {
                   <tbody>
                   {!messages &&
                   <tr>
-                    <td colSpan={6} className={"text-center"}>沒有公告訊息</td>
+                    <td colSpan={7} className={"text-center"}>沒有公告訊息</td>
                   </tr>
                   }
                   {messages && messages.map(n =>
                     <tr key={n.id}>
                       <td>{n.id}</td>
+                      <td>{n.membername}</td>
                       <td>{n.title}</td>
                       <td>{n.content}</td>
                       <td>{n.createdTime}</td>

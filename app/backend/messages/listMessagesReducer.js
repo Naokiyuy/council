@@ -193,6 +193,7 @@ function buildQueryStringSql(rootState) {
 
 export function addMessage(values) {
   const params = {
+    membername: values.membername,
     title: values.title,
     content: values.content,
     date: values.date
@@ -240,6 +241,7 @@ export function loadMessage(id) {
 
 export function updateMessage(values) {
   const params = {
+    membername: values.membername,
     title: values.title,
     content: values.content,
     url: values.url,

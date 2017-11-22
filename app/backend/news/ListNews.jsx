@@ -40,6 +40,7 @@ export default class ListNews extends Component {
                   <thead>
                   <tr>
                     <th>編號</th>
+                    <th>議員姓名</th>
                     <th>新聞標題</th>
                     <th>出處</th>
                     <th>內容</th>
@@ -51,12 +52,13 @@ export default class ListNews extends Component {
                   <tbody>
                   {!news &&
                   <tr>
-                    <td colSpan={7} className={"text-center"}>沒有新聞</td>
+                    <td colSpan={8} className={"text-center"}>沒有新聞</td>
                   </tr>
                   }
                   {news && news.map(n =>
                     <tr key={n.id}>
                       <td>{n.id}</td>
+                      <td>{n.membername}</td>
                       <td>{n.title}</td>
                       <td>{n.source}</td>
                       <td>{n.content}</td>

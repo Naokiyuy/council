@@ -11,7 +11,7 @@ import config from '../../utils/config/globals';
 @reduxForm({
     form: 'editnewsform',
     fields: [
-      'id', 'title', 'source', 'url', 'content', 'contentEditor', 'createdTime', 'lastModified', 'status', 'date'
+      'id', 'membername', 'title', 'source', 'url', 'content', 'contentEditor', 'createdTime', 'lastModified', 'status', 'date'
     ],
     destroyOnUnmount: true
   }, state => ({
@@ -36,7 +36,7 @@ export default class EditNews extends Component {
   };
   render() {
     const {
-      fields: {title, source, url, content, contentEditor, createdTime, lastModified, status, date},
+      fields: {membername, title, source, url, content, contentEditor, createdTime, lastModified, status, date},
       handleSubmit
     } = this.props;
 
@@ -48,6 +48,16 @@ export default class EditNews extends Component {
           </div>
           <div className="card-body">
             <form onSubmit={handleSubmit(this.update)}>
+              <div className="form-group">
+                <div className="form-row">
+                  <div className="col-md-4">
+                    <label htmlFor={"name"}>議員姓名</label>
+                    <input className="form-control" id="name" type="text" aria-describedby="titleHelp"
+                           placeholder="議員姓名" {...membername}
+                    />
+                  </div>
+                </div>
+              </div>
               <div className="form-group">
                 <div className="form-row">
                   <div className="col-md-4">

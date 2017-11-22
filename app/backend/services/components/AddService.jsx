@@ -10,7 +10,7 @@ import draftToHtml from 'draftjs-to-html';
 @reduxForm({
     form: 'addserviceform',
     fields: [
-      'title', 'date', 'content', 'contentEditor'
+      'membername', 'title', 'date', 'content', 'contentEditor'
     ],
     destroyOnUnmount: true
   }, state => ({
@@ -43,7 +43,7 @@ export default class AddService extends Component {
     };
 
     const {
-      fields: {title, date, content, contentEditor},
+      fields: {membername, title, date, content, contentEditor},
       isOpen, closeModal, handleSubmit
     } = this.props;
 
@@ -62,13 +62,19 @@ export default class AddService extends Component {
             <form onSubmit={handleSubmit(this.addService)}>
               <div className="form-group">
                 <div className="form-row">
-                  <div className="col-md-6">
+                  <div className="col-md-4">
+                    <label htmlFor={"name"}>議員姓名</label>
+                    <input className="form-control" id="title" type="text" aria-describedby="titleHelp"
+                           placeholder="議員姓名" {...membername}
+                    />
+                  </div>
+                  <div className="col-md-4">
                     <label htmlFor={"title"}>標題</label>
                     <input className="form-control" id="title" type="text" aria-describedby="titleHelp"
                            placeholder="標題" {...title}
                     />
                   </div>
-                  <div className="col-md-6">
+                  <div className="col-md-4">
                     <label htmlFor={"date"}>時間</label>
                     <input className="form-control" id="date" type="text" aria-describedby="titleHelp"
                            placeholder="時間" {...date}
