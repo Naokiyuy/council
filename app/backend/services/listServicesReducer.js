@@ -118,6 +118,7 @@ export default function reducer(state = initialState, action = {}) {
         editservice: {
           ...state.editservice,
           id: service.id,
+          membername: service.membername,
           title: service.title,
           content: service.content,
           contentEditor: EditorState.createWithContent(ContentState.createFromBlockArray(serviceBlockFromHtml.contentBlocks, serviceBlockFromHtml.entityMap)),

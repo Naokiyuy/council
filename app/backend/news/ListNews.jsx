@@ -6,6 +6,9 @@ import {bindActionCreators} from 'redux';
 import Paginate from '../../components/page/Paginate';
 import NewsStatus from './components/NewsStatus';
 import {Link} from 'react-router/es6';
+import {FormattedDate} from 'react-intl';
+
+import config from '../../utils/config/globals';
 
 @connect(state => ({
   loaded: state.backend.news.loaded,
@@ -62,7 +65,7 @@ export default class ListNews extends Component {
                       <td>{n.title}</td>
                       <td>{n.source}</td>
                       <td>{n.content}</td>
-                      <td>{n.createdTime}</td>
+                      <td><FormattedDate value={n.createdTime} {...config.dateformat.shortdatetime}/></td>
                       <td><NewsStatus value={n.status}/></td>
                       <td>
                         <Link className={"btn btn-info"} to={`/backend/news/${n.id}/edit`}>

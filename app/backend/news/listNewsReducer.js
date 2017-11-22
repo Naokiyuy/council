@@ -2,6 +2,7 @@ import _ceil from 'lodash/ceil';
 import queryString from 'query-string';
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import htmlToDraft from 'html-to-draftjs';
+import moment from 'moment';
 
 const LIST = 'council/backend/news/LIST';
 const FETCHING = 'council/backend/news/FETCHING';
@@ -122,6 +123,7 @@ export default function reducer(state = initialState, action = {}) {
         editnews: {
           ...state.editnews,
           id: news.id,
+          membername: news.membername,
           title: news.title,
           content: news.content,
           contentEditor: EditorState.createWithContent(ContentState.createFromBlockArray(newsBlockFromHtml.contentBlocks, newsBlockFromHtml.entityMap)),

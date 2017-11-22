@@ -6,6 +6,9 @@ import {bindActionCreators} from 'redux';
 import Paginate from '../../components/page/Paginate';
 import ComponentStatus from '../components/ComponentStatus';
 import {Link} from 'react-router/es6';
+import {FormattedDate} from 'react-intl';
+
+import config from '../../utils/config/globals';
 
 @connect(state => ({
   loaded: state.backend.messages.loaded,
@@ -60,7 +63,7 @@ export default class ListMessages extends Component {
                       <td>{n.membername}</td>
                       <td>{n.title}</td>
                       <td>{n.content}</td>
-                      <td>{n.createdTime}</td>
+                      <td><FormattedDate value={n.createdTime} {...config.dateformat.shortdatetime}/></td>
                       <td><ComponentStatus value={n.status}/></td>
                       <td>
                         <Link className={"btn btn-info"} to={`/backend/messages/${n.id}/edit`}>

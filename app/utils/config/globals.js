@@ -1,3 +1,5 @@
+import dateformat from './dateformat';
+
 export default {
   newsstatus: [
     {
@@ -16,5 +18,6 @@ export default {
       label: '下架',
       id: 'globals.news.status.takedown'
     }
-  ]
+  ],
+  dateformat
 };

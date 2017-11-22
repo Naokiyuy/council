@@ -5,6 +5,9 @@ import * as actionCreators from './listProfileReducer';
 import {bindActionCreators} from 'redux';
 import Paginate from '../../components/page/Paginate';
 import {Link} from 'react-router/es6';
+import {FormattedDate} from 'react-intl';
+
+import config from '../../utils/config/globals';
 
 @connect(state => ({
   loaded: state.backend.profiles.loaded,
@@ -53,7 +56,7 @@ export default class ListProfiles extends Component {
                   {profiles && profiles.map(n =>
                     <tr key={n.name}>
                       <td>{n.name}</td>
-                      <td>{n.createdTime}</td>
+                      <td><FormattedDate value={n.createdTime} {...config.dateformat.shortdatetime}/></td>
                       <td>
                         <Link className={"btn btn-info"} to={`/backend/profiles/${n.name}/edit`}>
                           <i className={"fa fa-pencil"}/> 編輯

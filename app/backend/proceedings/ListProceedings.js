@@ -4,6 +4,9 @@ import * as actionCreators from './listProceedingsReducer';
 import {bindActionCreators} from 'redux';
 import _ceil from 'lodash/ceil';
 import Paginate from '../../components/page/Paginate';
+import {FormattedDate} from 'react-intl';
+
+import config from '../../utils/config/globals';
 
 @connect(state => ({
   loaded: state.backend.proceedings.loaded,
@@ -87,7 +90,7 @@ export default class ListProceedings extends Component {
                       <td className={"col-md-2"}>{p.councilChn}</td>
                       <td className={"col-md-2"}>{p.category}</td>
                       <td className={"col-md-2"}>{p.abstract}</td>
-                      <td className={"col-md-1"}>{p.date}</td>
+                      <td className={"col-md-1"}><FormattedDate value={p.date} {...config.dateformat.shortdatetime}/></td>
                       <td className={"col-md-1"}>{p.isShow === 0 ? '否' : '是'}</td>
                       <td className={"col-md-1"}>
                         {p.isShow === 0 ?

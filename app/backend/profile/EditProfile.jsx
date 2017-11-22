@@ -7,6 +7,7 @@ import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import {Link, browserHistory} from 'react-router/es6';
 import config from '../../utils/config/globals';
+import {FormattedDate} from 'react-intl';
 
 @reduxForm({
     form: 'editprofileform',
@@ -59,9 +60,9 @@ export default class EditProfile extends Component {
                   </div>
                   <div className="col-md-6">
                     <label htmlFor={"createdTime"}>建立時間</label>
-                    <input className="form-control" id="createdTime" type="text" aria-describedby="nameHelp"
-                           placeholder="建立時間" {...createdTime} disabled
-                    />
+                    <div className="form-control" id={"createdTime"}>
+                      <FormattedDate value={createdTime.value} {...config.dateformat.shortdatetime}/>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -118,7 +119,7 @@ export default class EditProfile extends Component {
               </div>
             </form>
           </div>
-          <div className="card-footer small text-muted">更新於 {lastModified.value}</div>
+          <div className="card-footer small text-muted">更新於 <FormattedDate value={lastModified.value} {...config.dateformat.shortdatetime}/></div>
         </div>
       </div>
     );

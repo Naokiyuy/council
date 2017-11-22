@@ -120,6 +120,7 @@ export default function reducer(state = initialState, action = {}) {
         editmessage: {
           ...state.editmessage,
           id: message.id,
+          membername: message.membername,
           title: message.title,
           content: message.content,
           contentEditor: EditorState.createWithContent(ContentState.createFromBlockArray(messageBlockFromHtml.contentBlocks, messageBlockFromHtml.entityMap)),
