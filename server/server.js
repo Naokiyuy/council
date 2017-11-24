@@ -38,7 +38,7 @@ if (isDev) {
     }
   });
   app.use(express.static('../app/'));
-  app.use(express.static('../public/'));
+  // app.use(express.static('../public/'));
   app.use(middleware);
   app.use(require('webpack-hot-middleware')(compiler));
   app.use(session({

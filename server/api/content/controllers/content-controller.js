@@ -11,7 +11,8 @@ const controller = {
   insertDB,
   updateDB,
   queryData,
-  queryProfile
+  queryProfile,
+  queryAll
 };
 
 export default controller;
@@ -26,6 +27,7 @@ function routes(app) {
   app.post('/api/council/update', controller.updateDB);
   app.get('/api/council/query-data', controller.queryData);
   app.get('/api/council/query-profile', controller.queryProfile);
+  app.get('/api/council/list-all', controller.queryAll);
 }
 
 function search(req, res, next) {
@@ -131,7 +133,7 @@ function queryDB(req, res, next) {
     if (params.status) {
       sqlQuery = `SELECT * FROM ${params.table} WHERE status = '${params.status}' AND membername = '${params.name}' LIMIT ${params.offset}, ${params.limit};SELECT COUNT(*) as totalSize FROM ${params.table} WHERE status = '${params.status}' AND membername = '${params.name}';`;
     } else {
-      sqlQuery = `SELECT * FROM ${params.table} LIMIT ${params.offset}, ${params.limit}';SELECT COUNT(*) as totalSize FROM ${params.table};`;
+      sqlQuery = `SELECT * FROM ${params.table} LIMIT ${params.offset}, ${params.limit};SELECT COUNT(*) as totalSize FROM ${params.table};`;
     }
 
     const queryString = con.query(sqlQuery, function (err, results) {
@@ -216,6 +218,28 @@ function queryProfile(req, res, next) {
       return next(err);
     }
     const sqlQuery = `SELECT * FROM ${params.table} WHERE name='${params.name}'`;
+    const queryString = con.query(sqlQuery, function (err, results) {
+      if (err) {
+        return next(err);
+      }
+
+      console.log('query result:', results);
+      res.type('application/json').send(results);
+      return null;
+    });
+    console.log(queryString.sql);
+  });
+}
+
+function queryAll(req, res, next) {
+  const params = _.merge(req.query, {});
+  req.getConnection(function (err, con) {
+    if (err) {
+      return next(err);
+    }
+    const sqlQuery = `SELECT * FROM ${params.table} WHERE membername='${params.name}' and status = '${params.status}' LIMIT ${params.offset}, ${params.limit}; 
+                      SELECT year(date) as year, count(*) as count from ${params.table} WHERE membername='${params.name}' and status = '${params.status}' group by year(date) order by year(date) desc;
+                      SELECT COUNT(*) as totalSize FROM ${params.table} WHERE status = '${params.status}' AND membername = '${params.name}';`;
     const queryString = con.query(sqlQuery, function (err, results) {
       if (err) {
         return next(err);

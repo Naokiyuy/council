@@ -1,12 +1,18 @@
 import queryString from 'query-string';
 import _forEach from 'lodash/forEach';
 import _forOwn from 'lodash/forOwn';
+import _ceil from 'lodash/ceil';
 import allColors from '../../utils/config/colors';
 import councilNumber from '../../utils/config/councilNumber';
 
 const LOAD = 'council/home/index/LOAD';
 const LOAD_SUCCESS = 'council/home/index/LOAD_SUCCESS';
-const QUERY = 'council/home/index/QUERY';
+const LIST_ALL = 'council/home/index/LIST_ALL';
+const LIST_ALL_SUCCESS = 'council/home/index/LIST_ALL_SUCCESS';
+const PAGE = 'council/home/index/PAGE';
+const SORT = 'council/home/index/SORT';
+const SET_TABLE = 'council/home/index/SET_TABLE';
+const SET_MEMBERNAME = 'council/home/index/SET_MEMBERNAME';
 
 const LOAD_PROFILE = 'council/home/index/LOAD_PROFILE';
 const LOAD_PROFILE_SUCCESS = 'council/home/index/LOAD_PROFILE_SUCCESS';
@@ -33,7 +39,18 @@ const initialState = {
     remarks: {
       content: ''
     }
-  }
+  },
+  grid: {
+    loading: false,
+    sort: 'date',
+    asc: false,
+    page: 1,
+    numPerPage: 10,
+    pages: 1,
+    totalSize: 0,
+    status: 'ONLINE'
+  },
+  loaded: false
 };
 
 export default function reduce(state = initialState, action = {}) {
@@ -126,6 +143,43 @@ export default function reduce(state = initialState, action = {}) {
         ...state,
         services: action.services
     };
+    case LIST_ALL_SUCCESS:
+      return {
+        ...state,
+        data: action.data,
+        year: action.year,
+        loaded: true,
+        grid: {
+          ...state.grid,
+          loading: false,
+          totalSize: action.totalSize[0].totalSize,
+          pages: _ceil(action.totalSize[0].totalSize / state.grid.numPerPage)
+        },
+      };
+    case SET_TABLE:
+      return {
+        ...state,
+        grid: {
+          ...state.grid,
+          table: action.table
+        }
+      };
+    case SET_MEMBERNAME:
+      return {
+        ...state,
+        grid: {
+          ...state.grid,
+          name: action.membername
+        }
+      };
+    case PAGE:
+      return {
+        ...state,
+        grid: {
+          ...state.grid,
+          page: action.page
+        }
+      };
     default:
       return state;
   }
@@ -209,5 +263,75 @@ export function loadServices(name) {
       credentials: 'same-origin'
     }).then(response => response.json())
       .then(json => dispatch({type: LOAD_SERVICE_SUCCESS, services: json}));
+  };
+}
+
+function setTable(table) {
+  return {
+    type: SET_TABLE,
+    table
+  };
+}
+
+function setMembername(name) {
+  return {
+    type: SET_MEMBERNAME,
+    membername: name
+  };
+}
+
+export function setData(name, table) {
+  return (dispatch) => {
+    dispatch(setMembername(name));
+    dispatch(setTable(table));
+  };
+}
+
+export function listAll() {
+  return (dispatch) => {
+    dispatch({type: LIST_ALL});
+    return dispatch(fetchListAsync());
+  };
+}
+
+function fetchListAsync() {
+  return (dispatch, getState) => {
+    return fetch(`/api/council/list-all${buildQueryStringSql(getState())}`, {
+      credentials: 'same-origin'
+    }).then(response => response.json())
+      .then(json => dispatch({type: LIST_ALL_SUCCESS, data: json[0], year: json[1], totalSize: json[2]}));
+  };
+}
+
+function buildQueryStringSql(rootState) {
+  const grid = rootState.content.grid;
+  const params = {
+    sortBy: grid.sort,
+    asc: grid.asc,
+    offset: (grid.page - 1) * grid.numPerPage,
+    limit: grid.numPerPage,
+    pageIndex: grid.page,
+    pageSize: grid.numPerPage,
+    status: grid.status,
+    table: grid.table,
+    name: grid.name
+  };
+  return '?' + queryString.stringify((params));
+}
+
+export function page(params) {
+  return dispatch => {
+    dispatch({type: PAGE, page: params.selected + 1});
+    return dispatch(fetchListAsync());
+  };
+}
+
+export function sort(sort) {
+  return dispatch => {
+    dispatch({
+      type: SORT,
+      sort
+    });
+    return dispatch(fetchListAsync());
   };
 }
