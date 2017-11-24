@@ -15,7 +15,9 @@ import {FormattedDate} from 'react-intl';
       'membername', 'createdTime', 'lastModified',
       'politics', 'politicsEditor',
       'lifestory', 'lifestoryEditor',
-      'remarks', 'remarksEditor'
+      'remarks', 'remarksEditor',
+      'contact', 'contactEditor',
+      'profile', 'profileEditor'
     ],
     destroyOnUnmount: true
   }, state => ({
@@ -39,7 +41,10 @@ export default class EditProfile extends Component {
   };
   render() {
     const {
-      fields: {membername, createdTime, lastModified, politics, politicsEditor, lifestory, lifestoryEditor, remarks, remarksEditor},
+      fields: {
+        membername, createdTime, lastModified, politics, politicsEditor, lifestory, lifestoryEditor,
+        remarks, remarksEditor, contact, contactEditor, profile, profileEditor
+      },
       handleSubmit
     } = this.props;
     return (
@@ -63,6 +68,20 @@ export default class EditProfile extends Component {
                     <div className="form-control" id={"createdTime"}>
                       <FormattedDate value={createdTime.value} {...config.dateformat.shortdatetime}/>
                     </div>
+                  </div>
+                </div>
+              </div>
+              <div className="form-group">
+                <div className="form-row">
+                  <div className="col-md-12">
+                    <label htmlFor={"profile"}>基本資料</label>
+                    <Editor id={"profile"}
+                            editorState={profileEditor.value}
+                            toolbarClassName="toolbarClassName"
+                            wrapperClassName="wrapperClassName"
+                            editorClassName="form-control"
+                            onEditorStateChange={(v) => this.onChange(v, profile, profileEditor)}
+                    />
                   </div>
                 </div>
               </div>
@@ -110,10 +129,24 @@ export default class EditProfile extends Component {
               </div>
               <div className="form-group">
                 <div className="form-row">
+                  <div className="col-md-12">
+                    <label htmlFor={"contact"}>聯絡方式</label>
+                    <Editor id={"contact"}
+                            editorState={contactEditor.value}
+                            toolbarClassName="toolbarClassName"
+                            wrapperClassName="wrapperClassName"
+                            editorClassName="form-control"
+                            onEditorStateChange={(v) => this.onChange(v, contact, contactEditor)}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="form-group">
+                <div className="form-row">
                   <div className="col-md-6"/>
                   <div className="col-md-6 text-right">
                     <button type="submit" className={"btn btn-primary"}>更新</button>{" "}
-                    <Link to={"/backend/messages"} className={"btn btn-default"}>取消</Link>
+                    <Link to={"/backend/profiles"} className={"btn btn-default"}>取消</Link>
                   </div>
                 </div>
               </div>

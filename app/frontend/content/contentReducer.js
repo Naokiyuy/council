@@ -38,6 +38,12 @@ const initialState = {
     },
     remarks: {
       content: ''
+    },
+    contact: {
+      content: ''
+    },
+    profile: {
+      content: ''
     }
   },
   grid: {
@@ -125,6 +131,12 @@ export default function reduce(state = initialState, action = {}) {
           },
           remarks: {
             content: action.profile.remarks
+          },
+          contact: {
+            content: action.profile.contact
+          },
+          profile: {
+            content: action.profile.profile
           }
         }
       };

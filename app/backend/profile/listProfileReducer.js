@@ -43,9 +43,13 @@ const initialState = {
     politics: '',
     lifestory: '',
     remarks: '',
+    contact: '',
+    profile: '',
     politicsEditor: EditorState.createEmpty(),
     lifestoryEditor: EditorState.createEmpty(),
     remarksEditor: EditorState.createEmpty(),
+    contactEditor: EditorState.createEmpty(),
+    profileEditor: EditorState.createEmpty()
   }
 };
 
@@ -114,6 +118,8 @@ export default function reducer(state = initialState, action = {}) {
       const politicsBlockFromHtml = htmlToDraft(profile.politics || '');
       const lifestoryBlockFromHtml = htmlToDraft(profile.lifestory || '');
       const remarksBlockFromHtml = htmlToDraft(profile.remarks || '');
+      const contactBlockFromHtml = htmlToDraft(profile.contact || '');
+      const profileBlockFromHtml = htmlToDraft(profile.profile || '');
       return {
         ...state,
         editprofile: {
@@ -125,6 +131,10 @@ export default function reducer(state = initialState, action = {}) {
           lifestoryEditor: EditorState.createWithContent(ContentState.createFromBlockArray(lifestoryBlockFromHtml.contentBlocks, lifestoryBlockFromHtml.entityMap)),
           remarks: profile.politics,
           remarksEditor: EditorState.createWithContent(ContentState.createFromBlockArray(remarksBlockFromHtml.contentBlocks, remarksBlockFromHtml.entityMap)),
+          contact: profile.politics,
+          contactEditor: EditorState.createWithContent(ContentState.createFromBlockArray(contactBlockFromHtml.contentBlocks, contactBlockFromHtml.entityMap)),
+          profile: profile.politics,
+          profileEditor: EditorState.createWithContent(ContentState.createFromBlockArray(profileBlockFromHtml.contentBlocks, profileBlockFromHtml.entityMap)),
           createdTime: profile.createdTime,
           lastModified: profile.lastModified
         }
@@ -241,8 +251,11 @@ export function updateProfile(values) {
     name: values.membername,
     politics: values.politics,
     lifestory: values.lifestory,
-    remarks: values.remarks
+    remarks: values.remarks,
+    contact: values.contact,
+    profile: values.profile
   };
+  console.log(params);
   return (dispatch) => {
     dispatch({type: EDIT});
     return fetch('/api/council/update', {
