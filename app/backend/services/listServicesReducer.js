@@ -112,7 +112,7 @@ export default function reducer(state = initialState, action = {}) {
       };
     case LOAD_SERVICE_SUCCESS:
       const service = action.services[0];
-      const serviceBlockFromHtml = htmlToDraft(service.content);
+      const serviceBlockFromHtml = htmlToDraft(service.content || '<p></p>');
       return {
         ...state,
         editservice: {
@@ -120,7 +120,7 @@ export default function reducer(state = initialState, action = {}) {
           id: service.id,
           membername: service.membername,
           title: service.title,
-          content: service.content,
+          content: service.content || '',
           contentEditor: EditorState.createWithContent(ContentState.createFromBlockArray(serviceBlockFromHtml.contentBlocks, serviceBlockFromHtml.entityMap)),
           createdTime: service.createdTime,
           lastModified: service.lastModified,

@@ -114,7 +114,7 @@ export default function reducer(state = initialState, action = {}) {
       };
     case LOAD_MESSAGE_SUCCESS:
       const message = action.messages[0];
-      const messageBlockFromHtml = htmlToDraft(message.content);
+      const messageBlockFromHtml = htmlToDraft(message.content || '<p></p>');
       return {
         ...state,
         editmessage: {
@@ -122,7 +122,7 @@ export default function reducer(state = initialState, action = {}) {
           id: message.id,
           membername: message.membername,
           title: message.title,
-          content: message.content,
+          content: message.content || '<p></p>',
           contentEditor: EditorState.createWithContent(ContentState.createFromBlockArray(messageBlockFromHtml.contentBlocks, messageBlockFromHtml.entityMap)),
           createdTime: message.createdTime,
           lastModified: message.lastModified,

@@ -9,6 +9,8 @@ import {connect} from 'react-redux';
 import * as actionCreators from './contentReducer';
 import {bindActionCreators} from 'redux';
 import _findKey from 'lodash/findKey';
+import {FormattedDate} from 'react-intl';
+import config from '../../utils/config/globals';
 
 import councilNumbers from '../../utils/config/councilNumber';
 
@@ -275,7 +277,7 @@ export default class Content extends Component {
                 {messages[0] && messages[0].map(m =>
                   <li>
                     <a href="#">{m.title}</a>
-                    <small className="hex">(1980-10-13)</small>
+                    <small className="hex">(<FormattedDate value={m.date} {...config.dateformat.date}/>)</small>
                   </li>
                 )}
               </ul>
@@ -285,7 +287,7 @@ export default class Content extends Component {
                 {news[0] && news[0].map(n =>
                   <li>
                     <a href="#">{n.title}</a>
-                    <small className="hex">(1980-10-13)</small>
+                    <small className="hex">(<FormattedDate value={n.date} {...config.dateformat.date}/>)</small>
                   </li>
                 )}
               </ul>
@@ -295,7 +297,7 @@ export default class Content extends Component {
                 {services[0] && services[0].map(s =>
                   <li>
                     <a href="#">{s.title}</a>
-                    <small className="hex">(1980-10-13)</small>
+                    <small className="hex">(<FormattedDate value={s.date} {...config.dateformat.date}/>)</small>
                   </li>
                 )}
               </ul>

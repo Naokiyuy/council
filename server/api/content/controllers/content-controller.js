@@ -127,7 +127,13 @@ function queryDB(req, res, next) {
     if (err) {
       return next(err);
     }
-    const sqlQuery = `SELECT * FROM ${params.table} LIMIT ${params.offset}, ${params.limit};SELECT COUNT(*) as totalSize FROM ${params.table};`;
+    let sqlQuery = '';
+    if (params.status) {
+      sqlQuery = `SELECT * FROM ${params.table} WHERE status = '${params.status}' AND membername = '${params.name}' LIMIT ${params.offset}, ${params.limit};SELECT COUNT(*) as totalSize FROM ${params.table} WHERE status = '${params.status}' AND membername = '${params.name}';`;
+    } else {
+      sqlQuery = `SELECT * FROM ${params.table} LIMIT ${params.offset}, ${params.limit}';SELECT COUNT(*) as totalSize FROM ${params.table};`;
+    }
+
     const queryString = con.query(sqlQuery, function (err, results) {
       if (err) {
         return next(err);

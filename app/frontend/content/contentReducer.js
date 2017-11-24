@@ -185,7 +185,7 @@ export function loadProfile(name) {
 export function loadNews(name) {
   return (dispatch) => {
     dispatch({type: LOAD_NEWS});
-    return fetch(`/api/council/list?name=${name}&offset=0&limit=10&table=news`, {
+    return fetch(`/api/council/list?name=${name}&offset=0&limit=10&table=news&status=ONLINE`, {
       credentials: 'same-origin'
     }).then(response => response.json())
       .then(json => dispatch({type: LOAD_NEWS_SUCCESS, news: json}));
@@ -195,7 +195,7 @@ export function loadNews(name) {
 export function loadMessages(name) {
   return (dispatch) => {
     dispatch({type: LOAD_MESSAGES});
-    return fetch(`/api/council/list?name=${name}&offset=0&limit=10&table=messages`, {
+    return fetch(`/api/council/list?name=${name}&offset=0&limit=10&table=messages&status=ONLINE`, {
       credentials: 'same-origin'
     }).then(response => response.json())
       .then(json => dispatch({type: LOAD_MESSAGES_SUCCESS, messages: json}));
@@ -205,7 +205,7 @@ export function loadMessages(name) {
 export function loadServices(name) {
   return (dispatch) => {
     dispatch({type: LOAD_SERVICE});
-    return fetch(`/api/council/list?name=${name}&offset=0&limit=10&table=services`, {
+    return fetch(`/api/council/list?name=${name}&offset=0&limit=10&table=services&status=ONLINE`, {
       credentials: 'same-origin'
     }).then(response => response.json())
       .then(json => dispatch({type: LOAD_SERVICE_SUCCESS, services: json}));

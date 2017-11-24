@@ -117,7 +117,7 @@ export default function reducer(state = initialState, action = {}) {
       };
     case LOAD_NEWS_SUCCESS:
       const news = action.news[0];
-      const newsBlockFromHtml = htmlToDraft(news.content);
+      const newsBlockFromHtml = htmlToDraft(news.content || '<p></p>');
       return {
         ...state,
         editnews: {
@@ -125,7 +125,7 @@ export default function reducer(state = initialState, action = {}) {
           id: news.id,
           membername: news.membername,
           title: news.title,
-          content: news.content,
+          content: news.content || '',
           contentEditor: EditorState.createWithContent(ContentState.createFromBlockArray(newsBlockFromHtml.contentBlocks, newsBlockFromHtml.entityMap)),
           url: news.url,
           source: news.source,
