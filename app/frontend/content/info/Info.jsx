@@ -14,7 +14,7 @@ import Paginate from '../../../components/page/Paginate';
 export default class info extends Component {
   componentWillMount() {
     const {params, setData} = this.props;
-    setData(params.name, 'messages');
+    setData(params.name, 'messages', params.year);
   }
 
   componentDidMount() {
@@ -22,6 +22,16 @@ export default class info extends Component {
     setTimeout(() => {
       listAll();
     }, 2000);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {listAll, params, setData} = this.props;
+    if (nextProps.params.year && (nextProps.params.year !== params.year)) {
+      setData(params.name, 'messages', nextProps.params.year);
+      setTimeout(() => {
+        listAll();
+      }, 2000);
+    }
   }
 
   render() {
@@ -51,7 +61,7 @@ export default class info extends Component {
                   <ul className="list-unstyled">
                     {year && year.map(y =>
                       <li key={y.year}>
-                        <a href="#">{y.year} ({y.count})</a>
+                        <Link to={`/frontend/${params.name}/others/info/${params.year}`}>{y.year} ({y.count})</Link>
                       </li>
                     )}
                   </ul>

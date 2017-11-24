@@ -13,6 +13,7 @@ const PAGE = 'council/home/index/PAGE';
 const SORT = 'council/home/index/SORT';
 const SET_TABLE = 'council/home/index/SET_TABLE';
 const SET_MEMBERNAME = 'council/home/index/SET_MEMBERNAME';
+const SET_YEAR = 'council/home/index/SET_YEAR';
 
 const LOAD_PROFILE = 'council/home/index/LOAD_PROFILE';
 const LOAD_PROFILE_SUCCESS = 'council/home/index/LOAD_PROFILE_SUCCESS';
@@ -187,6 +188,14 @@ export default function reduce(state = initialState, action = {}) {
           name: action.membername
         }
       };
+    case SET_YEAR:
+      return {
+        ...state,
+        grid: {
+          ...state.grid,
+          year: action.year
+        }
+      };
     case PAGE:
       return {
         ...state,
@@ -300,10 +309,20 @@ function setMembername(name) {
   };
 }
 
-export function setData(name, table) {
+function setYear(year) {
+  return {
+    type: SET_YEAR,
+    year
+  };
+}
+
+export function setData(name, table, year = undefined) {
   return (dispatch) => {
     dispatch(setMembername(name));
     dispatch(setTable(table));
+    if (year) {
+      dispatch(setYear(year));
+    }
   };
 }
 
@@ -316,10 +335,18 @@ export function listAll() {
 
 function fetchListAsync() {
   return (dispatch, getState) => {
-    return fetch(`/api/council/list-all${buildQueryStringSql(getState())}`, {
-      credentials: 'same-origin'
-    }).then(response => response.json())
-      .then(json => dispatch({type: LIST_ALL_SUCCESS, data: json[0], year: json[1], totalSize: json[2]}));
+    const grid = getState().content.grid;
+    if (grid.year) {
+      return fetch(`/api/council/list-by-year${buildQueryStringSql(getState())}`, {
+        credentials: 'same-origin'
+      }).then(response => response.json())
+        .then(json => dispatch({type: LIST_ALL_SUCCESS, data: json[0], year: json[1], totalSize: json[2]}));
+    } else {
+      return fetch(`/api/council/list-all${buildQueryStringSql(getState())}`, {
+        credentials: 'same-origin'
+      }).then(response => response.json())
+        .then(json => dispatch({type: LIST_ALL_SUCCESS, data: json[0], year: json[1], totalSize: json[2]}));
+    }
   };
 }
 
@@ -334,7 +361,8 @@ function buildQueryStringSql(rootState) {
     pageSize: grid.numPerPage,
     status: grid.status,
     table: grid.table,
-    name: grid.name
+    name: grid.name,
+    year: grid.year
   };
   return '?' + queryString.stringify((params));
 }

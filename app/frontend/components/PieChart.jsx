@@ -41,7 +41,7 @@ export default class PieChart extends Component {
           showInLegend: true,
           point: {
             events: {
-              mouseOver: callback(event)
+              click: callback(this.name)
             }
           }
         }

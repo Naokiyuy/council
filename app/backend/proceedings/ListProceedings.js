@@ -93,9 +93,9 @@ export default class ListProceedings extends Component {
                       <td className={"col-md-2"}>{p.category}</td>
                       <td className={"col-md-2"}>{p.abstract}</td>
                       <td className={"col-md-1"}><FormattedDate value={p.date} {...config.dateformat.shortdatetime}/></td>
-                      <td className={"col-md-1"}>{p.isShow === 0 ? '否' : '是'}</td>
+                      <td className={"col-md-1"}><ComponentStatus value={p.status}/></td>
                       <td className={"col-md-1"}>
-                        {p.isShow === 0 ?
+                        {(p.status === 'DRAFT' || p.status === 'TAKEDOWN') ?
                           <button className="btn btn-primary" onClick={() => this.publishProceeding(p.no)}>發佈</button> :
                           <button className="btn btn-outline-danger" onClick={() => this.takedownProceeding(p.no)}>下架</button>
                         }

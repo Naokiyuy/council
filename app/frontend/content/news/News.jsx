@@ -14,7 +14,7 @@ import Paginate from '../../../components/page/Paginate';
 export default class news extends Component {
   componentWillMount() {
     const {params, setData} = this.props;
-    setData(params.name, 'news');
+    setData(params.name, 'news', params.year);
   }
 
   componentDidMount() {
@@ -22,6 +22,16 @@ export default class news extends Component {
     setTimeout(() => {
       listAll();
     }, 2000);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {listAll, params, setData} = this.props;
+    if (nextProps.params.year && (nextProps.params.year !== params.year)) {
+      setData(params.name, 'news', nextProps.params.year);
+      setTimeout(() => {
+        listAll();
+      }, 2000);
+    }
   }
 
   render() {
@@ -50,7 +60,7 @@ export default class news extends Component {
                   <ul className="list-unstyled">
                     {year && year.map(y =>
                       <li key={y.year}>
-                        <a href="#">{y.year} ({y.count})</a>
+                        <Link to={`/frontend/${params.name}/others/news/${y.year}`}>{y.year} ({y.count})</Link>
                       </li>
                     )}
                   </ul>

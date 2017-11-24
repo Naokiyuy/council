@@ -48,7 +48,7 @@ export default class Content extends Component {
   pieCallback = (e) => {
     console.log(e);
     const {queryCouncilData, profile} = this.props;
-    const councilName = e.target.name;
+    const councilName = e.point.name;
     queryCouncilData({
       q: profile.membername,
       councilNumber: this.getCouncilNumber(councilName),
@@ -68,7 +68,7 @@ export default class Content extends Component {
 
   barCallback = (e) => {
     const {queryCouncilData, profile} = this.props;
-    const category = e.target.category;
+    const category = e.point.category;
     queryCouncilData({
       q: profile.membername,
       year: category,
@@ -138,7 +138,7 @@ export default class Content extends Component {
     }
 
     return (
-      <div className="container content profile" style={{paddingBottom: '0px'}} onClick={this.restore}>
+      <div className="container content profile" style={{paddingBottom: '0px'}}>
         <div className="row margin-bottom-30">
           <div className="col-md-8 md-margin-bottom-40">
             <div className="headline"><h2>{profile.membername}議員</h2></div>

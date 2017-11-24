@@ -154,8 +154,7 @@ export function syncProceedingsData(params) {
       }
     }).then(response => response.json())
       .then(json => {
-        console.log(json);
-        return dispatch(insertProceedings({...json.records, membername: params.q}))
+        return dispatch(insertProceedings(json.records, params.q))
       });
   };
 }
@@ -164,7 +163,8 @@ function buildQueryString(params) {
   return '?' + queryString.stringify((params));
 }
 
-function insertProceedings(data) {
+function insertProceedings(data, name) {
+  console.log('data', data);
   return (dispatch) => {
     dispatch({type: INSERT});
     return fetch('/api/db/insert', {
@@ -174,7 +174,7 @@ function insertProceedings(data) {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({table: 'proceedings', data: data})
+      body: JSON.stringify({table: 'proceedings', data: data, name: name})
     }).then(response => response.json())
       .then(json => {
         console.log('result', json);
@@ -249,7 +249,7 @@ export function publish(no) {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({table: 'proceedings', no: {no: no}, data: {isShow: 1}})
+      body: JSON.stringify({table: 'proceedings', no: {no: no}, data: {status: 'ONLINE'}})
     }).then(response => response.json())
       .then(json => {
         console.log(json);
@@ -267,7 +267,7 @@ export function takedown(no) {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({table: 'proceedings', no: {no: no}, data: {isShow: 0}})
+      body: JSON.stringify({table: 'proceedings', no: {no: no}, data: {status: 'TAKEDOWN'}})
     }).then(response => response.json())
       .then(json => {
         console.log(json);
