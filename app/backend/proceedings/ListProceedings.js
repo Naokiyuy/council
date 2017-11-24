@@ -5,8 +5,10 @@ import {bindActionCreators} from 'redux';
 import _ceil from 'lodash/ceil';
 import Paginate from '../../components/page/Paginate';
 import {FormattedDate} from 'react-intl';
+import ChooseMember from './components/ChooseMember';
 
 import config from '../../utils/config/globals';
+import ComponentStatus from "../components/ComponentStatus";
 
 @connect(state => ({
   loaded: state.backend.proceedings.loaded,
@@ -50,7 +52,7 @@ export default class ListProceedings extends Component {
   }
 
   render() {
-    const {loaded, proceedings, grid, page} = this.props;
+    const {loaded, proceedings, grid, page, openModal} = this.props;
     if (!loaded) {
       return false;
     }
@@ -58,7 +60,7 @@ export default class ListProceedings extends Component {
       <div>
         <div className="row">
           <div className="col-md-2">
-            <button className="btn btn-primary" style={{marginBottom: '5px'}} onClick={this.syncData}>
+            <button className="btn btn-primary" style={{marginBottom: '5px'}} onClick={openModal}>
               <i className="fa fa-refresh"/> 同步議事資料</button>
           </div>
         </div>
@@ -109,6 +111,7 @@ export default class ListProceedings extends Component {
             <Paginate grid={grid} clickCallback={page}/>
           </div>
         </div>
+        <ChooseMember/>
       </div>
     );
   }

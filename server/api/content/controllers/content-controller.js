@@ -12,7 +12,8 @@ const controller = {
   updateDB,
   queryData,
   queryProfile,
-  queryAll
+  queryAll,
+  getMembers
 };
 
 export default controller;
@@ -28,6 +29,7 @@ function routes(app) {
   app.get('/api/council/query-data', controller.queryData);
   app.get('/api/council/query-profile', controller.queryProfile);
   app.get('/api/council/list-all', controller.queryAll);
+  app.get('/api/council/get-members', controller.getMembers);
 }
 
 function search(req, res, next) {
@@ -85,8 +87,8 @@ function sqlInsert(req, res, next) {
 
   _.forEach(params.data, function (p) {
     nestedData.push([
-      p.no,
       p.sno,
+      p.q,
       p.category,
       p.abstract,
       p.councilNumber,
@@ -107,7 +109,7 @@ function sqlInsert(req, res, next) {
 
     const queryString = con.query(
       'INSERT INTO ' + params.table +
-      ' (no, sno, category, abstract, councilNumber, councilChn, conferenceNumber, conferenceChn, session, sessionChn, date, url) VALUES ? ',
+      ' (sno, membername, category, abstract, councilNumber, councilChn, conferenceNumber, conferenceChn, session, sessionChn, date, url) VALUES ? ',
       [nestedData],
       function (err, results) {
       if (err) {
@@ -240,6 +242,26 @@ function queryAll(req, res, next) {
     const sqlQuery = `SELECT * FROM ${params.table} WHERE membername='${params.name}' and status = '${params.status}' LIMIT ${params.offset}, ${params.limit}; 
                       SELECT year(date) as year, count(*) as count from ${params.table} WHERE membername='${params.name}' and status = '${params.status}' group by year(date) order by year(date) desc;
                       SELECT COUNT(*) as totalSize FROM ${params.table} WHERE status = '${params.status}' AND membername = '${params.name}';`;
+    const queryString = con.query(sqlQuery, function (err, results) {
+      if (err) {
+        return next(err);
+      }
+
+      console.log('query result:', results);
+      res.type('application/json').send(results);
+      return null;
+    });
+    console.log(queryString.sql);
+  });
+}
+
+function getMembers(req, res, next) {
+  const params = _.merge(req.query, {});
+  req.getConnection(function (err, con) {
+    if (err) {
+      return next(err);
+    }
+    const sqlQuery = `SELECT name from profiles;`;
     const queryString = con.query(sqlQuery, function (err, results) {
       if (err) {
         return next(err);

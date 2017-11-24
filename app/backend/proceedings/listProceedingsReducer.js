@@ -22,6 +22,12 @@ const PUBLISH_SUCCESS = 'council/backend/proceedings/PUBLISH_SUCCESS';
 const TAKEDOWN = 'council/backend/proceedings/TAKEDOWN';
 const TAKEDOWN_SUCCESS = 'council/backend/proceedings/TAKEDOWN_SUCCESS';
 
+const GET_MEMBERS = 'council/backend/proceedings/GET_MEMBERS';
+const GET_MEMBERS_SUCCESS = 'council/backend/proceedings/GET_MEMBERS_SUCCESS';
+
+const OPEN_MODAL = 'council/backend/proceedings/OPEN_MODAL';
+const CLOSE_MODAL = 'council/backend/proceedings/CLOSE_MODAL';
+
 const initialState = {
   sync: {totalSize: 0},
   loaded: false,
@@ -34,7 +40,12 @@ const initialState = {
     pages: 1,
     totalSize: 0,
     table: 'proceedings'
-  }
+  },
+  choosemember: {
+    isOpen : false,
+    membername: ''
+  },
+  members: []
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -90,6 +101,25 @@ export default function reducer(state = initialState, action = {}) {
           page: action.page
         }
       };
+    case GET_MEMBERS_SUCCESS:
+      return {
+        ...state,
+        members: action.members
+      };
+    case OPEN_MODAL:
+      return {
+        ...state,
+        choosemember: {
+          isOpen: true
+        }
+      };
+    case CLOSE_MODAL:
+      return {
+        ...state,
+        choosemember: {
+          isOpen: false
+        }
+      };
     default:
       return state;
   }
@@ -125,7 +155,7 @@ export function syncProceedingsData(params) {
     }).then(response => response.json())
       .then(json => {
         console.log(json);
-        return dispatch(insertProceedings(json.records))
+        return dispatch(insertProceedings({...json.records, membername: params.q}))
       });
   };
 }
@@ -242,5 +272,31 @@ export function takedown(no) {
       .then(json => {
         console.log(json);
       });
+  };
+}
+
+export function getMembers() {
+  return (dispatch) => {
+    dispatch({type: GET_MEMBERS});
+    return fetch('/api/council/get-members', {
+      credentials: 'same-origin',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(response => response.json())
+      .then(json => dispatch({type: GET_MEMBERS_SUCCESS, members: json}));
+  };
+}
+
+export function openModal() {
+  return {
+    type: OPEN_MODAL
+  };
+}
+
+export function closeModal() {
+  return {
+    type: CLOSE_MODAL
   };
 }
