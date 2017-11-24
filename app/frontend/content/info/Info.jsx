@@ -64,7 +64,7 @@ export default class info extends Component {
             <div className="col-md-10">
               {data && data.map(m =>
                 <div className="inner-results">
-                  <h3><a href="detail.php">{m.title}</a></h3>
+                  <h3><Link to={`/frontend/${params.name}/others/detail/messages/${m.id}`}>{m.title}</Link></h3>
                   <div dangerouslySetInnerHTML={{__html: m.content}} />
                 </div>
               )}

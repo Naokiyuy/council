@@ -23,6 +23,9 @@ const LOAD_MESSAGES_SUCCESS = 'council/home/index/LOAD_MESSAGES_SUCCESS';
 const LOAD_SERVICE = 'council/home/index/LOAD_SERVICE';
 const LOAD_SERVICE_SUCCESS = 'council/home/index/LOAD_SERVICE_SUCCESS';
 
+const LOAD_DETAIL = 'council/home/index/LOAD_DETAIL';
+const LOAD_DETAIL_SUCCESS = 'council/home/index/LOAD_DETAIL_SUCCESS';
+
 const initialState = {
   councilDataYearly:{data: {}, loaded: false},
   councilDataCouncil: {data: {}, loaded: false},
@@ -192,6 +195,11 @@ export default function reduce(state = initialState, action = {}) {
           page: action.page
         }
       };
+    case LOAD_DETAIL_SUCCESS:
+      return {
+        ...state,
+        detail: action.detail
+      };
     default:
       return state;
   }
@@ -345,5 +353,15 @@ export function sort(sort) {
       sort
     });
     return dispatch(fetchListAsync());
+  };
+}
+
+export function loadDetail(table, id) {
+  return (dispatch) => {
+    dispatch({type: LOAD_DETAIL});
+    return fetch(`/api/council/query-data?table=${table}&id=${id}`, {
+      credentials: 'same-origin'
+    }).then(response => response.json())
+      .then(json => dispatch({type: LOAD_DETAIL_SUCCESS, detail: json[0]}));
   };
 }
