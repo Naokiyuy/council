@@ -52,7 +52,7 @@ export default class ChooseMember extends Component {
 
     return (
       <Modal
-        className="Modal__Bootstrap modal-lg"
+        className="Modal__Bootstrap modal-lg modal-dialog"
         closeTimeoutMS={150}
         isOpen={isOpen}
         style={modalCustom}
@@ -60,12 +60,12 @@ export default class ChooseMember extends Component {
         contentLabel={"choosemember"}
         onAfterOpen={this.getMembers}
       >
-        <div className="card mb-3">
-          <div className="card-header"><i className={"fa fa-plus"}/> 新增新聞</div>
-          <div className="card-body">
-            <form onSubmit={handleSubmit(this.syncData)}>
+        <div className="modal-content">
+          <div className={"modal-header"}><i className={"fa fa-plus"}/> 新增新聞</div>
+          <form onSubmit={handleSubmit(this.syncData)}>
+            <div className={"modal-body"}>
               <div className="form-group">
-                <div className="form-row">
+                <div className="row">
                   <div className="col-md-12">
                     <label htmlFor={"member"}>選擇議員</label>
                     <select className={"form-control"} id={"member"} {...membername}>
@@ -77,17 +77,20 @@ export default class ChooseMember extends Component {
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="modal-footer">
               <div className="form-group">
-                <div className="form-row">
+                <div className="row">
                   <div className="col-md-6"/>
                   <div className="col-md-6 text-right">
-                    <button type="submit" className={"btn btn-primary"}>新增</button>{" "}
+                    <button type="submit" className={"btn btn-primary"}>新增</button>
+                    {" "}
                     <button type="button" className={"btn btn-default"} onClick={closeModal}>取消</button>
                   </div>
                 </div>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </Modal>
     );

@@ -84,7 +84,7 @@ export default class ListProceedings extends Component {
               <tbody>
               {proceedings && proceedings.map(p =>
                 <tr key={p.no} className={"row"}>
-                  <td className={"col-md-1 text-center"}>{p.no}</td>
+                  <td className={"col-md-1 text-center"}>{p.id}</td>
                   <td className={"col-md-2"}>{p.sno}</td>
                   <td className={"col-md-2"}>{p.councilChn}</td>
                   <td className={"col-md-2"}>{p.category}</td>
@@ -93,8 +93,8 @@ export default class ListProceedings extends Component {
                   <td className={"col-md-1"}><ComponentStatus value={p.status}/></td>
                   <td className={"col-md-1"}>
                     {(p.status === 'DRAFT' || p.status === 'TAKEDOWN') ?
-                      <button className="btn btn-primary" onClick={() => this.publishProceeding(p.no)}>發佈</button> :
-                      <button className="btn btn-outline-danger" onClick={() => this.takedownProceeding(p.no)}>
+                      <button className="btn btn-primary" onClick={() => this.publishProceeding(p.id)}>發佈</button> :
+                      <button className="btn btn-outline-danger" onClick={() => this.takedownProceeding(p.id)}>
                         下架</button>
                     }
                   </td>

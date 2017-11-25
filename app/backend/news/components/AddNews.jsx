@@ -3,8 +3,8 @@ import Modal from 'react-modal';
 import {bindActionCreators} from 'redux';
 import {reduxForm} from 'redux-form';
 import * as actionCreator from '../listNewsReducer';
-import { EditorState, convertToRaw, ContentState } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
+import {EditorState, convertToRaw, ContentState} from 'draft-js';
+import {Editor} from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 
 @reduxForm({
@@ -49,19 +49,19 @@ export default class AddNews extends Component {
 
     return (
       <Modal
-        className="Modal__Bootstrap modal-lg"
+        className="Modal__Bootstrap modal-lg modal-dialog"
         closeTimeoutMS={150}
         isOpen={isOpen}
         style={modalCustom}
         shouldCloseOnOverlayClick={true}
         contentLabel={"addnews"}
       >
-        <div className="card mb-3">
-          <div className="card-header"><i className={"fa fa-plus"}/> 新增新聞</div>
-          <div className="card-body">
-            <form onSubmit={handleSubmit(this.addNews)}>
+        <div className="modal-content">
+          <div className="modal-header"><i className={"fa fa-plus"}/> 新增新聞</div>
+          <form onSubmit={handleSubmit(this.addNews)}>
+            <div className="modal-body">
               <div className="form-group">
-                <div className="form-row">
+                <div className="row">
                   <div className="col-md-4">
                     <label htmlFor={"name"}>議員姓名</label>
                     <input className="form-control" id="name" type="text" aria-describedby="titleHelp"
@@ -83,7 +83,7 @@ export default class AddNews extends Component {
                 </div>
               </div>
               <div className="form-group">
-                <div className="form-row">
+                <div className="row">
                   <div className="col-md-12">
                     <label htmlFor={"url"}>連結</label>
                     <input className="form-control" id="url" type="url" aria-describedby="nameHelp"
@@ -93,7 +93,7 @@ export default class AddNews extends Component {
                 </div>
               </div>
               <div className="form-group">
-                <div className="form-row">
+                <div className="row">
                   <div className="col-md-12">
                     <label htmlFor={"content"}>內文</label>
                     <Editor id={"content"}
@@ -106,17 +106,20 @@ export default class AddNews extends Component {
                   </div>
                 </div>
               </div>
+            </div>
+            <div className={"modal-footer"}>
               <div className="form-group">
-                <div className="form-row">
+                <div className="row">
                   <div className="col-md-6"/>
                   <div className="col-md-6 text-right">
-                    <button type="submit" className={"btn btn-primary"}>新增</button>{" "}
+                    <button type="submit" className={"btn btn-primary"}>新增</button>
+                    {" "}
                     <button type="button" className={"btn btn-default"} onClick={closeModal}>取消</button>
                   </div>
                 </div>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </Modal>
     );

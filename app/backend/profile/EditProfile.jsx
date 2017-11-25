@@ -49,14 +49,14 @@ export default class EditProfile extends Component {
     } = this.props;
     return (
       <div>
-        <div className="card mb-3">
-          <div className="card-header">
+        <div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <div className="page-header">
             <i className="fa fa-pencil"></i> 編輯公告訊息
           </div>
-          <div className="card-body">
+          <div className="page-body">
             <form onSubmit={handleSubmit(this.update)}>
               <div className="form-group">
-                <div className="form-row">
+                <div className="row">
                   <div className="col-md-6">
                     <label htmlFor={"name"}>姓名</label>
                     <input className="form-control" id="name" type="text" aria-describedby="titleHelp"
@@ -72,7 +72,7 @@ export default class EditProfile extends Component {
                 </div>
               </div>
               <div className="form-group">
-                <div className="form-row">
+                <div className="row">
                   <div className="col-md-12">
                     <label htmlFor={"profile"}>基本資料</label>
                     <Editor id={"profile"}
@@ -86,7 +86,7 @@ export default class EditProfile extends Component {
                 </div>
               </div>
               <div className="form-group">
-                <div className="form-row">
+                <div className="row">
                   <div className="col-md-12">
                     <label htmlFor={"politics"}>政見</label>
                     <Editor id={"politics"}
@@ -100,7 +100,7 @@ export default class EditProfile extends Component {
                 </div>
               </div>
               <div className="form-group">
-                <div className="form-row">
+                <div className="row">
                   <div className="col-md-12">
                     <label htmlFor={"lifestory"}>生平</label>
                     <Editor id={"lifestory"}
@@ -114,7 +114,7 @@ export default class EditProfile extends Component {
                 </div>
               </div>
               <div className="form-group">
-                <div className="form-row">
+                <div className="row">
                   <div className="col-md-12">
                     <label htmlFor={"remarks"}>說明</label>
                     <Editor id={"remarks"}
@@ -128,7 +128,7 @@ export default class EditProfile extends Component {
                 </div>
               </div>
               <div className="form-group">
-                <div className="form-row">
+                <div className="row">
                   <div className="col-md-12">
                     <label htmlFor={"contact"}>聯絡方式</label>
                     <Editor id={"contact"}
@@ -142,7 +142,7 @@ export default class EditProfile extends Component {
                 </div>
               </div>
               <div className="form-group">
-                <div className="form-row">
+                <div className="row">
                   <div className="col-md-6"/>
                   <div className="col-md-6 text-right">
                     <button type="submit" className={"btn btn-primary"}>更新</button>{" "}

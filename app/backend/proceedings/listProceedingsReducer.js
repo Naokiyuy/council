@@ -249,7 +249,7 @@ export function publish(no) {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({table: 'proceedings', no: {no: no}, data: {status: 'ONLINE'}})
+      body: JSON.stringify({table: 'proceedings', no: {id: no}, data: {status: 'ONLINE'}})
     }).then(response => response.json())
       .then(json => {
         console.log(json);
@@ -267,7 +267,7 @@ export function takedown(no) {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({table: 'proceedings', no: {no: no}, data: {status: 'TAKEDOWN'}})
+      body: JSON.stringify({table: 'proceedings', no: {id: no}, data: {status: 'TAKEDOWN'}})
     }).then(response => response.json())
       .then(json => {
         console.log(json);

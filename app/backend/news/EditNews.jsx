@@ -50,14 +50,14 @@ export default class EditNews extends Component {
 
     return (
       <div>
-        <div className="card mb-3">
-          <div className="card-header">
+        <div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <div className="page-header">
             <i className="fa fa-pencil"></i> 編輯新聞
           </div>
-          <div className="card-body">
+          <div className="page-body">
             <form onSubmit={handleSubmit(this.update)}>
               <div className="form-group">
-                <div className="form-row">
+                <div className="row">
                   <div className="col-md-4">
                     <label htmlFor={"name"}>議員姓名</label>
                     <input className="form-control" id="name" type="text" aria-describedby="titleHelp"
@@ -67,7 +67,7 @@ export default class EditNews extends Component {
                 </div>
               </div>
               <div className="form-group">
-                <div className="form-row">
+                <div className="row">
                   <div className="col-md-4">
                     <label htmlFor={"title"}>標題</label>
                     <input className="form-control" id="title" type="text" aria-describedby="titleHelp"
@@ -89,7 +89,7 @@ export default class EditNews extends Component {
                 </div>
               </div>
               <div className="form-group">
-                <div className="form-row">
+                <div className="row">
                   <div className="col-md-4">
                     <label htmlFor={"url"}>連結</label>
                     <input className="form-control" id="url" type="url" aria-describedby="nameHelp"
@@ -114,7 +114,7 @@ export default class EditNews extends Component {
                 </div>
               </div>
               <div className="form-group">
-                <div className="form-row">
+                <div className="row">
                   <div className="col-md-12">
                     <label htmlFor={"content"}>內文</label>
                     <Editor id={"content"}
@@ -128,7 +128,7 @@ export default class EditNews extends Component {
                 </div>
               </div>
               <div className="form-group">
-                <div className="form-row">
+                <div className="row">
                   <div className="col-md-6"/>
                   <div className="col-md-6 text-right">
                     <button type="submit" className={"btn btn-primary"}>更新</button>{" "}
