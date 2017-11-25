@@ -15,7 +15,7 @@ export default class Header extends Component {
       <div className="header ">
         <div className="container">
           <Link className="logo" to={`/frontend/${name}`}>
-            <h1>謝東閔議員主題網</h1>
+            <h1>{name}議員主題網</h1>
           </Link>
         </div>
         <div className="collapse navbar-collapse mega-menu navbar-responsive-collapse">

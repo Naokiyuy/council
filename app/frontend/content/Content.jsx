@@ -276,7 +276,7 @@ export default class Content extends Component {
               <ul className="list-unstyled categories" style={{listStyleType: 'lower-roman'}}>
                 {messages[0] && messages[0].map(m =>
                   <li>
-                    <a href="#">{m.title}</a>
+                    <Link to={`/frontend/${profile.membername}/others/messages/${m.id}`}>{m.title}</Link>
                     <small className="hex">(<FormattedDate value={m.date} {...config.dateformat.date}/>)</small>
                   </li>
                 )}
@@ -286,7 +286,7 @@ export default class Content extends Component {
               <ul className="list-unstyled categories" style={{listStyleType: 'lower-roman'}}>
                 {news[0] && news[0].map(n =>
                   <li>
-                    <a href="#">{n.title}</a>
+                    <Link to={`/frontend/${profile.membername}/others/news/${n.id}`}>{n.title}</Link>
                     <small className="hex">(<FormattedDate value={n.date} {...config.dateformat.date}/>)</small>
                   </li>
                 )}
@@ -296,7 +296,7 @@ export default class Content extends Component {
               <ul className="list-unstyled categories" style={{listStyleType: 'lower-roman'}}>
                 {services[0] && services[0].map(s =>
                   <li>
-                    <a href="#">{s.title}</a>
+                    <Link to={`/frontend/${profile.membername}/others/services/${s.id}`}>{s.title}</Link>
                     <small className="hex">(<FormattedDate value={s.date} {...config.dateformat.date}/>)</small>
                   </li>
                 )}

@@ -57,59 +57,55 @@ export default class ListProceedings extends Component {
       return false;
     }
     return (
-      <div>
+      <div className={"col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"}>
+        <h1 className="page-header">議事清單</h1>
         <div className="row">
           <div className="col-md-2">
             <button className="btn btn-primary" style={{marginBottom: '5px'}} onClick={openModal}>
-              <i className="fa fa-refresh"/> 同步議事資料</button>
+              <i className="fa fa-refresh"/> 同步議事資料
+            </button>
           </div>
         </div>
-        <div className="card mb-3">
-          <div className="card-header">
-            <i className="fa fa-table"></i> 議事清單
+        <div className="table-responsive">
+          <div className="dataTable_wrapper">
+            <table className="table table-bordered" id="dataTable" width="100%" cellSpacing="0">
+              <thead>
+              <tr className={"row"}>
+                <th className={"col-md-1"}>編號</th>
+                <th className={"col-md-2"}>SNo.</th>
+                <th className={"col-md-2"}>議會</th>
+                <th className={"col-md-2"}>項目</th>
+                <th className={"col-md-2"}>摘要</th>
+                <th className={"col-md-1"}>時間</th>
+                <th className={"col-md-1"}>公告</th>
+                <th className={"col-md-1"}>功能</th>
+              </tr>
+              </thead>
+              <tbody>
+              {proceedings && proceedings.map(p =>
+                <tr key={p.no} className={"row"}>
+                  <td className={"col-md-1 text-center"}>{p.no}</td>
+                  <td className={"col-md-2"}>{p.sno}</td>
+                  <td className={"col-md-2"}>{p.councilChn}</td>
+                  <td className={"col-md-2"}>{p.category}</td>
+                  <td className={"col-md-2"}>{p.abstract}</td>
+                  <td className={"col-md-1"}><FormattedDate value={p.date} {...config.dateformat.shortdatetime}/></td>
+                  <td className={"col-md-1"}><ComponentStatus value={p.status}/></td>
+                  <td className={"col-md-1"}>
+                    {(p.status === 'DRAFT' || p.status === 'TAKEDOWN') ?
+                      <button className="btn btn-primary" onClick={() => this.publishProceeding(p.no)}>發佈</button> :
+                      <button className="btn btn-outline-danger" onClick={() => this.takedownProceeding(p.no)}>
+                        下架</button>
+                    }
+                  </td>
+                </tr>
+              )}
+              </tbody>
+            </table>
           </div>
-          <div className="card-body">
-            <div className="table-responsive">
-              <div className="dataTable_wrapper">
-                <table className="table table-bordered" id="dataTable" width="100%" cellSpacing="0">
-                  <thead>
-                  <tr className={"row"}>
-                    <th className={"col-md-1"}>編號</th>
-                    <th className={"col-md-2"}>SNo.</th>
-                    <th className={"col-md-2"}>議會</th>
-                    <th className={"col-md-2"}>項目</th>
-                    <th className={"col-md-2"}>摘要</th>
-                    <th className={"col-md-1"}>時間</th>
-                    <th className={"col-md-1"}>公告</th>
-                    <th className={"col-md-1"}>功能</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  {proceedings && proceedings.map(p =>
-                    <tr key={p.no} className={"row"}>
-                      <td className={"col-md-1 text-center"}>{p.no}</td>
-                      <td className={"col-md-2"}>{p.sno}</td>
-                      <td className={"col-md-2"}>{p.councilChn}</td>
-                      <td className={"col-md-2"}>{p.category}</td>
-                      <td className={"col-md-2"}>{p.abstract}</td>
-                      <td className={"col-md-1"}><FormattedDate value={p.date} {...config.dateformat.shortdatetime}/></td>
-                      <td className={"col-md-1"}><ComponentStatus value={p.status}/></td>
-                      <td className={"col-md-1"}>
-                        {(p.status === 'DRAFT' || p.status === 'TAKEDOWN') ?
-                          <button className="btn btn-primary" onClick={() => this.publishProceeding(p.no)}>發佈</button> :
-                          <button className="btn btn-outline-danger" onClick={() => this.takedownProceeding(p.no)}>下架</button>
-                        }
-                      </td>
-                    </tr>
-                  )}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <div className="card-footer small text-muted">
-            <Paginate grid={grid} clickCallback={page}/>
-          </div>
+        </div>
+        <div className="card-footer small text-muted">
+          <Paginate grid={grid} clickCallback={page}/>
         </div>
         <ChooseMember/>
       </div>
