@@ -444,7 +444,7 @@ body-parser@1.18.2, body-parser@^1.15.1:
     raw-body "2.3.2"
     type-is "~1.6.15"
 
-busboy@^0.2.11:
+busboy@^0.2.11, busboy@^0.2.14:
   version "0.2.14"
   resolved "https://registry.yarnpkg.com/busboy/-/busboy-0.2.14.tgz#6c2a622efcf47c57bbbe1e2a9c37ad36c7925453"
   dependencies:
@@ -630,6 +630,14 @@ excel-export@~0.3.11:
   dependencies:
     node-zip "1.x"
 
+express-fileupload@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/express-fileupload/-/express-fileupload-0.3.0.tgz#d1b77b56e5b50e5f22f8326894c4f25b6ccba1b7"
+  dependencies:
+    busboy "^0.2.14"
+    fs-extra "^4.0.1"
+    streamifier "^0.1.1"
+
 express-myconnection@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/express-myconnection/-/express-myconnection-1.0.4.tgz#8776049fbf9f262209cffdb535b7c7509733ff55"
@@ -721,9 +729,21 @@ fresh@0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
 
+fs-extra@^4.0.1:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-4.0.2.tgz#f91704c53d1b461f893452b0c307d9997647ab6b"
+  dependencies:
+    graceful-fs "^4.1.2"
+    jsonfile "^4.0.0"
+    universalify "^0.1.0"
+
 globals@^9.18.0:
   version "9.18.0"
   resolved "https://registry.yarnpkg.com/globals/-/globals-9.18.0.tgz#aa3896b3e69b487f17e31ed2143d69a8e30c2d8a"
+
+graceful-fs@^4.1.2, graceful-fs@^4.1.6:
+  version "4.1.11"
+  resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
 
 has-ansi@^2.0.0:
   version "2.0.0"
@@ -817,6 +837,12 @@ json2xls@^0.1.2:
   resolved "https://registry.yarnpkg.com/json2xls/-/json2xls-0.1.2.tgz#37358ed82a8fcaf92bb3b24d8759ac57e394e017"
   dependencies:
     excel-export "~0.3.11"
+
+jsonfile@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/jsonfile/-/jsonfile-4.0.0.tgz#8771aae0799b64076b76640fca058f9c10e33ecb"
+  optionalDependencies:
+    graceful-fs "^4.1.6"
 
 jszip@2.5.0:
   version "2.5.0"
@@ -1029,6 +1055,10 @@ random-bytes@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/random-bytes/-/random-bytes-1.0.0.tgz#4f68a1dc0ae58bd3fb95848c30324db75d64360b"
 
+random-string@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/random-string/-/random-string-0.2.0.tgz#a46e4375352beda9a0d7b0d19ed6d321ecd1d82d"
+
 range-parser@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
@@ -1186,6 +1216,10 @@ statuses@~1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.3.1.tgz#faf51b9eb74aaef3b3acf4ad5f61abf24cb7b93e"
 
+streamifier@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/streamifier/-/streamifier-0.1.1.tgz#97e98d8fa4d105d62a2691d1dc07e820db8dfc4f"
+
 streamsearch@0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/streamsearch/-/streamsearch-0.1.2.tgz#808b9d0e56fc273d809ba57338e929919a1a9f1a"
@@ -1246,6 +1280,10 @@ uid-safe@~2.1.5:
   resolved "https://registry.yarnpkg.com/uid-safe/-/uid-safe-2.1.5.tgz#2b3d5c7240e8fc2e58f8aa269e5ee49c0857bd3a"
   dependencies:
     random-bytes "~1.0.0"
+
+universalify@^0.1.0:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/universalify/-/universalify-0.1.1.tgz#fa71badd4437af4c148841e3b3b165f9e9e590b7"
 
 unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"

@@ -144,7 +144,7 @@ export default class Content extends Component {
             <div className="headline"><h2>{profile.membername}議員</h2></div>
             <div className="row">
               <div className="col-sm-4">
-                <img className="img-responsive margin-bottom-20" src="../../assets/frontend/img/index.jpg" alt=""/>
+                <img className="img-responsive margin-bottom-20" src={`/upload/${profile.profilePhoto}`} alt=""/>
               </div>
               <div className="col-sm-8">
                 <div dangerouslySetInnerHTML={{__html: profile.lifestory.content}} />
@@ -158,24 +158,16 @@ export default class Content extends Component {
           <div className="col-md-4">
             <div className="headline"><h2>影像集錦</h2></div>
             <Carousel showThumbs={false} showArrows={true} showStatus={false}>
-              <div>
-                <img src="../../assets/frontend/img/a03.jpg" alt=""/>
-                <div className="legend">
-                  <p>謝東閔在政治上的成就，採取精神與物質並重原則，先後提出小康計劃、消除髒亂運動</p>
+              {profile.slidePhotos && profile.slidePhotos.map((p, i) =>
+                <div key={p.filename}>
+                  <img src={`/upload/${p.filename}`} alt=""/>
+                  <div className="legend">
+                    <p>
+                      {profile[`slideLabels${i+1}`]}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div>
-                <img src="../../assets/frontend/img/a02.JPG" alt=""/>
-                <div className="legend">
-                  <p>謝東閔先生全集紀念委員會，謝東閔先生全集，台北：國史館</p>
-                </div>
-              </div>
-              <div>
-                <img src="../../assets/frontend/img/a00.jpg" alt=""/>
-                <div className="legend">
-                  <p>台灣總統當選人陳水扁5月17日拜會總統府資政謝東閔，陳總統邀請謝東閔繼續擔任資政</p>
-                </div>
-              </div>
+              )}
             </Carousel>
           </div>
         </div>

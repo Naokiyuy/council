@@ -18,3 +18,11 @@ span.dot-bg-red {
 span.dot-bg-green {
   background-color: #01f814;
 }
+
+.profile-dropzone {
+  cursor: pointer;
+  border-color: #666;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+}

@@ -8,6 +8,7 @@ import connectTimeout from 'connect-timeout';
 import errorhandler from 'errorhandler';
 import mysql from 'mysql';
 import mycon from 'express-myconnection';
+import fileUpload from 'express-fileupload';
 
 import contentController from './api/content/controllers/content-controller';
 // import config from './config/config';
@@ -38,7 +39,7 @@ if (isDev) {
     }
   });
   app.use(express.static('../app/'));
-  app.use(express.static('../public/'));
+  // app.use(express.static('../public/'));
   app.use(middleware);
   app.use(require('webpack-hot-middleware')(compiler));
   app.use(session({
@@ -81,6 +82,9 @@ const dbOptions = {
 
 app.use(mycon(mysql, dbOptions, 'request'));
 
+// default options
+app.use(fileUpload({limits: { fileSize: 50 * 1024 * 1024 }}));
+
 // app.use(logger);
 
 // register routes
@@ -106,13 +110,12 @@ if (isDev) {
 // production error handler
 // no stacktraces leaked to user
 app.use((err, req, res, next) => {
-  //res.status(err.status || 500);
-  // console.error(err.stack);
-  // res.status(500).send(err.stack);
-  res.render('error', {
+  res.status(err.status || 500);
+  res.json({
     message: err.message,
-    error: {}
+    error: err
   });
+  next();
 });
 
 // catch 404 and forward to error handler
@@ -121,8 +124,8 @@ app.use((req, res, next) => {
   err.status = 404;
   next(err);
 });
-// const port = isDev ? 80 : 3000;
-const port = 80;
+const port = isDev ? 80 : 3000;
+// const port = 80;
 const server = http.createServer(app);
 server.on('connection', function (socket) {
   // Nodejs and express server closes connection after 2 minutes by default

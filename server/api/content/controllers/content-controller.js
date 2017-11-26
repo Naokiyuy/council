@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import contentService from '../services/content-service';
+import randomString from 'random-string';
 
 const controller = {
   routes,
@@ -14,7 +15,9 @@ const controller = {
   queryProfile,
   queryAll,
   getMembers,
-  queryByYear
+  queryByYear,
+  uploadFile,
+  uploadFiles
 };
 
 export default controller;
@@ -32,6 +35,8 @@ function routes(app) {
   app.get('/api/council/list-all', controller.queryAll);
   app.get('/api/council/list-by-year', controller.queryByYear);
   app.get('/api/council/get-members', controller.getMembers);
+  app.post('/api/file/upload', controller.uploadFile);
+  app.post('/api/files/upload', controller.uploadFiles);
 }
 
 function search(req, res, next) {
@@ -298,4 +303,47 @@ function getMembers(req, res, next) {
     });
     console.log(queryString.sql);
   });
+}
+
+function uploadFile(req, res, next) {
+  let files = req.files;
+  if (!files)
+    return res.status(400).send('No files were uploaded.');
+
+  let profileFile = files.file;
+  const filepath = `/vol/web/upload/`;
+  const filename = `${randomString()}.jpg`;
+  profileFile.mv(filepath + filename, function(err) {
+    if (err) {
+      return next(err);
+    }
+
+    res.type('application/json').send({status: 'success', filename: filename});
+    return null;
+  });
+}
+
+function uploadFiles(req, res, next) {
+  let files = req.files;
+  if (!files)
+    return res.status(400).send('No files were uploaded.');
+
+  const filepath = `/vol/web/upload/`;
+  let r = {
+    totalSize: files.file.length,
+    files: []
+  };
+  for (let i = 0 ; i < r.totalSize ; i++) {
+    const filename = `${randomString()}.jpg`;
+    files.file[i].mv(filepath + filename, function(err) {
+      if (err) {
+        return next(err);
+      }
+    });
+    r.files.push({status: 'success', filename: filename});
+  }
+
+  console.log(r);
+  res.type('application/json').send(r);
+  return null;
 }

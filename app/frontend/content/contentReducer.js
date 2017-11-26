@@ -141,7 +141,12 @@ export default function reduce(state = initialState, action = {}) {
           },
           profile: {
             content: action.profile.profile
-          }
+          },
+          profilePhoto: action.profile.profilePhoto,
+          slidePhotos: [{filename: action.profile.slide1}, {filename: action.profile.slide2}, {filename: action.profile.slide3}],
+          slideLabels1: action.profile.label1,
+          slideLabels2: action.profile.label2,
+          slideLabels3: action.profile.label3
         }
       };
     case LOAD_NEWS_SUCCESS:

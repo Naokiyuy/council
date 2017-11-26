@@ -112,6 +112,7 @@
     "react-dom": "^15.5.0-rc.2",
     "react-draft-wysiwyg": "^1.10.12",
     "react-dropzone": "^3.4.0",
+    "react-dropzone-component": "^3.0.0",
     "react-faux-dom": "^3.0.0",
     "react-highcharts": "^13.0.0",
     "react-html-parser": "^1.0.3",

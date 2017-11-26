@@ -1,4 +1,5 @@
 import _ceil from 'lodash/ceil';
+import _forEach from 'lodash/forEach';
 import queryString from 'query-string';
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import htmlToDraft from 'html-to-draftjs';
@@ -21,6 +22,11 @@ const OPEN_ADD_PROFILE = 'council/backend/profiles/OPEN_ADD_PROFILE';
 const CLOSE_ADD_PROFILE = 'council/backend/profiles/CLOSE_ADD_PROFILE';
 const LOAD_PROFILE = 'council/backend/profiles/LOAD_PROFILE';
 const LOAD_PROFILE_SUCCESS = 'council/backend/profiles/LOAD_PROFILE_SUCCESS';
+
+const UPLOAD_FILE = 'council/backend/profiles/UPLOAD_FILE';
+const UPLOAD_FILE_SUCCESS = 'council/backend/profiles/UPLOAD_FILE_SUCCESS';
+const UPLOAD_SLIDE_FILE = 'council/backend/profiles/UPLOAD_SLIDE_FILE';
+const UPLOAD_SLIDE_FILE_SUCCESS = 'council/backend/profiles/UPLOAD_SLIDE_FILE_SUCCESS';
 
 const initialState = {
   loaded: false,
@@ -49,7 +55,8 @@ const initialState = {
     lifestoryEditor: EditorState.createEmpty(),
     remarksEditor: EditorState.createEmpty(),
     contactEditor: EditorState.createEmpty(),
-    profileEditor: EditorState.createEmpty()
+    profileEditor: EditorState.createEmpty(),
+    slidePhotos: []
   }
 };
 
@@ -127,16 +134,46 @@ export default function reducer(state = initialState, action = {}) {
           membername: profile.name,
           politics: profile.politics,
           politicsEditor: EditorState.createWithContent(ContentState.createFromBlockArray(politicsBlockFromHtml.contentBlocks, politicsBlockFromHtml.entityMap)),
-          lifestory: profile.politics,
+          lifestory: profile.lifestory,
           lifestoryEditor: EditorState.createWithContent(ContentState.createFromBlockArray(lifestoryBlockFromHtml.contentBlocks, lifestoryBlockFromHtml.entityMap)),
-          remarks: profile.politics,
+          remarks: profile.remarks,
           remarksEditor: EditorState.createWithContent(ContentState.createFromBlockArray(remarksBlockFromHtml.contentBlocks, remarksBlockFromHtml.entityMap)),
-          contact: profile.politics,
+          contact: profile.contact,
           contactEditor: EditorState.createWithContent(ContentState.createFromBlockArray(contactBlockFromHtml.contentBlocks, contactBlockFromHtml.entityMap)),
-          profile: profile.politics,
+          profile: profile.profile,
           profileEditor: EditorState.createWithContent(ContentState.createFromBlockArray(profileBlockFromHtml.contentBlocks, profileBlockFromHtml.entityMap)),
           createdTime: profile.createdTime,
-          lastModified: profile.lastModified
+          lastModified: profile.lastModified,
+          slidePhotos: [{filename: profile.slide1}, {filename: profile.slide2}, {filename: profile.slide3}],
+          slideLabels1: profile.label1,
+          slideLabels2: profile.label2,
+          slideLabels3: profile.label3
+        }
+      };
+    case UPLOAD_FILE_SUCCESS:
+      return {
+        ...state,
+        editprofile: {
+          ...state.editprofile,
+          profilePhoto: action.filename
+        }
+      };
+    case UPLOAD_SLIDE_FILE_SUCCESS:
+      return {
+        ...state,
+        editprofile: {
+          ...state.editprofile,
+          slidePhotos: [
+            {
+              filename: action.results.files[0] ? action.results.files[0].filename : ''
+            },
+            {
+              filename: action.results.files[1] ? action.results.files[1].filename : ''
+            },
+            {
+              filename: action.results.files[2] ? action.results.files[2].filename : ''
+            }
+          ]
         }
       };
     default:
@@ -253,8 +290,16 @@ export function updateProfile(values) {
     lifestory: values.lifestory,
     remarks: values.remarks,
     contact: values.contact,
-    profile: values.profile
+    profile: values.profile,
+    profilePhoto: values.profilePhoto,
+    slide1: values.slidePhotos[0].filename,
+    slide2: values.slidePhotos[1].filename,
+    slide3: values.slidePhotos[2].filename,
+    label1: values.slideLabels1,
+    label2: values.slideLabels2,
+    label3: values.slideLabels3
   };
+
   console.log(params);
   return (dispatch) => {
     dispatch({type: EDIT});
@@ -268,5 +313,43 @@ export function updateProfile(values) {
       body: JSON.stringify({table: 'profiles', no: {name: values.membername}, data: params})
     }).then(response => response.json())
       .then(json => dispatch({type: EDIT_SUCCESS}));
+  };
+}
+
+export function fileUpload(value) {
+  console.log(value);
+  let formData = new FormData();
+  formData.append('file', value[0]);
+  return (dispatch) => {
+    dispatch({type: UPLOAD_FILE});
+    return fetch('/api/file/upload', {
+      method: 'POST',
+      credentials: 'same-origin',
+      body: formData
+    }).then(response => response.json())
+      .then(json => {
+        console.log(json);
+        return dispatch({type: UPLOAD_FILE_SUCCESS, filename: json.filename});
+      });
+  };
+}
+
+export function fileUploadSlide(value) {
+  console.log(value);
+  let formData = new FormData();
+  _forEach(value, (v, i) => {
+    formData.append(`file`, v);
+  });
+  return (dispatch) => {
+    dispatch({type: UPLOAD_SLIDE_FILE});
+    return fetch('/api/files/upload', {
+      method: 'POST',
+      credentials: 'same-origin',
+      body: formData
+    }).then(response => response.json())
+      .then(json => {
+        console.log('results', json);
+        return dispatch({type: UPLOAD_SLIDE_FILE_SUCCESS, results: json});
+      });
   };
 }

@@ -17,6 +17,7 @@
     "cookie-parser": "^1.4.1",
     "errorhandler": "^1.4.3",
     "express": "^4.13.4",
+    "express-fileupload": "^0.3.0",
     "express-myconnection": "^1.0.4",
     "express-session": "^1.13.0",
     "file-stream-rotator": "0.0.6",
@@ -28,6 +29,7 @@
     "mysql": "^2.15.0",
     "nconf": "^0.8.4",
     "needle": "^1.0.0",
+    "random-string": "^0.2.0",
     "react-router": "^3.0.0",
     "redis": "^2.6.0-2",
     "serve-favicon": "^2.3.0"

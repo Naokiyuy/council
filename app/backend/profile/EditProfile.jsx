@@ -8,6 +8,11 @@ import draftToHtml from 'draftjs-to-html';
 import {Link, browserHistory} from 'react-router/es6';
 import config from '../../utils/config/globals';
 import {FormattedDate} from 'react-intl';
+import Dropzone from 'react-dropzone';
+import DropzoneComponent from 'react-dropzone-component';
+
+import 'react-dropzone-component/styles/filepicker.css';
+import '../../../node_modules/dropzone/dist/dropzone.css';
 
 @reduxForm({
     form: 'editprofileform',
@@ -17,7 +22,8 @@ import {FormattedDate} from 'react-intl';
       'lifestory', 'lifestoryEditor',
       'remarks', 'remarksEditor',
       'contact', 'contactEditor',
-      'profile', 'profileEditor'
+      'profile', 'profileEditor',
+      'profilePhoto', 'slidePhotos[]', 'slidePhotos[].filename', 'slideLabels1', 'slideLabels2', 'slideLabels3'
     ],
     destroyOnUnmount: true
   }, state => ({
@@ -43,10 +49,12 @@ export default class EditProfile extends Component {
     const {
       fields: {
         membername, createdTime, lastModified, politics, politicsEditor, lifestory, lifestoryEditor,
-        remarks, remarksEditor, contact, contactEditor, profile, profileEditor
+        remarks, remarksEditor, contact, contactEditor, profile, profileEditor, profilePhoto, slidePhotos,
+        slideLabels1, slideLabels2, slideLabels3
       },
-      handleSubmit
+      handleSubmit, fileUpload, fileUploadSlide
     } = this.props;
+
     return (
       <div>
         <div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -68,6 +76,70 @@ export default class EditProfile extends Component {
                     <div className="form-control" id={"createdTime"}>
                       <FormattedDate value={createdTime.value} {...config.dateformat.shortdatetime}/>
                     </div>
+                  </div>
+                </div>
+              </div>
+              <div className={"form-group"}>
+                <div className={"row"}>
+                  <div className={"col-md-4"}>
+                    <label htmlFor={"profilePhoto"}>照片上傳</label>
+                    <Dropzone {...profilePhoto}
+                              onDrop={(file) => fileUpload(file)}
+                              className="profile-dropzone"
+                              multiple={false}
+                              id={"profilePhoto"}
+                    >
+                      {profilePhoto.value &&
+                      <div className="text-center"
+                           style={{height: '150px', verticalAlign: 'middle'}}>
+                        <img src={`/upload/${profilePhoto.value}`} style={{height: '100%'}}/>
+                      </div>
+                      }
+                      {!profilePhoto.value &&
+                      <div className="text-center"
+                           style={{height: '150px', verticalAlign: 'middle'}}>
+                        <h4 className="sbold">請上傳大頭照</h4>
+                      </div>
+                      }
+                    </Dropzone>
+                  </div>
+                  <div className={"col-md-8"}>
+                    <label htmlFor={"slidePhotos"}>影像集錦</label>
+                    <Dropzone {...slidePhotos}
+                              onDrop={(file) => fileUploadSlide(file)}
+                              className="profile-dropzone"
+                              multiple={true}
+                              id={"profilePhoto"}
+                    >
+                      {slidePhotos.length > 0 && slidePhotos.map(s =>
+                        <div className="col-md-4 text-center"
+                             style={{height: '150px', verticalAlign: 'middle'}}>
+                          <img src={`/upload/${s.filename.value}`} style={{height: '100%'}}/>
+                        </div>
+                      )}
+                      {slidePhotos.length < 0 &&
+                      <div className="text-center"
+                           style={{height: '150px', verticalAlign: 'middle'}}>
+                        <h4 className="sbold">請上傳影像集錦</h4>
+                      </div>
+                      }
+                    </Dropzone>
+                  </div>
+                </div>
+              </div>
+              <div className="form-group">
+                <div className={"row"}>
+                  <div className={"col-md-4"}>
+                    <label htmlFor={"slideLabels1"}>影像集錦文字1</label>
+                    <input type={"text"} className={"form-control"} id={"slideLabels1"} {...slideLabels1}/>
+                  </div>
+                  <div className={"col-md-4"}>
+                    <label htmlFor={"slideLabels2"}>影像集錦文字2</label>
+                    <input type={"text"} className={"form-control"} id={"slideLabels2"} {...slideLabels2}/>
+                  </div>
+                  <div className={"col-md-4"}>
+                    <label htmlFor={"slideLabels3"}>影像集錦文字3</label>
+                    <input type={"text"} className={"form-control"} id={"slideLabels3"} {...slideLabels3}/>
                   </div>
                 </div>
               </div>
