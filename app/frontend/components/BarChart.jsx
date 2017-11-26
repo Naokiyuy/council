@@ -4,7 +4,7 @@ import Spinner from 'react-spinkit';
 
 export default class BarChart extends Component {
   render() {
-    const {data, loaded, callback, restore} = this.props;
+    const {data, loaded, callback, restore, name} = this.props;
 
     if (!loaded) {
       return (<Spinner style={{textAlign: 'center', lineHeight: '400px'}} spinnerName="three-bounce" noFadeIn/>);
@@ -37,7 +37,7 @@ export default class BarChart extends Component {
       tooltip: {
         enabled: true,
         formatter: function() {
-          return '謝東閔議員 於 <b>' + this.x + '</b> 年 議事錄數量 <b>' + this.y + '</b>';
+          return name + '議員 於 <b>' + this.x + '</b> 年 議事錄數量 <b>' + this.y + '</b>';
         }
       },
       title: {
@@ -56,6 +56,7 @@ export default class BarChart extends Component {
         series: {
           colorByPoint: true,
           colors: colors,
+          cursor: 'pointer',
           point: {
             events: {
               click: callback(this.category)

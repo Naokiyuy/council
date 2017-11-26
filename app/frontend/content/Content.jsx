@@ -157,7 +157,7 @@ export default class Content extends Component {
           </div>
           <div className="col-md-4">
             <div className="headline"><h2>影像集錦</h2></div>
-            <Carousel showThumbs={false} showArrows={true} showStatus={false}>
+            <Carousel showThumbs={false} showArrows={true} showStatus={false} infiniteLoop={true} dynamicHeight={true}>
               {profile.slidePhotos && profile.slidePhotos.map((p, i) =>
                 <div key={p.filename}>
                   <img src={`/upload/${p.filename}`} alt=""/>
@@ -171,16 +171,20 @@ export default class Content extends Component {
             </Carousel>
           </div>
         </div>
+        <div className={"row"}>
+          <div className={"col-md-2"}>
+            <button className={"btn btn-primary"} type={"button"} onClick={this.restore}>還原圖表</button>
+          </div>
+        </div>
         <div className="row">
-
           <div className="col-md-12">
-            <BarChart data={councilDataYearly.data} loaded={councilDataYearly.loaded} callback={() => this.barCallback} restore={this.restore}/>
+            <BarChart name={profile.membername} data={councilDataYearly.data} loaded={councilDataYearly.loaded} callback={() => this.barCallback} restore={this.restore}/>
           </div>
 
         </div>
         <div className="row" style={{marginTop: '40px'}}>
           <div className="col-md-6">
-            <PieChart data={councilDataCouncil.data} loaded={councilDataCouncil.loaded} callback={() => this.pieCallback} restore={this.restore}/>
+            <PieChart name={profile.membername} data={councilDataCouncil.data} loaded={councilDataCouncil.loaded} callback={() => this.pieCallback} restore={this.restore}/>
           </div>
           <div className="col-md-3">
             <div className="tab-v1">
@@ -239,7 +243,7 @@ export default class Content extends Component {
               <div className="service-block service-block-sea service-or"
                    style={{padding: '20px 10px 10px 10px', textAlign: 'center', marginBottom: '10px'}}>
                 <div className="service-bg"></div>
-                <i className="icon-custom icon-color-light rounded-x icon-line icon-notebook"></i>
+                <i className="icon-custom icon-color-light rounded-x icon-line fa fa-book"></i>
                 <h2 className="heading-md">最新消息</h2>
 
               </div>
@@ -248,7 +252,7 @@ export default class Content extends Component {
               <div className="service-block service-block-red service-or"
                    style={{padding: '20px 10px 10px 10px', textAlign: 'center', marginBottom: '10px'}}>
                 <div className="service-bg"></div>
-                <i className="icon-custom icon-color-light rounded-x icon-line icon-users"></i>
+                <i className="icon-custom icon-color-light rounded-x icon-line fa fa-users"></i>
                 <h2 className="heading-md">相關新聞</h2>
 
               </div>
@@ -257,14 +261,14 @@ export default class Content extends Component {
               <div className="service-block service-block-blue service-or"
                    style={{padding: '20px 10px 10px 10px', textAlign: 'center', marginBottom: '10px'}}>
                 <div className="service-bg"></div>
-                <i className="icon-custom icon-color-light rounded-x icon-line icon-rocket"></i>
+                <i className="icon-custom icon-color-light rounded-x icon-line fa fa-rocket"></i>
                 <h2 className="heading-md">服務行程</h2>
 
               </div>
             </div>
           </div>
           <div className="row job-content">
-            <div className="col-md-4 col-sm-6 md-margin-bottom-40">
+            <div className="col-md-4 col-sm-6 md-margin-bottom-40" style={{paddingLeft: '35px'}}>
               <ul className="list-unstyled categories" style={{listStyleType: 'lower-roman'}}>
                 {messages[0] && messages[0].map(m =>
                   <li>
@@ -274,7 +278,7 @@ export default class Content extends Component {
                 )}
               </ul>
             </div>
-            <div className="col-md-4 col-sm-6 md-margin-bottom-40">
+            <div className="col-md-4 col-sm-6 md-margin-bottom-40" style={{paddingLeft: '35px'}}>
               <ul className="list-unstyled categories" style={{listStyleType: 'lower-roman'}}>
                 {news[0] && news[0].map(n =>
                   <li>
@@ -284,7 +288,7 @@ export default class Content extends Component {
                 )}
               </ul>
             </div>
-            <div className="col-md-4 col-sm-6 md-margin-bottom-40">
+            <div className="col-md-4 col-sm-6 md-margin-bottom-40" style={{paddingLeft: '35px'}}>
               <ul className="list-unstyled categories" style={{listStyleType: 'lower-roman'}}>
                 {services[0] && services[0].map(s =>
                   <li>

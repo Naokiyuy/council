@@ -73,11 +73,11 @@ export default class Council extends Component {
             <div className="col-md-10">
               {data && data.map(m =>
                 <div className="inner-results">
-                  <h3><Link to={`/frontend/${params.name}/others/detail/proceedings/${m.id}`}>{m.sno}</Link></h3>
+                  <h4><a href={decodeURIComponent(m.url)} target={"_blank"}>{m.sno}</a></h4>
                   {m.abstract}
+                  <hr/>
                 </div>
               )}
-              <hr/>
 
               <div className="margin-bottom-30"></div>
 

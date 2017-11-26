@@ -9,10 +9,6 @@ import {Link, browserHistory} from 'react-router/es6';
 import config from '../../utils/config/globals';
 import {FormattedDate} from 'react-intl';
 import Dropzone from 'react-dropzone';
-import DropzoneComponent from 'react-dropzone-component';
-
-import 'react-dropzone-component/styles/filepicker.css';
-import '../../../node_modules/dropzone/dist/dropzone.css';
 
 @reduxForm({
     form: 'editprofileform',

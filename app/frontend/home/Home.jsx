@@ -25,7 +25,7 @@ export default class Home extends Component {
       <div className="wrapper">
         <Header name={profile.membername}/>
         {this.props.children}
-        <Footer />
+        <Footer name={profile.membername}/>
       </div>
     );
   }

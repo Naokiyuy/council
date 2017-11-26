@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 
 export default class Footer extends Component {
   render() {
+    const {name} = this.props;
     return (
       <div className="footer-v1">
         <div className="footer">
@@ -13,16 +14,16 @@ export default class Footer extends Component {
                   <div className="headline"><h2>整合訊息</h2></div>
                   <ul className="list-unstyled latest-list">
                     <li>
-                      <Link to="/main/others/info">公告訊息</Link>
+                      <Link to={`/frontend/${name}/others/info`}>公告訊息</Link>
                     </li>
                     <li>
-                      <Link to="/main/others/news">新聞訊息</Link>
+                      <Link to={`/frontend/${name}/others/news`}>新聞訊息</Link>
                     </li>
                     <li>
-                      <Link to="/main/others/council">議事訊息</Link>
+                      <Link to={`/frontend/${name}/others/council`}>議事訊息</Link>
                     </li>
                     <li>
-                      <Link to="/main/others/service">服務行程</Link>
+                      <Link to={`/frontend/${name}/others/service`}>服務行程</Link>
                     </li>
                   </ul>
                 </div>

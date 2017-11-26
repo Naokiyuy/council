@@ -73,14 +73,14 @@ export default class news extends Component {
             <div className="col-md-10">
               {data && data.map(m =>
                 <div className="inner-results">
-                  <h3><Link to={`/frontend/${params.name}/others/detail/news/${m.id}`}>{m.title}</Link></h3>
+                  <h4><Link to={`/frontend/${params.name}/others/detail/news/${m.id}`}>{m.title}</Link></h4>
                   <ul className="list-inline up-ul">
                     <li>{m.url}</li>
                   </ul>
                   <div dangerouslySetInnerHTML={{__html: m.content}} />
+                  <hr/>
                 </div>
               )}
-              <hr/>
               <div className="margin-bottom-30"></div>
 
               <div className="text-left">
