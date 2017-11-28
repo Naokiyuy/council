@@ -39,9 +39,10 @@ export default class Footer extends Component {
               <div className="col-md-4 map-img md-margin-bottom-40">
                 <div className="headline"><h2>聯絡我們</h2></div>
                 <address className="md-margin-bottom-40">
-                  <a href="#">粉絲專業</a><br />
-                  <a href="#">聯絡信箱</a><br />
-
+                  <ul className="list-unstyled link-list">
+                    <li><a href="#">粉絲專業</a></li>
+                    <li><a href="#">聯絡信箱</a></li>
+                  </ul>
                 </address>
               </div>
             </div>

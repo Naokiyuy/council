@@ -75,7 +75,6 @@ export default class info extends Component {
               {data && data.map(m =>
                 <div className="inner-results">
                   <h4><Link to={`/frontend/${params.name}/others/detail/messages/${m.id}`}>{m.title}</Link></h4>
-                  <div dangerouslySetInnerHTML={{__html: m.content}} />
                   <hr/>
                 </div>
               )}

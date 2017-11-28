@@ -7,7 +7,7 @@ import Spinner from 'react-spinkit';
 export default class PieChart extends Component {
   render() {
     const {data, loaded, callback, restore} = this.props;
-
+    console.log(data);
     if (!loaded) {
       return (<Spinner style={{textAlign: 'center', lineHeight: '400px'}} spinnerName="three-bounce" noFadeIn/>);
     }

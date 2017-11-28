@@ -77,7 +77,6 @@ export default class news extends Component {
                   <ul className="list-inline up-ul">
                     <li>{m.url}</li>
                   </ul>
-                  <div dangerouslySetInnerHTML={{__html: m.content}} />
                   <hr/>
                 </div>
               )}

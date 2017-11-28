@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import {bindActionCreators} from 'redux';
 import {reduxForm} from 'redux-form';
 import * as actionCreator from '../listNewsReducer';
+import {getMembers} from '../../proceedings/listProceedingsReducer';
 import {EditorState, convertToRaw, ContentState} from 'draft-js';
 import {Editor} from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
@@ -15,10 +16,16 @@ import draftToHtml from 'draftjs-to-html';
     destroyOnUnmount: true
   }, state => ({
     isOpen: state.backend.news.addnews.isOpen,
+    members: state.backend.proceedings.members,
     initialValues: state.backend.news.addnews.initialValues
-  }), dispatch => bindActionCreators({...actionCreator}, dispatch)
+  }), dispatch => bindActionCreators({...actionCreator, getMembers}, dispatch)
 )
 export default class AddNews extends Component {
+  componentDidMount() {
+    const {getMembers} = this.props;
+    getMembers();
+  }
+
   onChange = (value, textField, editor) => {
     editor.onChange(value);
     textField.onChange(draftToHtml(convertToRaw(value.getCurrentContent())));
@@ -44,7 +51,7 @@ export default class AddNews extends Component {
 
     const {
       fields: {membername, title, source, url, content, contentEditor},
-      isOpen, closeModal, handleSubmit
+      isOpen, closeModal, handleSubmit, members
     } = this.props;
 
     return (
@@ -64,9 +71,12 @@ export default class AddNews extends Component {
                 <div className="row">
                   <div className="col-md-4">
                     <label htmlFor={"name"}>議員姓名</label>
-                    <input className="form-control" id="name" type="text" aria-describedby="titleHelp"
-                           placeholder="議員姓名" {...membername}
-                    />
+                    <select className={"form-control"} id={"member"} {...membername}>
+                      <option value={""}>選擇議員</option>
+                      {members && members.map(m =>
+                        <option value={m.name}>{m.name}</option>
+                      )}
+                    </select>
                   </div>
                   <div className="col-md-4">
                     <label htmlFor={"title"}>標題</label>

@@ -11,7 +11,8 @@ import config from '../../utils/config/globals';
 
 @connect(state => ({
   loaded: state.backend.profiles.loaded,
-  profiles: state.backend.profiles.profiles
+  profiles: state.backend.profiles.profiles,
+  grid: state.backend.profiles.grid
 }), dispatch => bindActionCreators(actionCreators, dispatch))
 export default class ListProfiles extends Component {
   componentDidMount() {

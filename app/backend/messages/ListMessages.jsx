@@ -12,7 +12,8 @@ import config from '../../utils/config/globals';
 
 @connect(state => ({
   loaded: state.backend.messages.loaded,
-  messages: state.backend.messages.messages
+  messages: state.backend.messages.messages,
+  grid: state.backend.messages.grid
 }), dispatch => bindActionCreators(actionCreators, dispatch))
 export default class ListMessages extends Component {
   componentDidMount() {

@@ -42,7 +42,7 @@ export default class profile extends Component {
             <h3>學經歷</h3>
             <div dangerouslySetInnerHTML={{__html: profile.lifestory.content}} />
             <hr/>
-            <h3>政見</h3>
+            <h3>小傳</h3>
             <div dangerouslySetInnerHTML={{__html: profile.politics.content}} />
             <hr/>
           </div>

@@ -12,7 +12,8 @@ import config from '../../utils/config/globals';
 
 @connect(state => ({
   loaded: state.backend.news.loaded,
-  news: state.backend.news.news
+  news: state.backend.news.news,
+  grid: state.backend.news.grid
 }), dispatch => bindActionCreators(actionCreators, dispatch))
 export default class ListNews extends Component {
   componentDidMount() {

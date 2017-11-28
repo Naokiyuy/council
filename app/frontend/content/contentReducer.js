@@ -88,6 +88,7 @@ export default function reduce(state = initialState, action = {}) {
         const data = [];
         let colorCnt = 0;
         _forEach(action.data['post_classification'].councilNumber, c => {
+          console.log(c.councilNumber);
           data.push({name: councilNumber[c.councilNumber], y: c.num, color: allColors.chartcolors[colorCnt]});
           colorCnt++;
         });

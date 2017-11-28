@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {reduxForm} from 'redux-form';
 import * as actionCreator from './listNewsReducer';
+import {getMembers} from '../proceedings/listProceedingsReducer';
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
@@ -18,12 +19,14 @@ import moment from 'moment';
     ],
     destroyOnUnmount: true
   }, state => ({
+    members: state.backend.proceedings.members,
     initialValues: state.backend.news.editnews
-  }), dispatch => bindActionCreators({...actionCreator}, dispatch)
+  }), dispatch => bindActionCreators({...actionCreator, getMembers}, dispatch)
 )
 export default class EditNews extends Component {
   componentDidMount() {
-    const {params, loadNews} = this.props;
+    const {params, loadNews, getMembers} = this.props;
+    getMembers();
     loadNews(params.id);
   };
 
@@ -45,7 +48,7 @@ export default class EditNews extends Component {
   render() {
     const {
       fields: {membername, title, source, url, content, contentEditor, createdTime, lastModified, status, date},
-      handleSubmit
+      handleSubmit, members
     } = this.props;
 
     return (
@@ -60,9 +63,12 @@ export default class EditNews extends Component {
                 <div className="row">
                   <div className="col-md-4">
                     <label htmlFor={"name"}>議員姓名</label>
-                    <input className="form-control" id="name" type="text" aria-describedby="titleHelp"
-                           placeholder="議員姓名" {...membername}
-                    />
+                    <select className={"form-control"} id={"name"} {...membername}>
+                      <option value={""}>選擇議員</option>
+                      {members && members.map(m =>
+                        <option value={m.name}>{m.name}</option>
+                      )}
+                    </select>
                   </div>
                 </div>
               </div>

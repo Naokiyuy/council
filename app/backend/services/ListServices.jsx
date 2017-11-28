@@ -12,7 +12,8 @@ import config from '../../utils/config/globals';
 
 @connect(state => ({
   loaded: state.backend.services.loaded,
-  services: state.backend.services.services
+  services: state.backend.services.services,
+  grid: state.backend.services.grid
 }), dispatch => bindActionCreators(actionCreators, dispatch))
 export default class ListServices extends Component {
   componentDidMount() {

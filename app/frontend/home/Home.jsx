@@ -12,6 +12,7 @@ import '../../utils/styles';
 export default class Home extends Component {
   componentDidMount() {
     const {params, loadProfile} = this.props;
+    document.title = `${params.name}議員主題網`;
     loadProfile(params.name);
   }
   render() {

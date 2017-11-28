@@ -9,7 +9,7 @@ export default class Home extends Component {
     return (
       <div>
         <Header />
-        <div className={"container-fluid"}>
+        <div className={"container-fluid"} style={{paddingTop: '50px'}}>
           <div className={"row"}>
             <Sidebar />
             {this.props.children}

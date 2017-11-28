@@ -147,12 +147,12 @@ export default class Content extends Component {
                 <img className="img-responsive margin-bottom-20" src={`/upload/${profile.profilePhoto}`} alt=""/>
               </div>
               <div className="col-sm-8">
-                <div dangerouslySetInnerHTML={{__html: profile.lifestory.content}} />
+                <div dangerouslySetInnerHTML={{__html: profile.lifestory.content}}/>
               </div>
             </div>
 
             <blockquote className="hero-unify">
-              <div dangerouslySetInnerHTML={{__html: profile.remarks.content}} />
+              <div dangerouslySetInnerHTML={{__html: profile.remarks.content}}/>
             </blockquote>
           </div>
           <div className="col-md-4">
@@ -161,9 +161,9 @@ export default class Content extends Component {
               {profile.slidePhotos && profile.slidePhotos.map((p, i) =>
                 <div key={p.filename}>
                   <img src={`/upload/${p.filename}`} alt=""/>
-                  <div className="legend">
-                    <p>
-                      {profile[`slideLabels${i+1}`]}
+                  <div className="legend" style={{opacity: '1'}}>
+                    <p style={{color: '#ffffff'}}>
+                      {profile[`slideLabels${i + 1}`]}
                     </p>
                   </div>
                 </div>
@@ -178,13 +178,15 @@ export default class Content extends Component {
         </div>
         <div className="row">
           <div className="col-md-12">
-            <BarChart name={profile.membername} data={councilDataYearly.data} loaded={councilDataYearly.loaded} callback={() => this.barCallback} restore={this.restore}/>
+            <BarChart name={profile.membername} data={councilDataYearly.data} loaded={councilDataYearly.loaded}
+                      callback={() => this.barCallback} restore={this.restore}/>
           </div>
 
         </div>
         <div className="row" style={{marginTop: '40px'}}>
           <div className="col-md-6">
-            <PieChart name={profile.membername} data={councilDataCouncil.data} loaded={councilDataCouncil.loaded} callback={() => this.pieCallback} restore={this.restore}/>
+            <PieChart name={profile.membername} data={councilDataCouncil.data} loaded={councilDataCouncil.loaded}
+                      callback={() => this.pieCallback} restore={this.restore}/>
           </div>
           <div className="col-md-3">
             <div className="tab-v1">
@@ -198,8 +200,10 @@ export default class Content extends Component {
                       <div key={p} className="panel panel-default">
                         <div className="panel-heading">
                           <h4 className="panel-title">
-                            <a href="javascript:" data-parent="#accordion-v1" data-toggle="collapse" className="accordion-toggle"
-                               style={{cursor: 'pointer', textDecoration: 'none'}} onClick={() => this.personCallback(p)}>
+                            <a href="javascript:" data-parent="#accordion-v1" data-toggle="collapse"
+                               className="accordion-toggle"
+                               style={{cursor: 'pointer', textDecoration: 'none'}}
+                               onClick={() => this.personCallback(p)}>
                               {p}
                             </a>
                           </h4>
@@ -223,8 +227,10 @@ export default class Content extends Component {
                       <div key={a.administrative} className="panel panel-default">
                         <div className="panel-heading">
                           <h4 className="panel-title">
-                            <a href="javascript:" data-parent="#accordion-v1" data-toggle="collapse" className="accordion-toggle"
-                               style={{cursor: 'pointer', textDecoration: 'none'}} onClick={() => this.administrativeCallback(a.administrative)}>
+                            <a href="javascript:" data-parent="#accordion-v1" data-toggle="collapse"
+                               className="accordion-toggle"
+                               style={{cursor: 'pointer', textDecoration: 'none'}}
+                               onClick={() => this.administrativeCallback(a.administrative)}>
                               {a.administrative}
                             </a>
                           </h4>
@@ -240,63 +246,66 @@ export default class Content extends Component {
         <div className="container content">
           <div className="row ">
             <div className="col-md-4 col-sm-6">
-              <div className="service-block service-block-sea service-or"
-                   style={{padding: '20px 10px 10px 10px', textAlign: 'center', marginBottom: '10px'}}>
-                <div className="service-bg"></div>
-                <i className="icon-custom icon-color-light rounded-x icon-line fa fa-book"></i>
-                <h2 className="heading-md">最新消息</h2>
+              <div className={"col-md-12"}>
+                <div className="service-block service-block-sea service-or"
+                     style={{padding: '20px 10px 10px 10px', textAlign: 'center', marginBottom: '10px'}}>
+                  <div className="service-bg"></div>
+                  <i className="icon-custom icon-color-light rounded-x icon-line fa fa-book"></i>
+                  <h2 className="heading-md">最新消息</h2>
 
+                </div>
+              </div>
+              <div className={"col-md-12"} style={{paddingLeft: '35px'}}>
+                <ul className="list-unstyled categories" style={{listStyleType: 'lower-roman'}}>
+                  {messages[0] && messages[0].map(m =>
+                    <li>
+                      <Link to={`/frontend/${profile.membername}/others/detail/messages/${m.id}`}>{m.title}</Link>
+                      <small className="hex">(<FormattedDate value={m.date} {...config.dateformat.date}/>)</small>
+                    </li>
+                  )}
+                </ul>
               </div>
             </div>
             <div className="col-md-4 col-sm-6">
-              <div className="service-block service-block-red service-or"
-                   style={{padding: '20px 10px 10px 10px', textAlign: 'center', marginBottom: '10px'}}>
-                <div className="service-bg"></div>
-                <i className="icon-custom icon-color-light rounded-x icon-line fa fa-users"></i>
-                <h2 className="heading-md">相關新聞</h2>
+              <div className={"col-md-12"}>
+                <div className="service-block service-block-red service-or"
+                     style={{padding: '20px 10px 10px 10px', textAlign: 'center', marginBottom: '10px'}}>
+                  <div className="service-bg"></div>
+                  <i className="icon-custom icon-color-light rounded-x icon-line fa fa-users"></i>
+                  <h2 className="heading-md">相關新聞</h2>
 
+                </div>
+              </div>
+              <div className={"col-md-12"} style={{paddingLeft: '35px'}}>
+                <ul className="list-unstyled categories" style={{listStyleType: 'lower-roman'}}>
+                  {news[0] && news[0].map(n =>
+                    <li>
+                      <Link to={`/frontend/${profile.membername}/others/detail/news/${n.id}`}>{n.title}</Link>
+                      <small className="hex">(<FormattedDate value={n.date} {...config.dateformat.date}/>)</small>
+                    </li>
+                  )}
+                </ul>
               </div>
             </div>
             <div className="col-md-4 col-sm-12">
-              <div className="service-block service-block-blue service-or"
-                   style={{padding: '20px 10px 10px 10px', textAlign: 'center', marginBottom: '10px'}}>
-                <div className="service-bg"></div>
-                <i className="icon-custom icon-color-light rounded-x icon-line fa fa-rocket"></i>
-                <h2 className="heading-md">服務行程</h2>
-
+              <div className={"col-md-12"}>
+                <div className="service-block service-block-blue service-or"
+                     style={{padding: '20px 10px 10px 10px', textAlign: 'center', marginBottom: '10px'}}>
+                  <div className="service-bg"></div>
+                  <i className="icon-custom icon-color-light rounded-x icon-line fa fa-rocket"></i>
+                  <h2 className="heading-md">服務行程</h2>
+                </div>
               </div>
-            </div>
-          </div>
-          <div className="row job-content">
-            <div className="col-md-4 col-sm-6 md-margin-bottom-40" style={{paddingLeft: '35px'}}>
-              <ul className="list-unstyled categories" style={{listStyleType: 'lower-roman'}}>
-                {messages[0] && messages[0].map(m =>
-                  <li>
-                    <Link to={`/frontend/${profile.membername}/others/messages/${m.id}`}>{m.title}</Link>
-                    <small className="hex">(<FormattedDate value={m.date} {...config.dateformat.date}/>)</small>
-                  </li>
-                )}
-              </ul>
-            </div>
-            <div className="col-md-4 col-sm-6 md-margin-bottom-40" style={{paddingLeft: '35px'}}>
-              <ul className="list-unstyled categories" style={{listStyleType: 'lower-roman'}}>
-                {news[0] && news[0].map(n =>
-                  <li>
-                    <Link to={`/frontend/${profile.membername}/others/news/${n.id}`}>{n.title}</Link>
-                    <small className="hex">(<FormattedDate value={n.date} {...config.dateformat.date}/>)</small>
-                  </li>
-                )}
-              </ul>
-            </div>
-            <div className="col-md-4 col-sm-6 md-margin-bottom-40" style={{paddingLeft: '35px'}}>
-              <ul className="list-unstyled categories" style={{listStyleType: 'lower-roman'}}>
-                {services[0] && services[0].map(s =>
-                  <li>
-                    <Link to={`/frontend/${profile.membername}/others/services/${s.id}`}>{s.title}</Link>
-                    <small className="hex">(<FormattedDate value={s.date} {...config.dateformat.date}/>)</small>
-                  </li>
-                )}
-              </ul>
+              <div className={"col-md-12"} style={{paddingLeft: '35px'}}>
+                <ul className="list-unstyled categories" style={{listStyleType: 'lower-roman'}}>
+                  {services[0] && services[0].map(s =>
+                    <li>
+                      <Link to={`/frontend/${profile.membername}/others/detail/service/${s.id}`}>{s.title}</Link>
+                      <small className="hex">(<FormattedDate value={s.date} {...config.dateformat.date}/>)</small>
+                    </li>
+                  )}
+                </ul>
+              </div>
             </div>
           </div>
         </div>

@@ -4,3 +4,4 @@ import 'font-awesome/css/font-awesome.min.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import '../assets/frontend/css/style.css';
 import '../assets/frontend/css/app.css';
+import '../assets/frontend/css/custom.css';
