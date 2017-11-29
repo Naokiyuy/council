@@ -46,7 +46,6 @@ export default class Content extends Component {
   };
 
   pieCallback = (e) => {
-    console.log(e);
     const {queryCouncilData, profile} = this.props;
     const councilName = e.point.name;
     queryCouncilData({
@@ -67,8 +66,16 @@ export default class Content extends Component {
   };
 
   barCallback = (e) => {
+    console.log('bar', e.point.series);
     const {queryCouncilData, profile} = this.props;
     const category = e.point.category;
+    const series = e.point.series;
+
+    for (let i = 0; i < series.data.length; i++) {
+      series.data[i].update({ color: '#5295d9' }, true, false);
+    }
+    e.point.update({ color: '#f00' }, true, false);
+
     queryCouncilData({
       q: profile.membername,
       year: category,

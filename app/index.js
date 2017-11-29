@@ -94,6 +94,8 @@ ReactDOM.render(
               <Route name="服務行程" path="/frontend/:name/others/service" getComponent={(l, cb) => System.import('./frontend/content/service/Service').then(loadRoute(cb))} />
               <Route name="服務行程" path="/frontend/:name/others/service/:year" getComponent={(l, cb) => System.import('./frontend/content/service/Service').then(loadRoute(cb))} />
               <Route name="訊息內容" path="/frontend/:name/others/detail/:type/:id" getComponent={(l, cb) => System.import('./frontend/content/detail/Detail').then(loadRoute(cb))} />
+              <Route name="隱私權公告" path="/frontend/:name/others/privacy" getComponent={(l, cb) => System.import('./frontend/content/static/Privacy').then(loadRoute(cb))} />
+              <Route name="網路安全政策" path="/frontend/:name/others/policy" getComponent={(l, cb) => System.import('./frontend/content/static/Policy').then(loadRoute(cb))} />
             </Route>
           </Route>
           <Route name="Backend" path="/backend" getComponent={(l, cb) => System.import('./backend/home/Home').then(loadRoute(cb))}>

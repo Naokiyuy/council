@@ -73,7 +73,7 @@ export default class Service extends Component {
             <div className="col-md-10">
               {data && data.map(m =>
                 <div className="inner-results">
-                  <h4><Link to={`/frontend/${params.name}/others/detail/services/${m.id}`}>{m.title}</Link></h4>
+                  <h4>{m.title}</h4>
                   <div dangerouslySetInnerHTML={{__html: m.content}}/>
                   <hr/>
                 </div>

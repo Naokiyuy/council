@@ -59,7 +59,7 @@ export default class BarChart extends Component {
           cursor: 'pointer',
           point: {
             events: {
-              click: callback(this.category)
+              click: callback(this)
             }
           }
         }
