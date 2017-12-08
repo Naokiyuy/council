@@ -23,7 +23,7 @@ export default class Home extends Component {
     }
 
     return (
-      <div className="wrapper">
+      <div className="wrapper" style={{marginBottom: '100px'}}>
         <Header name={profile.membername}/>
         {this.props.children}
         <Footer name={profile.membername}/>

@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import * as actionCreators from '../contentReducer';
 import {bindActionCreators} from 'redux';
 import Paginate from '../../../components/page/Paginate';
+import Loader from 'react-loader';
 
 @connect(state => ({
   profile: state.content.profile,
@@ -38,7 +39,7 @@ export default class Council extends Component {
     const {params, data, year, grid, page} = this.props;
 
     if (!data) {
-      return false;
+      return <Loader className="spinner"/>;
     }
     return (
       <div>
@@ -52,7 +53,7 @@ export default class Council extends Component {
           </div>
         </div>
         <div className="container s-results margin-bottom-50">
-          <div className="row">
+          <div className="row" style={{paddingBottom: '10%'}}>
             <div className="col-md-2 hidden-xs related-search">
               <div className="row">
                 <div className="col-md-12 col-sm-4">

@@ -250,7 +250,7 @@ export default class Content extends Component {
             </div>
           </div>
         </div>
-        <div className="container content">
+        <div className="container content" style={{paddingBottom: '150px'}}>
           <div className="row ">
             <div className="col-md-4 col-sm-6">
               <div className={"col-md-12"}>
