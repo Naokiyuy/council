@@ -36,12 +36,13 @@ export default class Footer extends Component {
                   <li style={{color: 'white'}}>建議瀏覽器：Chrome、Firefox、Safari、IE10以上版本 (螢幕最佳顯示效果為1280*960 )</li>
                 </ul>
               </div>
-              <div className="col-md-4 map-img md-margin-bottom-40">
+              <div className="col-md-4 md-margin-bottom-40">
                 <div className="headline"><h2>聯絡我們</h2></div>
                 <address className="md-margin-bottom-40">
                   <ul className="list-unstyled latest-list">
                     <li><a href="mailto:ccouncil@ntu.edu.tw">聯絡信箱</a></li>
                   </ul>
+                  <img src="../../assets/frontend/img/logo-01.png" />
                 </address>
               </div>
             </div>

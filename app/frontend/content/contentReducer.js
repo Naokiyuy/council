@@ -2,6 +2,7 @@ import queryString from 'query-string';
 import _forEach from 'lodash/forEach';
 import _forOwn from 'lodash/forOwn';
 import _ceil from 'lodash/ceil';
+import _isEmpty from 'lodash/isEmpty';
 import allColors from '../../utils/config/colors';
 import councilNumber from '../../utils/config/councilNumber';
 
@@ -27,11 +28,15 @@ const LOAD_SERVICE_SUCCESS = 'council/home/index/LOAD_SERVICE_SUCCESS';
 const LOAD_DETAIL = 'council/home/index/LOAD_DETAIL';
 const LOAD_DETAIL_SUCCESS = 'council/home/index/LOAD_DETAIL_SUCCESS';
 
+const ADD_QUERY_STRING = 'council/home/index/ADD_QUERY_STRING';
+const RESET_QUERY_STRING = 'council/home/index/RESET_QUERY_STRING';
+
 const initialState = {
   councilDataYearly:{data: {}, loaded: false},
   councilDataCouncil: {data: {}, loaded: false},
   councilPerson: {data: {}, loaded: false},
   councilAdministrative: {data: {}, loaded: false},
+  queryString: [],
   profile: {
     membername: '',
     politics: {
@@ -215,6 +220,19 @@ export default function reduce(state = initialState, action = {}) {
         ...state,
         detail: action.detail
       };
+    case ADD_QUERY_STRING:
+      let oriQueryString = _isEmpty(state.queryString) ? [] : state.queryString;
+      oriQueryString.push(action.s)
+      return {
+        ...state,
+        queryString: oriQueryString
+      };
+    case RESET_QUERY_STRING:
+      const initialQuery = state.profile.membername;
+      return {
+        ...state,
+        queryString: [initialQuery]
+      };
     default:
       return state;
   }
@@ -397,5 +415,18 @@ export function loadDetail(table, id) {
       credentials: 'same-origin'
     }).then(response => response.json())
       .then(json => dispatch({type: LOAD_DETAIL_SUCCESS, detail: json[0]}));
+  };
+}
+
+export function addQueryString(s) {
+  return {
+    type: ADD_QUERY_STRING,
+    s
+  };
+}
+
+export function resetQueryString() {
+  return {
+    type: RESET_QUERY_STRING
   };
 }
