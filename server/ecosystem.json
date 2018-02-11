@@ -4,7 +4,7 @@
     "name": "council",
     "script": "/vol/web/council/server/server.js",
     "watch": true,
-    "exec_interpreter": "/usr/local/bin/babel-node",
+    "exec_interpreter": "/usr/bin/babel-node",
     "merge_logs": true,
     "env": {
       "NODE_ENV": "production",
