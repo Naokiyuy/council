@@ -175,7 +175,6 @@ function fetchListAsync() {
 }
 
 function fetchListSuccess(news) {
-  console.log(news[1]);
   return {
     type: FETCH_LIST_SUCCESS,
     news: news[0],

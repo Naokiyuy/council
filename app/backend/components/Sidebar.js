@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import {Link} from 'react-router';
 
 export default class Sidebar extends Component {
+  handleLogout = () => {
+    window.location.href = '/api/user/logout';
+  };
+
   render() {
     return (
       <div className={"col-sm-3 col-md-2 sidebar"}>
@@ -55,6 +59,12 @@ export default class Sidebar extends Component {
                 <a href="blank.html">Blank Page</a>
               </li>
             </ul>
+          </li>
+          <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+            <a className="nav-link" href="javascript:" onClick={this.handleLogout}>
+              <i className="fa fa-fw fa-table"></i>
+              <span className="nav-link-text">登出</span>
+            </a>
           </li>
         </ul>
       </div>

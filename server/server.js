@@ -11,12 +11,21 @@ import mycon from 'express-myconnection';
 import fileUpload from 'express-fileupload';
 
 import contentController from './api/content/controllers/content-controller';
+import userController from './api/user/controllers/user-controller';
 // import config from './config/config';
 
 const env = process.env.NODE_ENV || 'development';
 const isDev = env === 'development';
 const app = express();
 app.use(cookieParser('council'));
+
+function checkAuth (req, res, next) {
+  if (req.url.indexOf('/backend') > -1 && req.url.indexOf('/backend/login') <= -1 && (!req.session || !req.session.authenticated)) {
+    return res.redirect('/backend/login');
+  }
+
+  next();
+}
 
 if (isDev) {
   // const favicon = require('serve-favicon');
@@ -69,6 +78,7 @@ if (isDev) {
 app.use(connectTimeout(300000));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(checkAuth);
 
 // database connection
 const dbOptions = {
@@ -88,6 +98,7 @@ app.use(fileUpload({limits: { fileSize: 50 * 1024 * 1024 }}));
 // app.use(logger);
 
 // register routes
+userController.routes(app);
 contentController.routes(app);
 
 // error handlers

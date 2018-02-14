@@ -18,6 +18,7 @@ import {useScroll} from 'react-router-scroll';
 import langsUtils from './utils/langsUtils';
 import App from './App.js';
 import configureStore from './utils/redux/configureStore';
+import Login from './backend/auth/Login';
 import NotFound from './errorpage/NotFound';
 import ReactHighCharts from 'react-highcharts';
 import HighchartsExporting from 'highcharts-exporting';
@@ -99,6 +100,7 @@ ReactDOM.render(
             </Route>
           </Route>
           <Route name="Backend" path="/backend" getComponent={(l, cb) => System.import('./backend/home/Home').then(loadRoute(cb))}>
+            <Route name="Login" path="/backend/login" component={Login} />
             <Route name="議事資料管理" path="/backend/proceedings" getComponent={(l, cb) => System.import('./backend/proceedings/ListProceedings').then(loadRoute(cb))} />
             <Route name="新聞資料管理" path="/backend/news" getComponent={(l, cb) => System.import('./backend/news/ListNews').then(loadRoute(cb))} />
             <Route name="編輯新聞" path="/backend/news/:id/edit" getComponent={(l, cb) => System.import('./backend/news/EditNews').then(loadRoute(cb))}/>
