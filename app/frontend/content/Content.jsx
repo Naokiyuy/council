@@ -134,6 +134,11 @@ export default class Content extends Component {
     });
   };
 
+  buildQueryString = (v, type) => {
+    const {queryString} = this.props;
+
+  };
+
   restore = () => {
     const {queryCouncilData, profile} = this.props;
     queryCouncilData({q: profile.membername, classify: 'year'});

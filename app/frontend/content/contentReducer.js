@@ -36,7 +36,12 @@ const initialState = {
   councilDataCouncil: {data: {}, loaded: false},
   councilPerson: {data: {}, loaded: false},
   councilAdministrative: {data: {}, loaded: false},
-  queryString: [],
+  queryString: {
+    person: '',
+    council: '',
+    year: '',
+    administrative: ''
+  },
   profile: {
     membername: '',
     politics: {
@@ -221,17 +226,14 @@ export default function reduce(state = initialState, action = {}) {
         detail: action.detail
       };
     case ADD_QUERY_STRING:
-      let oriQueryString = _isEmpty(state.queryString) ? [] : state.queryString;
-      oriQueryString.push(action.s)
       return {
         ...state,
-        queryString: oriQueryString
+        queryString: action.queryString
       };
     case RESET_QUERY_STRING:
-      const initialQuery = state.profile.membername;
       return {
         ...state,
-        queryString: [initialQuery]
+        queryString: initialState.queryString
       };
     default:
       return state;
@@ -421,7 +423,7 @@ export function loadDetail(table, id) {
 export function addQueryString(s) {
   return {
     type: ADD_QUERY_STRING,
-    s
+    queryString
   };
 }
 
