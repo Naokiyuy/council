@@ -420,7 +420,7 @@ export function loadDetail(table, id) {
   };
 }
 
-export function addQueryString(s) {
+export function addQueryString(queryString) {
   return {
     type: ADD_QUERY_STRING,
     queryString

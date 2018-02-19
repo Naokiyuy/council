@@ -10,6 +10,7 @@ import * as actionCreators from './contentReducer';
 import {bindActionCreators} from 'redux';
 import _findKey from 'lodash/findKey';
 import _join from 'lodash/join';
+import _values from 'lodash/values';
 import {FormattedDate} from 'react-intl';
 import config from '../../utils/config/globals';
 
@@ -28,7 +29,7 @@ import councilNumbers from '../../utils/config/councilNumber';
 }), dispatch => bindActionCreators(actionCreators, dispatch))
 export default class Content extends Component {
   componentDidMount() {
-    const {queryCouncilData, loadProfile, params, loadNews, loadMessages, loadServices, addQueryString} = this.props;
+    const {queryCouncilData, loadProfile, params, loadNews, loadMessages, loadServices} = this.props;
     loadProfile(params.name).then(r => {
       queryCouncilData({q: r.profile.name, classify: 'year'});
       queryCouncilData({q: r.profile.name, classify: 'councilNumber'});
@@ -38,7 +39,6 @@ export default class Content extends Component {
       loadNews(r.profile.name);
       loadMessages(r.profile.name);
       loadServices(r.profile.name);
-      addQueryString(r.profile.name);
     });
   }
 
@@ -49,31 +49,31 @@ export default class Content extends Component {
   };
 
   pieCallback = (e) => {
-    const {queryCouncilData, profile, addQueryString} = this.props;
+    const {queryCouncilData, profile, addQueryString, queryString} = this.props;
     const councilName = e.point.name;
-    addQueryString(councilName);
+    let s = {...queryString, council: councilName};
+    addQueryString(s);
     queryCouncilData({
       // q: profile.membername,
-      q: _join(this.props.queryString, '&'),
+      q: profile.membername + '&' + _join(_values(this.props.queryString), '&'),
       councilNumber: this.getCouncilNumber(councilName),
       classify: 'year'
     });
     queryCouncilData({
       // q: profile.membername,
-      q: _join(this.props.queryString, '&'),
+      q: profile.membername + '&' + _join(_values(this.props.queryString), '&'),
       councilNumber: this.getCouncilNumber(councilName),
       classify: 'person'
     });
     queryCouncilData({
       // q: profile.membername,
-      q: _join(this.props.queryString, '&'),
+      q: profile.membername + '&' + _join(_values(this.props.queryString), '&'),
       councilNumber: this.getCouncilNumber(councilName),
       classify: 'administrative'
     });
   };
 
   barCallback = (e) => {
-    console.log('bar', e.point.series);
     const {queryCouncilData, profile} = this.props;
     const category = e.point.category;
     const series = e.point.series;
@@ -84,59 +84,56 @@ export default class Content extends Component {
     e.point.update({ color: '#f00' }, true, false);
 
     queryCouncilData({
-      q: _join(this.props.queryString, '&'),
+      q: profile.membername + '&' + _join(_values(this.props.queryString), '&'),
       year: category,
       classify: 'councilNumber'
     });
     queryCouncilData({
-      q: _join(this.props.queryString, '&'),
+      q: profile.membername + '&' + _join(_values(this.props.queryString), '&'),
       year: category,
       classify: 'person'
     });
     queryCouncilData({
-      q: _join(this.props.queryString, '&'),
+      q: profile.membername + '&' + _join(_values(this.props.queryString), '&'),
       year: category,
       classify: 'administrative'
     });
   };
 
   personCallback = (person) => {
-    const {queryCouncilData, profile, addQueryString} = this.props;
-    addQueryString(person);
+    const {queryCouncilData, profile, addQueryString, queryString} = this.props;
+    let s = {...queryString, person: person};
+    addQueryString(s);
     queryCouncilData({
-      q: _join(this.props.queryString, '&'),
+      q: profile.membername + '&' + _join(_values(this.props.queryString), '&'),
       classify: 'year'
     });
     queryCouncilData({
-      q: _join(this.props.queryString, '&'),
+      q: profile.membername + '&' + _join(_values(this.props.queryString), '&'),
       classify: 'councilNumber'
     });
     queryCouncilData({
-      q: _join(this.props.queryString, '&'),
+      q: profile.membername + '&' + _join(_values(this.props.queryString), '&'),
       classify: 'administrative'
     });
   };
 
   administrativeCallback = (administrative) => {
-    const {queryCouncilData, profile, addQueryString} = this.props;
-    addQueryString(administrative);
+    const {queryCouncilData, profile, addQueryString, queryString} = this.props;
+    let s = {...queryString, administrative: administrative};
+    addQueryString(s);
     queryCouncilData({
-      q: _join(this.props.queryString, '&'),
+      q: profile.membername + '&' + _join(_values(this.props.queryString), '&'),
       classify: 'year'
     });
     queryCouncilData({
-      q: _join(this.props.queryString, '&'),
+      q: profile.membername + '&' + _join(_values(this.props.queryString), '&'),
       classify: 'councilNumber'
     });
     queryCouncilData({
-      q: _join(this.props.queryString, '&'),
+      q: profile.membername + '&' + _join(_values(this.props.queryString), '&'),
       classify: 'person'
     });
-  };
-
-  buildQueryString = (v, type) => {
-    const {queryString} = this.props;
-
   };
 
   restore = () => {
