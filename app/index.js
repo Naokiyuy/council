@@ -101,6 +101,7 @@ ReactDOM.render(
           </Route>
           <Route name="Backend" path="/backend" getComponent={(l, cb) => System.import('./backend/home/Home').then(loadRoute(cb))}>
             <Route name="Login" path="/backend/login" component={Login} />
+            <Route name={`帳號管理`} path={`/backend/users`} getComponent={(l, cb) => System.import('./backend/auth/ListUsers').then(loadRoute(cb))}/>
             <Route name="議事資料管理" path="/backend/proceedings" getComponent={(l, cb) => System.import('./backend/proceedings/ListProceedings').then(loadRoute(cb))} />
             <Route name="新聞資料管理" path="/backend/news" getComponent={(l, cb) => System.import('./backend/news/ListNews').then(loadRoute(cb))} />
             <Route name="編輯新聞" path="/backend/news/:id/edit" getComponent={(l, cb) => System.import('./backend/news/EditNews').then(loadRoute(cb))}/>

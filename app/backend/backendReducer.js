@@ -5,6 +5,7 @@ import messagesReducer from './messages/listMessagesReducer';
 import servicesReducer from './services/listServicesReducer';
 import profileReducer from './profile/listProfileReducer';
 import loginReducer from './auth/loginReducer';
+import usersReducer from './auth/usersReducer';
 
 export default combineReducers({
   proceedings: proceedingsReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   messages: messagesReducer,
   services: servicesReducer,
   profiles: profileReducer,
-  login: loginReducer
+  login: loginReducer,
+  users: usersReducer
 });

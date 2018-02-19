@@ -83,8 +83,8 @@ app.use(checkAuth);
 // database connection
 const dbOptions = {
   host: 'localhost',
-  user: 'root',
-  password: 'root',
+  user: 'council',
+  password: '89787198@tpa',
   port: 3306,
   database: 'council',
   multipleStatements: true

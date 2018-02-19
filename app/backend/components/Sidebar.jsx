@@ -41,10 +41,10 @@ export default class Sidebar extends Component {
             </Link>
           </li>
           <li className="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
-            <a className="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
+            <Link className="nav-link nav-link-collapse collapsed" data-toggle="collapse" to="/backend/users" data-parent="#exampleAccordion">
               <i className="fa fa-fw fa-wrench"></i>
               <span className="nav-link-text">帳號管理</span>
-            </a>
+            </Link>
             <ul className="sidenav-second-level collapse" id="collapseExamplePages">
               <li>
                 <a href="login.html">Login Page</a>
