@@ -46,7 +46,7 @@ const authenticate = (nextState, replace) => {
         nextPath += '?' + queryString.stringify(location.query);
       }
       replace({
-        pathname: '/login',
+        pathname: '/backend/login',
         query: {nextPath}
       });
     }
@@ -99,8 +99,8 @@ ReactDOM.render(
               <Route name="網路安全政策" path="/frontend/:name/others/policy" getComponent={(l, cb) => System.import('./frontend/content/static/Policy').then(loadRoute(cb))} />
             </Route>
           </Route>
-          <Route name="Backend" path="/backend" getComponent={(l, cb) => System.import('./backend/home/Home').then(loadRoute(cb))}>
-            <Route name="Login" path="/backend/login" component={Login} />
+          <Route name="Login" path="/backend/login" component={Login} />
+          <Route name="Backend" path="/backend" getComponent={(l, cb) => System.import('./backend/home/Home').then(loadRoute(cb))} onEnter={authenticate}>
             <Route name={`帳號管理`} path={`/backend/users`} getComponent={(l, cb) => System.import('./backend/auth/ListUsers').then(loadRoute(cb))}/>
             <Route name="議事資料管理" path="/backend/proceedings" getComponent={(l, cb) => System.import('./backend/proceedings/ListProceedings').then(loadRoute(cb))} />
             <Route name="新聞資料管理" path="/backend/news" getComponent={(l, cb) => System.import('./backend/news/ListNews').then(loadRoute(cb))} />

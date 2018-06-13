@@ -19,6 +19,7 @@
     "express": "^4.13.4",
     "express-fileupload": "^0.3.0",
     "express-myconnection": "^1.0.4",
+    "express-mysql-session": "^1.2.3",
     "express-session": "^1.13.0",
     "file-stream-rotator": "0.0.6",
     "json2xls": "^0.1.2",

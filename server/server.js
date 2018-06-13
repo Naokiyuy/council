@@ -9,6 +9,7 @@ import errorhandler from 'errorhandler';
 import mysql from 'mysql';
 import mycon from 'express-myconnection';
 import fileUpload from 'express-fileupload';
+let MySQLStore = require('express-mysql-session')(session);
 
 import contentController from './api/content/controllers/content-controller';
 import userController from './api/user/controllers/user-controller';
@@ -26,6 +27,19 @@ function checkAuth (req, res, next) {
 
   next();
 }
+
+// database connection
+const dbOptions = {
+  host: 'localhost',
+  user: 'council',
+  password: '89787198@tpa',
+  port: 3306,
+  database: 'council',
+  multipleStatements: true
+};
+
+let mysqlconn = mycon(mysql, dbOptions, 'request');
+app.use(mysqlconn);
 
 if (isDev) {
   // const favicon = require('serve-favicon');
@@ -53,6 +67,7 @@ if (isDev) {
   app.use(require('webpack-hot-middleware')(compiler));
   app.use(session({
     secret: 'blueplanet',
+    store: new MySQLStore({}, mysql.createConnection(dbOptions)),
     name: 'council',
     key: 'sid',
     cookie: {
@@ -65,6 +80,7 @@ if (isDev) {
 } else {
   app.use(session({
     secret: 'blueplanet',
+    store: new MySQLStore({}, mysql.createConnection(dbOptions)),
     name: 'council',
     key: 'sid',
     cookie: {
@@ -79,18 +95,6 @@ app.use(connectTimeout(300000));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(checkAuth);
-
-// database connection
-const dbOptions = {
-  host: 'localhost',
-  user: 'council',
-  password: '89787198@tpa',
-  port: 3306,
-  database: 'council',
-  multipleStatements: true
-};
-
-app.use(mycon(mysql, dbOptions, 'request'));
 
 // default options
 app.use(fileUpload({limits: { fileSize: 50 * 1024 * 1024 }}));

@@ -558,7 +558,7 @@ debug@2.6.9, debug@^2.1.2, debug@^2.6.8:
   dependencies:
     ms "2.0.0"
 
-debug@^3.1.0:
+debug@3.1.0, debug@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
   dependencies:
@@ -642,7 +642,17 @@ express-myconnection@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/express-myconnection/-/express-myconnection-1.0.4.tgz#8776049fbf9f262209cffdb535b7c7509733ff55"
 
-express-session@^1.13.0:
+express-mysql-session@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/express-mysql-session/-/express-mysql-session-1.2.3.tgz#1fb3a93393c6c3955347d78549951ee31885dce5"
+  dependencies:
+    debug "3.1.0"
+    depd "1.1.1"
+    express-session "1.15.6"
+    mysql "2.15.*"
+    underscore "1.8.3"
+
+express-session@1.15.6, express-session@^1.13.0:
   version "1.15.6"
   resolved "https://registry.yarnpkg.com/express-session/-/express-session-1.15.6.tgz#47b4160c88f42ab70fe8a508e31cbff76757ab0a"
   dependencies:
@@ -933,7 +943,7 @@ multer@^1.1.0:
     type-is "^1.6.4"
     xtend "^4.0.0"
 
-mysql@^2.15.0:
+mysql@2.15.*, mysql@^2.15.0:
   version "2.15.0"
   resolved "https://registry.yarnpkg.com/mysql/-/mysql-2.15.0.tgz#ea16841156343e8f2e47fc8985ec41cdd9573b5c"
   dependencies:
@@ -1280,6 +1290,10 @@ uid-safe@~2.1.5:
   resolved "https://registry.yarnpkg.com/uid-safe/-/uid-safe-2.1.5.tgz#2b3d5c7240e8fc2e58f8aa269e5ee49c0857bd3a"
   dependencies:
     random-bytes "~1.0.0"
+
+underscore@1.8.3:
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.8.3.tgz#4f3fb53b106e6097fcf9cb4109f2a5e9bdfa5022"
 
 universalify@^0.1.0:
   version "0.1.1"

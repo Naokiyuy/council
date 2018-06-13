@@ -13,9 +13,19 @@ const initialState = {
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case LOGIN_SUCCESS:
+      if (localStorage) {
+        localStorage.setItem('isLogged', true);
+      }
       return {
         ...state,
         status: action.status
+      };
+    case LOGIN_FAIL:
+      if (localStorage) {
+        localStorage.setItem('isLogged', false);
+      }
+      return {
+        ...state
       };
     default:
       return state;
