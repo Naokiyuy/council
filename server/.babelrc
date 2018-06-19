@@ -1,12 +1,6 @@
 {
   "presets": [
-    "es2015",
-    "react",
+    "es2015-node5",
     "stage-0"
-  ],
-  "plugins": [
-    "transform-runtime",
-    "transform-decorators-legacy",
-    "babel-plugin-transform-strict-mode"
   ]
 }
