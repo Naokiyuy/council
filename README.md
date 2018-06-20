@@ -4,7 +4,27 @@
 
 ### Deployment
 
-Clone
+Install nginx
+
+Please refer to https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04
+
+Install nodejs
+
+Please refer to https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-16-04
+
+Install pm2
+
+Please refer to http://pm2.keymetrics.io/docs/usage/quick-start/
+
+Install mysql
+
+Please refer to https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-16-04
+
+Install phpmyadmin
+
+Please refer to https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-phpmyadmin-on-ubuntu-16-04
+
+Clone source code
 ```sh
 $git clone
 ```
