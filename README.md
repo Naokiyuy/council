@@ -38,6 +38,11 @@ And make sure nodejs installed.
 ```sh
 $npm install -g pm2
 ```
+install babel-node,
+
+```sh
+$npm install -g babel-cli
+```
 
 Setup the service with ecosystem.json
 ```sh
